@@ -77,7 +77,7 @@ func WMAdminLTE() {
 	fmt.Println("Módulos de AdminLTE V 3.5")
 	// var GP = GPanel{}
 	// Enrutador.HandleFunc("/sssifanb/{id}", GP.IrA)
-	prefix := http.StripPrefix("/ipostel", http.FileServer(http.Dir("public_web/IPOSTEL")))
+	prefix := http.StripPrefix("/ipostel", http.FileServer(http.Dir("public_web/www")))
 	Enrutador.PathPrefix("/ipostel/").Handler(prefix)
 	// prefixx := http.StripPrefix("/bdse-admin/public/temp", http.FileServer(http.Dir("public/temp")))
 	// Enrutador.PathPrefix("/bdse-admin/public/temp/").Handler(prefixx)

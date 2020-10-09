@@ -5,3 +5,4 @@ tmp/*
 sys/seguridad/https/app.ipostel.gob.ve.pem
 sys/seguridad/https/sucre.pem
 esb.ipostel
+public_web/wwww/pages/*
