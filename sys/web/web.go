@@ -28,15 +28,16 @@ func Cargar() {
 
 //CargarModulosWeb Cargador de modulos web
 func CargarModulosWeb() {
-	//var wUsuario api.WUsuario
+	var wUsuario api.WUsuario
+	var ap api.API
 
 	Enrutador.HandleFunc("/", Principal)
-	// Enrutador.HandleFunc("/ipsfa/api/militar/crud/{id}", wUsuario.ValidarToken(per.Consultar)).Methods("GET")
-	// Enrutador.HandleFunc("/ipsfa/api/militar/crud", wUsuario.ValidarToken(per.Actualizar)).Methods("PUT")
-	// Enrutador.HandleFunc("/ipsfa/api/militar/crud", wUsuario.ValidarToken(per.Insertar)).Methods("POST")
-	// Enrutador.HandleFunc("/ipsfa/api/militar/crud", wUsuario.ValidarToken(per.Eliminar)).Methods("DELETE")
-	// Enrutador.HandleFunc("/ipsfa/api/militar/crud", wUsuario.ValidarToken(per.Opciones)).Methods("OPTIONS")
-	// Enrutador.HandleFunc("/ipsfa/api/militar/listado", wUsuario.ValidarToken(per.Listado)).Methods("POST")
+	Enrutador.HandleFunc("/ipostel/api/crud/{id}", wUsuario.ValidarToken(ap.Consultar)).Methods("GET")
+	// Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(per.Actualizar)).Methods("PUT")
+	// Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(per.Insertar)).Methods("POST")
+	// Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(per.Eliminar)).Methods("DELETE")
+	// Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(per.Opciones)).Methods("OPTIONS")
+	// Enrutador.HandleFunc("/ipostel/api/listado", wUsuario.ValidarToken(per.Listado)).Methods("POST")
 
 }
 
@@ -49,22 +50,22 @@ func CargarModulosPanel() {
 func CargarModulosSeguridad() {
 	var wUsuario api.WUsuario
 	// Enrutador.HandleFunc("/ipsfa/app/api/wusuario/crud/{id}", wUsuario.Consultar).Methods("GET")
-	Enrutador.HandleFunc("/ipsfa/app/api/wusuario/login", wUsuario.Login).Methods("POST")
-	Enrutador.HandleFunc("/ipsfa/app/api/wusuario/login", wUsuario.Opciones).Methods("OPTIONS")
+	Enrutador.HandleFunc("/ipostel/app/api/wusuario/login", wUsuario.Login).Methods("POST")
+	Enrutador.HandleFunc("/ipostel/app/api/wusuario/login", wUsuario.Opciones).Methods("OPTIONS")
 
-	Enrutador.HandleFunc("/ipsfa/api/wusuario/validar", wUsuario.ValidarToken(wUsuario.Autorizado)).Methods("POST")
-	Enrutador.HandleFunc("/ipsfa/api/wusuario/listar", wUsuario.ValidarToken(wUsuario.Listar)).Methods("GET")
+	Enrutador.HandleFunc("/ipostel/api/wusuario/validar", wUsuario.ValidarToken(wUsuario.Autorizado)).Methods("POST")
+	Enrutador.HandleFunc("/ipostel/api/wusuario/listar", wUsuario.ValidarToken(wUsuario.Listar)).Methods("GET")
 
-	Enrutador.HandleFunc("/ipsfa/api/wusuario", wUsuario.Crear).Methods("POST")
-	Enrutador.HandleFunc("/ipsfa/api/wusuario", wUsuario.ValidarToken(wUsuario.CambiarClave)).Methods("PUT")
-	Enrutador.HandleFunc("/ipsfa/api/wusuario", wUsuario.ValidarToken(wUsuario.Opciones)).Methods("OPTIONS")
+	Enrutador.HandleFunc("/ipostel/api/wusuario", wUsuario.Crear).Methods("POST")
+	Enrutador.HandleFunc("/ipostel/api/wusuario", wUsuario.ValidarToken(wUsuario.CambiarClave)).Methods("PUT")
+	Enrutador.HandleFunc("/ipostel/api/wusuario", wUsuario.ValidarToken(wUsuario.Opciones)).Methods("OPTIONS")
 
-	Enrutador.HandleFunc("/ipsfa/api/wusuario", wUsuario.ValidarToken(wUsuario.Crear)).Methods("POST")
-	Enrutador.HandleFunc("/ipsfa/api/wusuario", wUsuario.ValidarToken(wUsuario.CambiarClave)).Methods("PUT")
-	Enrutador.HandleFunc("/ipsfa/api/wusuario", wUsuario.ValidarToken(wUsuario.Opciones)).Methods("OPTIONS")
-	Enrutador.HandleFunc("/ipsfa/api/wusuario/listar", wUsuario.ValidarToken(wUsuario.Listar)).Methods("GET")
+	Enrutador.HandleFunc("/ipostel/api/wusuario", wUsuario.ValidarToken(wUsuario.Crear)).Methods("POST")
+	Enrutador.HandleFunc("/ipostel/api/wusuario", wUsuario.ValidarToken(wUsuario.CambiarClave)).Methods("PUT")
+	Enrutador.HandleFunc("/ipostel/api/wusuario", wUsuario.ValidarToken(wUsuario.Opciones)).Methods("OPTIONS")
+	Enrutador.HandleFunc("/ipostel/api/wusuario/listar", wUsuario.ValidarToken(wUsuario.Listar)).Methods("GET")
 
-	Enrutador.HandleFunc("/ipsfa/api/wusuario/validarphp", wUsuario.ValidarToken(wUsuario.Autorizado)).Methods("GET")
+	Enrutador.HandleFunc("/ipostel/api/wusuario/validarphp", wUsuario.ValidarToken(wUsuario.Autorizado)).Methods("GET")
 }
 
 //Principal Página inicial del sistema o bienvenida

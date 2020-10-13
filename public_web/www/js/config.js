@@ -12,7 +12,11 @@ class Conexion{
         this.URLSEC = "http://" + this.IP + this.Puerto;
     }
 }
-    
+
+/**
+ * 
+ * @param {array} options | sURL, metodo, Objeto, valores
+ */
 function CargarAPI(options){
     var xhttp = new XMLHttpRequest();
     xhttp.open(options.metodo, options.sURL);
