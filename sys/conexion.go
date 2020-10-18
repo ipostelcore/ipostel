@@ -20,15 +20,18 @@ func MongoDBConexion(mapa map[string]CadenaDeConexion) {
 	util.Error(Error)
 }
 
-//ConexionSAMAN Funcion de Conexion a Postgres
-func ConexionSAMAN(mapa map[string]CadenaDeConexion) {
-	c := mapa["saman"]
-	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
-	PostgreSQLSAMAN, _ = sql.Open("postgres", cadena)
-	if PostgreSQLSAMAN.Ping() != nil {
-		fmt.Println("[Saman:   Error...] ", PostgreSQLSAMAN.Ping())
+//ConexionPuntoPostal Funcion de Conexion a Postgres
+func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) {
+	c := mapa["sqlserver"]
+	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host
+	fmt.Println(cadena)
+	SqlServerPuntoPostal, err := sql.Open("sqlserver", cadena)
+
+	if err != nil {
+		fmt.Println("[Punto Postal:   Error...] ", SqlServerPuntoPostal.Ping())
+		fmt.Println(err.Error)
 	} else {
-		fmt.Println("[Saman: ", c.Host, "  OK...]")
+		fmt.Println("[Punto Postal: ", c.Host, "  OK...]")
 	}
 }
 
