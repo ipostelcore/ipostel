@@ -1,0 +1,26 @@
+[{
+    "Driver" : "sqlserver",
+    "Usuario" : "sa",
+    "Basedatos": "PuntoPostal_06",
+    "Clave" : "operainfo20",
+    "Host" : "192.168.6.185",
+    "Puerto" : "1433",
+    "StrUrl": "/SSSIFANBW/pensiones/index.php/WServer/"
+  },
+  {
+    "Driver" : "mysql",
+    "Usuario" : "root",
+    "Basedatos": "sssifanb",
+    "Clave" : "za63qj2p",
+    "Host" : "localhost",
+    "Puerto" : "3306"
+  },
+  {
+    "Driver" : "mongodb",
+    "Usuario" : "",
+    "Basedatos": "sssifanb",
+    "Clave" : "",
+    "Host" : "localhost",
+    "Puerto" : "27017"
+  }
+  ]
