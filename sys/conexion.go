@@ -2,11 +2,13 @@
 package sys
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 
 	mgo "gopkg.in/mgo.v2"
 
+	_ "github.com/denisenkom/go-mssqldb"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/ipostelcore/ipostel/util"
 	_ "github.com/lib/pq"
@@ -21,18 +23,33 @@ func MongoDBConexion(mapa map[string]CadenaDeConexion) {
 }
 
 //ConexionPuntoPostal Funcion de Conexion a Postgres
-func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) {
+func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 	c := mapa["sqlserver"]
-	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host
+	//cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host
+	cadena := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s;", c.Host, c.Usuario, c.Clave, c.Puerto, c.Basedatos)
 	fmt.Println(cadena)
-	SqlServerPuntoPostal, err := sql.Open("sqlserver", cadena)
+	SqlServerPuntoPostal, err = sql.Open("sqlserver", cadena)
 
 	if err != nil {
 		fmt.Println("[Punto Postal:   Error...] ", SqlServerPuntoPostal.Ping())
-		fmt.Println(err.Error)
+		fmt.Println(err.Error())
 	} else {
 		fmt.Println("[Punto Postal: ", c.Host, "  OK...]")
+		ctx := context.Background()
+		err = SqlServerPuntoPostal.PingContext(ctx)
+		if err != nil {
+			fmt.Println("Control...", err.Error())
+		}
+		var result string
+
+		error := SqlServerPuntoPostal.QueryRowContext(ctx, "SELECT @@version").Scan(&result)
+		if error != nil {
+			fmt.Println("LLLL ", error.Error())
+		}
+		fmt.Println("Controlando la situación")
+
 	}
+	return
 }
 
 //ConexionSAMAN Funcion de Conexion a Postgres
