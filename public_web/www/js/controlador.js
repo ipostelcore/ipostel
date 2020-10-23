@@ -23,3 +23,9 @@ Toast = Swal.mixin({
  
  
  )
+
+
+
+ function CargarConfiguracion(){
+    CargarUrl('cuerpo', 'inc/configuracion/usuarios');
+ }
