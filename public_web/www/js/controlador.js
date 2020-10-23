@@ -16,6 +16,7 @@ Toast = Swal.mixin({
  $(function(){
 
     console.info('Iniciando carga del sistema');
+    CargarUrl('modales', 'inc/modales');
     CargarUrl('cuerpo', 'inc/escritorio');
     Util.ProcesoExitoso('&nbsp;La página se ha cargado exitosamente');
 

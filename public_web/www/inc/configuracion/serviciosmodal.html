@@ -13,12 +13,19 @@
             <form role="form">
               <div class="card-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Servicio</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Servicio">
+                  <label for="txtnombre">Servicio</label>
+                  <input type="text" class="form-control" id="txtnombre" placeholder="Nombre">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Descripción</label>
-                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Descripción">
+                  <label for="txtdescripcion">Descripción</label>
+                  <input type="text" class="form-control" id="txtdescripcion" placeholder="Descripción">
+                </div>
+                <div class="form-group">
+                  <label for="cmbestatus" >Estatus</label>
+                  <select id="cmbestatus"  class="form-control selected" >
+                    <option value="true">ACTIVO</option>
+                    <option value="false">INACTIVO</option>
+                  </select>
                 </div>
               </div>
               <!-- /.card-body -->
@@ -26,7 +33,7 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Guardar</button>
+          <button type="button" class="btn btn-primary" onclick="SalvarServicio()">Guardar</button>
         </div>
       </div>
       <!-- /.modal-content -->
