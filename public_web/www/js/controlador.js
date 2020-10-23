@@ -22,10 +22,29 @@ Toast = Swal.mixin({
  }
  
  
- )
+ ); //Fin de la funcion
 
 
-
+/**
+ * Carga inicial de Configuracion
+ * V 1.0
+ */
  function CargarConfiguracion(){
-    CargarUrl('cuerpo', 'inc/configuracion/usuarios');
+    CargarUrl('cuerpo', 'inc/configuracion/submenu');
  }
+ function CargarUsuarios(){
+   CargarUrl('cuerpo', 'inc/configuracion/usuarios');
+   CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
+ }
+ function CargarServicios(){
+   CargarUrl('cuerpo', 'inc/configuracion/servicios');
+ }
+ function CargarRoles(){
+   CargarUrl('cuerpo', 'inc/configuracion/roles');
+ }
+ function CargarOficinas(){
+   CargarUrl('cuerpo', 'inc/configuracion/oficinas');
+ }
+ /**
+  * Fin de Configuración
+  */
