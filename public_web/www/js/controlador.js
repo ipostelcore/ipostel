@@ -38,6 +38,7 @@ Toast = Swal.mixin({
  }
  function CargarServicios(){
    CargarUrl('cuerpo', 'inc/configuracion/servicios');
+   CargarUrl('cargamasiva', 'inc/configuracion/serviciosmodal');
  }
  function CargarRoles(){
    CargarUrl('cuerpo', 'inc/configuracion/roles');
