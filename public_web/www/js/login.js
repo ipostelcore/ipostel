@@ -1,3 +1,10 @@
+/**
+ * Desarrollado por Carlos Peña
+ * Version 1.0.1
+ * @gesaodin
+ * Clase de conexion
+ */
+
 var Conn = new Conexion();
 class Login {
   constructor(usr, clv) {

@@ -1,5 +1,10 @@
+/**
+ * Desarrollado por Carlos Peña
+ * Version 1.0.1
+ * @gesaodin
+ * Clase de conexion
+ */
 let _url = new URL(document.URL);
-
 class Conexion{
     constructor(){
         this.IP = _url.hostname;
@@ -14,7 +19,7 @@ class Conexion{
 }
 
 /**
- * 
+ * Permite cargar y hacer consultas a las API del bus.
  * @param {array} options | sURL, metodo, Objeto, valores
  */
 function CargarAPI(options){
@@ -61,23 +66,42 @@ function CargarAPI(options){
     
 
 /**
- * 
+ * Cargar archivos html
  * @param {string} id  
  * @param {string} url | HTML 
  */
 function CargarUrl(id, url){
     var xhttp = new XMLHttpRequest();
     xhttp.open('GET', url + '.html');
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            $('#'+id).html(xhttp.responseText);
-        }
-    };
-    xhttp.onerror = function() {
-        if (this.readyState == 4 && this.status == 0) {
-            $.notify("El archivo no ha sido encontrado");
-        }
+    var promise = new Promise(function(resolve, reject) { 
 
-    };
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                $('#'+id).html(xhttp.responseText);
+                
+            }else if (this.readyState == 4 && this.status == 404){
+                
+                Util.Mensaje(
+                    `El archivo ${url} no ha sido encontrado`, 
+                    'bg-danger',
+                    'Cargar Url',
+                    'ipostel-core'
+                );
+                
+            }
+            resolve(xhttp);
+        };
+        xhttp.onerror = function() {
+            
+            if (this.readyState == 4 && this.status == 0) {
+                Util.Mensaje(`El archivo ${url} no ha sido encontrado`, 'danger');
+            }
+            reject(xhttp);
+    
+        };
+
+    })
+
+    
     xhttp.send();
 }

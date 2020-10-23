@@ -26,9 +26,12 @@ func MongoDBConexion(mapa map[string]CadenaDeConexion) {
 func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 	c := mapa["sqlserver"]
 	//cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host
-	cadena := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s;", c.Host, c.Usuario, c.Clave, c.Puerto, c.Basedatos)
+	//cadena := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s", c.Host, c.Usuario, c.Clave, c.Puerto, c.Basedatos)
+	cadena := "sqlserver://administrador:Rootsupr3m0@10.16.12.210:1433?database=Traking&connection+timeout=30"
+	//cadena := "sqlserver://Administrador:operainfo2020**@192.168.6.185:1433?database=PuntoPostal_06&connection+timeout=30"
+	//cadena := "odbc:server=192.168.6.185\\SQLExpress;user id=sa;password=operainfo123*;database=PuntoPostal_06;app name=Ipostel"
 	fmt.Println(cadena)
-	SqlServerPuntoPostal, err = sql.Open("sqlserver", cadena)
+	SqlServerPuntoPostal, err = sql.Open("mssql", cadena)
 
 	if err != nil {
 		fmt.Println("[Punto Postal:   Error...] ", SqlServerPuntoPostal.Ping())
