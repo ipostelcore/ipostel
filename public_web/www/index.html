@@ -17,8 +17,12 @@
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="plugins/animate/animate.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 
-<script src="plugins/jquery/jquery.min.js"></script>
 
 </head>
 <body class="hold-transition login-page"  style="background:linear-gradient(197deg, #4CAA9D 10%, rgb(200, 238, 208) 90.5%) !important;">
@@ -30,9 +34,9 @@
       <center>
         <img src="img/ipostel.jpg" style="width: 90%;">
       </center>
-      <form action="principal.html" method="post">
+      
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Usuario" id="usaurio">
+          <input type="email" class="form-control" placeholder="Usuario" id="usuario">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-address-card"></span>
@@ -58,11 +62,15 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
+<<<<<<< HEAD
             <button type="submit" class="btn btn-primary btn-block" id="iniciar">Iniciar</button>
+=======
+            <button type="button" class="btn btn-primary btn-block" onclick="Ingresar()">Iniciar</button>
+>>>>>>> fe2b16b4be23d8eee3f6826fef9f7ec01ba51354
           </div>
           <!-- /.col -->
         </div>
-      </form>
+
 
     <!-- /.login-card-body -->
     </div>
@@ -92,6 +100,11 @@
 
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- SweetAlert2 -->
+<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="plugins/toastr/toastr.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <script src="js/login.js"></script>

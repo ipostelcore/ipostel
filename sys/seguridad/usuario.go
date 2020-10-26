@@ -65,13 +65,25 @@ type Perfil struct {
 }
 
 type Menu struct {
+	Url     string    `json:"url,omitempty"`
+	Js      string    `json:"js,omitempty"`
+	Icono   string    `json:"icono,omitempty"`
+	Nombre  string    `json:"nombre,omitempty"`
+	Accion  string    `json:"accion,omitempty"`
+	Clase   string    `json:"clase,omitempty"`
+	Color   string    `json:"color,omitempty"`
+	SubMenu []SubMenu `json:"SubMenu,omitempty"`
+}
+
+type SubMenu struct {
 	Url    string `json:"url,omitempty"`
 	Js     string `json:"js,omitempty"`
 	Icono  string `json:"icono,omitempty"`
 	Nombre string `json:"nombre,omitempty"`
 	Accion string `json:"accion,omitempty"`
+	Clase  string `json:"clase,omitempty"`
+	Color  string `json:"color,omitempty"`
 }
-
 type Rol struct {
 	Descripcion string `json:"descripcion" bson:"descipcion"`
 }
@@ -129,10 +141,10 @@ func (usr *Usuario) Salvar() error {
 }
 
 //Validar Usuarios
-func (u *Usuario) Validar(login string, clave string) (err error) {
-	u.Nombre = ""
+func (usr *Usuario) Validar(login string, clave string) (err error) {
+	usr.Nombre = ""
 	c := sys.MGOSession.DB(sys.CBASE).C(sys.CUSUARIO)
-	err = c.Find(bson.M{"login": login, "clave": clave}).Select(bson.M{"clave": false}).One(&u)
+	err = c.Find(bson.M{"login": login, "clave": clave}).Select(bson.M{"clave": false}).One(&usr)
 
 	return
 }
@@ -159,8 +171,8 @@ func CrearClaveTodos() {
 }
 
 //CambiarClave Usuarios
-func (u *Usuario) CambiarClave(login string, clave string, nueva string) (err error) {
-	u.Nombre = ""
+func (usr *Usuario) CambiarClave(login string, clave string, nueva string) (err error) {
+	usr.Nombre = ""
 	c := sys.MGOSession.DB(sys.CBASE).C("usuario")
 	actualizar := make(map[string]interface{})
 	actualizar["clave"] = util.GenerarHash256([]byte(nueva))
@@ -170,16 +182,16 @@ func (u *Usuario) CambiarClave(login string, clave string, nueva string) (err er
 }
 
 //Consultar el sistema de usuarios
-func (u *Usuario) Consultar(cedula string) (j []byte, err error) {
-	u.Nombre = ""
+func (usr *Usuario) Consultar(cedula string) (j []byte, err error) {
+	usr.Nombre = ""
 	c := sys.MGOSession.DB(sys.CBASE).C("usuario")
-	err = c.Find(bson.M{"cedula": cedula}).Select(bson.M{"clave": false}).One(&u)
-	j, _ = json.Marshal(u)
+	err = c.Find(bson.M{"cedula": cedula}).Select(bson.M{"clave": false}).One(&usr)
+	j, _ = json.Marshal(usr)
 	return
 }
 
 //Listar el sistema de usuarios
-func (u *Usuario) Listar() (j []byte, err error) {
+func (usr *Usuario) Listar() (j []byte, err error) {
 	var lstUsuario []Usuario
 	c := sys.MGOSession.DB(sys.CBASE).C("usuario")
 	err = c.Find(bson.M{}).Select(bson.M{"clave": false}).All(&lstUsuario)
@@ -187,20 +199,21 @@ func (u *Usuario) Listar() (j []byte, err error) {
 	return
 }
 
-func (u *Usuario) Generico() error {
+//Generico Consulta General
+func (usr *Usuario) Generico() error {
 	var privilegio Privilegio
 	var lst []Privilegio
-	var usr Usuario
-	usr.ID = bson.NewObjectId()
-	usr.Nombre = "Informatica - Consulta"
-	usr.Login = "usuario"
-	usr.Sucursal = "Principal"
-	usr.Clave = util.GenerarHash256([]byte("123"))
+	var usuario Usuario
+	usuario.ID = bson.NewObjectId()
+	usuario.Nombre = "Informatica - Consulta"
+	usuario.Login = "usuario"
+	usuario.Sucursal = "Principal"
+	usuario.Clave = util.GenerarHash256([]byte("123"))
 
-	// usr.Rol.ID = ROOT
-	usr.Rol.Descripcion = "Super Usuario"
-	// usr.Perfil.ID = ROOT
-	usr.Perfil.Descripcion = "Super Usuario"
+	// usuario.Rol.ID = ROOT
+	usuario.Rol.Descripcion = "Super Usuario"
+	// usuario.Perfil.ID = ROOT
+	usuario.Perfil.Descripcion = "Super Usuario"
 
 	privilegio.Metodo = "afiliacion.salvar"
 	privilegio.Descripcion = "Crear Usuario"
@@ -211,9 +224,9 @@ func (u *Usuario) Generico() error {
 	privilegio.Descripcion = "Modificar Usuario"
 	privilegio.Accion = "Update()"
 	lst = append(lst, privilegio)
-	usr.Perfil.Privilegios = lst
+	usuario.Perfil.Privilegios = lst
 
 	var mongo sys.Mongo
 
-	return mongo.Salvar(usr, "usuario")
+	return mongo.Salvar(usuario, "usuario")
 }
