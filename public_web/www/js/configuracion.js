@@ -40,16 +40,20 @@ class Oficinas{
 
 
 
+function _mdlAgregarServicio(){
+    $("#_mdlTitulo").html("Agregar Servicio");
+    $("#mdlGeneral").modal("show");
+}
 
 function SalvarServicio(){
     var srv = new Servicios();
     console.info(srv.Obtener());
     var opciones = {
-        valores = srv.Obtener(),
-        metodo = "POST",
-        sUrl = "ruta",
-        Objeto = srv
+        valores : srv.Obtener(),
+        metodo : "POST",
+        sUrl : "ruta",
+        Objeto : srv
     }
     CargarAPI(opciones);
-    
+
 }

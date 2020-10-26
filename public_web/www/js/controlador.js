@@ -1,7 +1,10 @@
 /**
  * 
  */
+let _ANOACTUAL = new Date().getUTCFullYear();
 
+let FrmValidar = false;
+let JsonMenu = {};
 let Util = new Utilidad();
 
 
@@ -14,11 +17,21 @@ Toast = Swal.mixin({
 
 
  $(function(){
-
+   
+  if (sessionStorage.getItem('ipostel') == undefined ){
+    $(location).attr("href","index.html");
+  }else{
     console.info('Iniciando carga del sistema');
     CargarUrl('modales', 'inc/modales');
-    CargarUrl('cuerpo', 'inc/escritorio');
+    //CargarUrl('cuerpo', 'inc/escritorio');
+    Util.CargarJsonMenu(); 
+    Util.DibujarEscritorio(JsonMenu);
+
     Util.ProcesoExitoso('&nbsp;La página se ha cargado exitosamente');
+
+  }
+    
+    
 
  }
  
@@ -39,7 +52,8 @@ Toast = Swal.mixin({
  }
  function CargarServicios(){
    CargarUrl('cuerpo', 'inc/configuracion/servicios');
-   CargarUrl('cargamasiva', 'inc/configuracion/serviciosmodal');
+   CargarUrl('_mdlCuerpo', 'inc/configuracion/serviciosmodal');
+
  }
  function CargarRoles(){
    CargarUrl('cuerpo', 'inc/configuracion/roles');
@@ -50,3 +64,38 @@ Toast = Swal.mixin({
  /**
   * Fin de Configuración
   */
+
+
+/**
+ * Carga inicial de Configuracion
+ * V 1.0
+ */
+function CargarControl(){
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Control");
+}
+
+
+
+
+
+function CerrarSession(){
+	sessionStorage.removeItem('ipostel');
+	$(location).attr("href","../index.html");
+}
+
+function IniciarSesion(){
+  if (sessionStorage.getItem('ipostel') != undefined ){
+
+    var e = sessionStorage.getItem("ipostel");
+    var s = e.split(".");
+    var json = JSON.parse(atob(s[1]));
+    Usuario = json.Usuario;
+
+
+    $("#_PerfilUsuario").html(Usuario.Perfil.descripcion);
+    $("#_NombreUsuario").html(Usuario.nombre);
+
+  }
+}
+
+

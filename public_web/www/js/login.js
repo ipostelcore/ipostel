@@ -5,6 +5,26 @@
  * Clase de conexion
  */
 
+ /**
+ * Desarrollado por Carlos Peña
+ * Version 1.0.1
+ * @gesaodin
+ * Clase de conexion
+ */
+let _url = new URL(document.URL);
+class Conexion{
+    constructor(){
+        this.IP = _url.hostname;
+        this.Puerto = ":8012";
+        this.PuertoSSL = ":2286";
+        this.API = "/ipostel/api/";
+        this.URL = "https://" + this.IP + this.PuertoSSL + this.API;
+        this.URLIMG = "/imagenes/";
+        this.URLTEMP = _url.hostname + "/ipostel/temp/";
+        this.URLSEC = "https://" + this.IP + this.PuertoSSL;
+    }
+}
+
 var Conn = new Conexion();
 class Login {
   constructor(usr, clv) {
@@ -24,22 +44,32 @@ $(function (){
     }
   });
 
-  Pace.on("done", function (){
-    $("#xpage-pace").fadeIn(1500);
-  });
 
 
 });
 
 function Ingresar(){
   if ($("#usuario").val() == ""){
-    $.notify("No ha introducido usuario", "warn");
+
+    Mensaje(
+      `No ha introducido usuario`, 
+      'bg-warning',
+      'Login',
+      'ipostel-core'
+    );
+    
     $("#usuario").focus();
     $("#_login").attr("disabled", true);
     return false;
   }
   if ($("#clave").val() == ""){
-    $.notify("No ha introducido clave", "warn");
+  
+    Mensaje(
+      `No ha introducido clave`, 
+      'bg-warning',
+      'Login',
+      'ipostel-core'
+    );
     $("#clave").focus();
     $("#_login").attr("disabled", true);
     return false;
@@ -52,26 +82,27 @@ function Ingresar(){
   xhttp.onreadystatechange = function() {
 
     if (this.readyState === 4 && this.status === 200) {
+      console.log(xhttp.responseText + "sdlasdklfjasdl");
      json = JSON.parse(xhttp.responseText);
-     sessionStorage.setItem('ipsfaToken', json.token);
+     sessionStorage.setItem('ipostel', json.token);
 
      var s = json.token.split(".");
      var MenuJS = JSON.parse(atob(s[1]));
 
      if(MenuJS.Usuario.modulo != undefined){
        var mod = Array.isArray(MenuJS.Usuario.modulo)==true?MenuJS.Usuario.modulo[0]:"control";
-       $(location).attr("href", mod + "/starter.html");
+       $(location).attr("href", mod + "principal.html");
      }else{
-       $(location).attr("href","control/starter.html");
+       $(location).attr("href","principal.html");
+       console.log(xhttp.responseText);
      }
    }else if(this.readyState === 4 && this.status === 403){
-     $.notify("Debe verificar el usuario o clave para ingresar al sistema...", {
-      	animate: {
-      		enter: 'animated bounceIn',
-      		exit: 'animated bounceOut'
-      	},
-        type: 'danger'
-      });
+    Mensaje(
+      `${xhttp.responseText}`, 
+      'bg-danger',
+      'Login',
+      'ipostel-core'
+    );
 
      $("#_login").attr("disabled", true);
      $("#usuario").val("");
@@ -82,14 +113,17 @@ function Ingresar(){
   };
   xhttp.onerror = function() {
        if (this.readyState === 4 && this.status === 0) {
-
-         $.notify("No se puede conectar al servidor");
+        Mensaje(
+          `Error de conexión con el servidor`, 
+          'bg-danger',
+          'Login',
+          'ipostel-core'
+        );
          $("#_login").attr("disabled", true);
          $("#usuario").val("");
          $("#clave").val("");
          $("#usuario").focus();
          $("#_cargando").hide();
-         //$.notify("Intente mas tarde", "success");
        }
    };
 
@@ -98,4 +132,18 @@ function Ingresar(){
 
 function ActivarIniciar(){
   $("#_login").attr("disabled", false);
+}
+
+
+function Mensaje(mensaje, clase, titulo, subtitulo){
+  $(document).Toasts('create', {
+    class: clase, 
+    title: titulo,
+    autohide: true,
+    delay: 2500,
+    subtitle: subtitulo,
+    body: mensaje,
+    icon: 'warning',
+    position: 'bottomRight'
+  })
 }

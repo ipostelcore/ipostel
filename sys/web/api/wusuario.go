@@ -92,10 +92,9 @@ func (u *WUsuario) Login(w http.ResponseWriter, r *http.Request) {
 
 	usuario.Validar(usuario.Nombre, util.GenerarHash256([]byte(usuario.Clave)))
 
-	if usuario.Nombre != "" {
-		//usuario.Nombre = "Carlos"
-		usuario.Clave = ""
+	if usuario.Login != "" {
 
+		usuario.Clave = ""
 		token := seguridad.GenerarJWT(usuario)
 		result := seguridad.RespuestaToken{Token: token}
 		j, e := json.Marshal(result)
@@ -106,44 +105,14 @@ func (u *WUsuario) Login(w http.ResponseWriter, r *http.Request) {
 		traza.Log = "Inicio de sesión"
 		traza.IP = ip[0]
 		traza.Documento = "Usuario"
-
+		fmt.Println("control de login")
 		w.WriteHeader(http.StatusOK)
 		w.Write(j)
 	} else {
 		w.Header().Set("Content-Type", "application/text")
-		fmt.Println("Error en la conexion del usuario")
 		w.WriteHeader(http.StatusForbidden)
 		fmt.Fprintln(w, "Usuario y clave no validas")
 	}
-}
-
-//LoginW conexion para solicitud de token
-func (u *WUsuario) LoginW(w http.ResponseWriter, r *http.Request) {
-	var usuario seguridad.WUsuario
-	CabeceraW(w, r)
-	e := json.NewDecoder(r.Body).Decode(&usuario)
-	util.Error(e)
-
-	err := usuario.Validar(usuario.Cedula, util.GenerarHash256([]byte(usuario.Clave)))
-	if err != nil {
-		w.Header().Set("Content-Type", "application/text")
-		fmt.Println("Error en la conexion del usuario")
-		w.WriteHeader(http.StatusForbidden)
-		fmt.Fprintln(w, "Usuario y clave no validas")
-
-	} else {
-
-		if usuario.Cedula != "" && usuario.Componente != "" {
-			usuario.Clave = ""
-			token := seguridad.WGenerarJWT(usuario)
-			result := seguridad.RespuestaToken{Token: token}
-			j, e := json.Marshal(result)
-			util.Error(e)
-			w.WriteHeader(http.StatusOK)
-			w.Write(j)
-		}
-	}
-
 }
 
 //ValidarToken Validacion de usuario
