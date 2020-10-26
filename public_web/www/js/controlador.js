@@ -17,7 +17,6 @@ Toast = Swal.mixin({
 
 
  $(function(){
-   
   if (sessionStorage.getItem('ipostel') == undefined ){
     $(location).attr("href","index.html");
   }else{
@@ -31,11 +30,9 @@ Toast = Swal.mixin({
 
   }
     
-    
+  
 
  }
- 
- 
  ); //Fin de la funcion
 
 
@@ -47,6 +44,7 @@ Toast = Swal.mixin({
     //CargarUrl('cuerpo', 'inc/configuracion/submenu');
     Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
  }
+
  function CargarUsuarios(){
    CargarUrl('cuerpo', 'inc/configuracion/usuarios');
    CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
@@ -57,7 +55,11 @@ Toast = Swal.mixin({
 
  }
  function CargarRoles(){
-    //CargarUrl('cuerpo', 'inc/configuracion/roles');
+   CargarUrl('cuerpo', 'inc/configuracion/servicios');
+   CargarUrl('cargamasiva', 'inc/configuracion/serviciosmodal');
+ }
+ function CargarRoles(){
+   CargarUrl('cuerpo', 'inc/configuracion/roles');
  }
  function CargarOficinas(){
    CargarUrl('cuerpo', 'inc/configuracion/oficinas');
@@ -98,5 +100,15 @@ function IniciarSesion(){
 
   }
 }
+
+ function CargarReportes(){
+   CargarUrl('cuerpo', 'inc/configuracion/submenu_reportes');
+  // CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
+ }
+
+ function CargarVentaPorSermana(){
+   CargarUrl('cuerpo', 'inc/configuracion/ventaporsemana');
+  // CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
+ }
 
 
