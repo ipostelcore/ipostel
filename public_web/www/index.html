@@ -17,16 +17,16 @@
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  
-  
+
+<script src="plugins/jquery/jquery.min.js"></script>
+
 </head>
 <body class="hold-transition login-page"  style="background:linear-gradient(197deg, #4CAA9D 10%, rgb(200, 238, 208) 90.5%) !important;">
 <div class="login-box">
-  
+
   <!-- /.login-logo -->
-  <div class="card card-outline card-primary" >
+  <div class="card card-outline card-primary" id="login1" >
     <div class="card-body login-card-body">
-      
       <center>
         <img src="img/ipostel.jpg" style="width: 90%;">
       </center>
@@ -58,19 +58,38 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Iniciar</button>
+            <button type="submit" class="btn btn-primary btn-block" id="iniciar">Iniciar</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
 
     <!-- /.login-card-body -->
-  </div>
+    </div>
+    </div>
+
+     <div class="card card-outline"  id="reload" style="display:none">
+            <div class="text-center mt-2">
+                <div style="width: 5rem; height: 5rem;" class="spinner-border text-success" role="status">
+
+                </div>
+                <h5>Iniciando Sesión...</h5>
+            </div>
+    </div>
 </div>
 <!-- /.login-box -->
+<script type="text/javascript">
+        $(document).ready(function(){
+            $("#reload").hide();
 
+            $("#iniciar").click(function(){
+                $("#login1").hide();
+                $("#reload").show();
+            });
+        });
+</script>
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->

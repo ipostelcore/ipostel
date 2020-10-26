@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 
 let Util = new Utilidad();
@@ -21,8 +21,8 @@ Toast = Swal.mixin({
     Util.ProcesoExitoso('&nbsp;La página se ha cargado exitosamente');
 
  }
- 
- 
+
+
  ); //Fin de la funcion
 
 
@@ -47,6 +47,18 @@ Toast = Swal.mixin({
  function CargarOficinas(){
    CargarUrl('cuerpo', 'inc/configuracion/oficinas');
  }
+ function CargarReportes(){
+   CargarUrl('cuerpo', 'inc/configuracion/submenu_reportes');
+  // CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
+ }
+
+ function CargarVentaporsermana(){
+   CargarUrl('cuerpo', 'inc/configuracion/ventaporsemana');
+  // CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
+ }
+
+
+
  /**
   * Fin de Configuración
   */
