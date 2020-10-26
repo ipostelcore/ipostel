@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 let _ANOACTUAL = new Date().getUTCFullYear();
 
@@ -35,6 +35,8 @@ Toast = Swal.mixin({
   
 
  }
+
+
  ); //Fin de la funcion
 
 
@@ -66,9 +68,18 @@ Toast = Swal.mixin({
  function CargarOficinas(){
    CargarUrl('cuerpo', 'inc/configuracion/oficinas');
  }
- /**
-  * Fin de Configuración
-  */
+ function CargarReportes(){
+   CargarUrl('cuerpo', 'inc/configuracion/submenu_reportes');
+  // CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
+ }
+
+ function CargarVentaporsermana(){
+   CargarUrl('cuerpo', 'inc/configuracion/ventaporsemana');
+  // CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
+ }
+
+
+
 
 
 /**
@@ -92,7 +103,7 @@ function CargarVentas(){
 
 
 
-function CerrarSession(){
+function CerrarSesion(){
 	sessionStorage.removeItem('ipostel');
 	$(location).attr("href","../index.html");
 }
