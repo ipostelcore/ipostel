@@ -6,6 +6,7 @@ let _ANOACTUAL = new Date().getUTCFullYear();
 let FrmValidar = false;
 let JsonMenu = {};
 let Util = new Utilidad();
+let conn = new Conexion();
 
 
 Toast = Swal.mixin({
@@ -21,6 +22,7 @@ Toast = Swal.mixin({
     $(location).attr("href","index.html");
   }else{
     console.info('Iniciando carga del sistema');
+    
     CargarUrl('modales', 'inc/modales');
     //CargarUrl('cuerpo', 'inc/escritorio');
     Util.CargarJsonMenu(); 
@@ -70,7 +72,7 @@ Toast = Swal.mixin({
 
 
 /**
- * Carga inicial de Configuracion
+ * Carga inicial de Control
  * V 1.0
  */
 function CargarControl(){
@@ -78,6 +80,15 @@ function CargarControl(){
 }
 
 
+
+/**
+ * Carga inicial de Ventas
+ * V 1.0
+ */
+function CargarVentas(){
+  //CargarUrl('cuerpo', 'inc/configuracion/submenu');
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Ventas");
+}
 
 
 
@@ -107,8 +118,13 @@ function IniciarSesion(){
  }
 
  function CargarVentaPorSermana(){
+   console.log("Acceder");
+   ListarOficinas();
    CargarUrl('cuerpo', 'inc/configuracion/ventaporsemana');
   // CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
  }
 
 
+ function ListarVentasPorSemanas(){
+   alert("mundo")
+ }

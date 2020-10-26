@@ -25,7 +25,7 @@ class Conexion{
 function CargarAPI(options){
     var xhttp = new XMLHttpRequest();
     xhttp.open(options.metodo, options.sURL);
-    xhttp.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem('ipostelToken'));
+    xhttp.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem('ipostel'));
     var promise = new Promise(function(resolve, reject) {
         xhttp.addEventListener('readystatechange', function() {
             if ( xhttp.readyState === 4 && xhttp.status === 200) {
@@ -37,7 +37,7 @@ function CargarAPI(options){
             if( xhttp.status === 401){
                 if ( xhttp.responseText != "" ) {
                     respuesta = JSON.parse(xhttp.responseText);
-                    $.notify(respuesta.msj);
+                    //$.notify(respuesta.msj);
                 }
             }
         });
@@ -46,7 +46,7 @@ function CargarAPI(options){
             if ( xhttp.responseText != "" ) {
                 respuesta = JSON.parse(xhttp.responseText);
                 if (respuesta.tipo != 0){
-                    $.notify("Se ha Insertado correctamente", "success");
+                    //$.notify("Se ha Insertado correctamente", "success");
                 }else{
                     alert(xhttp.responseText);
                 }

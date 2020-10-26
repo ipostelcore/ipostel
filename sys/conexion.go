@@ -55,15 +55,15 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 	return
 }
 
-//ConexionSAMAN Funcion de Conexion a Postgres
-func ConexionSAMANWEB(mapa map[string]CadenaDeConexion) {
-	c := mapa["samanweb"]
+//ConexionPuntoPostalPostgres Funcion de Conexion a Postgres
+func ConexionPuntoPostalPostgres(mapa map[string]CadenaDeConexion) {
+	c := mapa["postgres"]
 	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
-	PsqlWEB, _ = sql.Open("postgres", cadena)
-	if PsqlWEB.Ping() != nil {
-		fmt.Println("[SamanWEB:   Error...] ", PsqlWEB.Ping())
+	PuntoPostalPostgres, _ = sql.Open("postgres", cadena)
+	if PuntoPostalPostgres.Ping() != nil {
+		fmt.Println("[Punto Postal Postgres:   Error...] ", PuntoPostalPostgres.Ping())
 	} else {
-		fmt.Println("[SamanWEB: ", c.Host, "  OK...]")
+		fmt.Println("[Punto Postal Postgres: ", c.Host, "  OK...]")
 	}
 
 }
