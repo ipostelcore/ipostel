@@ -44,19 +44,20 @@ Toast = Swal.mixin({
  * V 1.0
  */
  function CargarConfiguracion(){
-    CargarUrl('cuerpo', 'inc/configuracion/submenu');
+    //CargarUrl('cuerpo', 'inc/configuracion/submenu');
+    Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
  }
  function CargarUsuarios(){
    CargarUrl('cuerpo', 'inc/configuracion/usuarios');
    CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
  }
  function CargarServicios(){
-   CargarUrl('cuerpo', 'inc/configuracion/servicios');
+   //CargarUrl('cuerpo', 'inc/configuracion/servicios');
    CargarUrl('_mdlCuerpo', 'inc/configuracion/serviciosmodal');
 
  }
  function CargarRoles(){
-   CargarUrl('cuerpo', 'inc/configuracion/roles');
+    //CargarUrl('cuerpo', 'inc/configuracion/roles');
  }
  function CargarOficinas(){
    CargarUrl('cuerpo', 'inc/configuracion/oficinas');
