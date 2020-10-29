@@ -22,16 +22,15 @@
   <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
-  
-  
+
+
 </head>
 <body class="hold-transition login-page"  style="background:linear-gradient(197deg, #4CAA9D 10%, rgb(200, 238, 208) 90.5%) !important;">
 <div class="login-box">
-  
+
   <!-- /.login-logo -->
-  <div class="card card-outline card-primary" >
+  <div class="card card-outline card-primary" id="login1" >
     <div class="card-body login-card-body">
-      
       <center>
         <img src="img/ipostel.jpg" style="width: 90%;">
       </center>
@@ -63,19 +62,40 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
+
             <button type="button" class="btn btn-primary btn-block" onclick="Ingresar()">Iniciar</button>
+
           </div>
           <!-- /.col -->
         </div>
-      
+
 
     <!-- /.login-card-body -->
-  </div>
-</div>
-<!-- /.login-box -->
+    </div>
+    </div>
 
+     <div class="card card-outline"  id="reload" style="display:none">
+            <div class="text-center mt-2">
+                <div style="width: 5rem; height: 5rem;" class="spinner-border text-success" role="status">
+
+                </div>
+                <h5>Iniciando Sesión...</h5>
+            </div>
+    </div>
+</div>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
+<!-- /.login-box -->
+<script type="text/javascript">
+        $(document).ready(function(){
+            $("#reload").hide();
+
+            $("#iniciar").click(function(){
+                $("#login1").hide();
+                $("#reload").show();
+            });
+        });
+</script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 

@@ -33,7 +33,9 @@ class Roles{
 
 class Oficinas{
     constructor(){}
-    Crear(){}
+    Crear(req){
+        console.log(req);
+    }
     Obtener(){}
 }
 
@@ -55,5 +57,23 @@ function SalvarServicio(){
         Objeto : srv
     }
     CargarAPI(opciones);
+
+}
+
+function ListarOficinas(){
+    var ofc = new Oficinas();
+    var promesa =  CargarAPI({
+        metodo : "GET",
+        sURL: conn.URL + "oficina/listar",
+        Objeto: ofc
+    });
+    promesa.then(function (xhRequest) {
+        json = JSON.parse(xhRequest.responseText);
+        json.forEach(e => {
+            $("#cmboficinas").append(`<option value="${e.id}">${e.descripcion}</option>`);
+        });
+    });
+    
+    console.log("Imprimiendo");
 
 }
