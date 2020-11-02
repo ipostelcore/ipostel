@@ -107,16 +107,39 @@ class Utilidad{
     }
 
     DibujarMenuLateral(Mnu){
-        var cadena = "<li class='header'>Menu</li>";
+        var cadena = `<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">`;
+       
+       
         if (Mnu.Perfil.Menu != undefined){
+          var menu = "";
           Mnu.Perfil.Menu.forEach(v => {
-            if(v.url != undefined){
-              cadena += `<li><a href="${v.url}"><i class="${v.icono}"></i><span>${v.nombre}</span></a></li>`;
+            if (v.SubMenu != undefined){
+              menu += `<li class="nav-item has-treeview ">
+              <a href="#" class="nav-link ">
+                <i class="${v.icono}"></i>
+                <p>
+                  ${v.nombre}
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a><ul class="nav nav-treeview">`
+              var submenu = "";
+              v.SubMenu.forEach(vx => {
+                submenu += `<li class="nav-item">
+                  <a href="#" onclick="${v.accion}" class="nav-link ">
+                    <i class="${vx.icono} nav-icon"></i>
+                    <p>${vx.nombre}</p>
+                  </a>
+                  </li>`
+              })
+              menu += submenu + `</ul></li>`
+
             }else{
-              cadena += `<li><a href="#" onclick="CargarUrl('_cuerpo','${v.js}');${v.accion}"><i class="${v.icono}"></i><span>${v.nombre}</span></a></li>`;
+
             }
+
           });
-          $('#_menu').html(cadena);
+          cadena += menu + `</ul>`
+          $('#_menulateral').html(cadena);
         }else{
           console.log("No existen menus asociados a las cuentas.");
         }

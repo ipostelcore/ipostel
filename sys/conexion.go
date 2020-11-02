@@ -2,7 +2,6 @@
 package sys
 
 import (
-	"context"
 	"database/sql"
 	"fmt"
 
@@ -27,28 +26,41 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 	c := mapa["sqlserver"]
 	//cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host
 	//cadena := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s", c.Host, c.Usuario, c.Clave, c.Puerto, c.Basedatos)
-	cadena := "sqlserver://administrador:Rootsupr3m0@10.16.12.210:1433?database=Traking&connection+timeout=30"
-	//cadena := "sqlserver://Administrador:operainfo2020**@192.168.6.185:1433?database=PuntoPostal_06&connection+timeout=30"
-	//cadena := "odbc:server=192.168.6.185\\SQLExpress;user id=sa;password=operainfo123*;database=PuntoPostal_06;app name=Ipostel"
+	//cadena := "sqlserver://administrador:Rootsupr3m0@10.16.12.210:1433?database=Traking&connection+timeout=30"
+	//cadena := "sqlserver://sa:operainfo123*@192.168.6.185:1433?database=PuntoPostal_06"
+	//cadena := "odbc:server=192.168.6.185\\SQLExpress;user id=sa;password=operainfo123*;database=PuntoPostal_06;app name=ipostel"
+	//cadena := "odbc:server=192.168.6.185;user id=sa;password=operainfo123*;database=PuntoPostal_06;app name=MyAppName"
+	cadena := "sqlserver://sa:operainfo123*@192.168.6.185/SQLExpress?database=PuntoPostal_06&connection+timeout=30"
+	//cadena := "server=192.168.6.185;user id=sa;password=operainfo123*;"
 	fmt.Println(cadena)
-	SqlServerPuntoPostal, err = sql.Open("mssql", cadena)
+	//sqlcmd -S 192.168.6.185 -U sa -P operainfo123* -Q "SELECT @@version"
+	SqlServerPuntoPostal, err = sql.Open("sqlserver", cadena)
+
+	//SqlServerPuntoPostal, err = sql.Open("mssql", cadena)
 
 	if err != nil {
 		fmt.Println("[Punto Postal:   Error...] ", SqlServerPuntoPostal.Ping())
 		fmt.Println(err.Error())
 	} else {
 		fmt.Println("[Punto Postal: ", c.Host, "  OK...]")
-		ctx := context.Background()
-		err = SqlServerPuntoPostal.PingContext(ctx)
-		if err != nil {
-			fmt.Println("Control...", err.Error())
+		sq, err := PuntoPostalPostgres.Query("SELECT DESTINO, TARIFA FROM TARIFAEEB")
+		util.Error(err)
+		for sq.Next() {
+			var a, b string
+			sq.Scan(&a, &b)
+			//fmt.Println(a, b)
 		}
-		var result string
+		// ctx := context.Background()
+		// err = SqlServerPuntoPostal.PingContext(ctx)
+		// if err != nil {
+		// 	fmt.Println("Control...", err.Error())
+		// }
+		// var result string
 
-		error := SqlServerPuntoPostal.QueryRowContext(ctx, "SELECT @@version").Scan(&result)
-		if error != nil {
-			fmt.Println("LLLL ", error.Error())
-		}
+		// error := SqlServerPuntoPostal.QueryRowContext(ctx, "SELECT @@version").Scan(&result)
+		// if error != nil {
+		// 	fmt.Println("LLLL ", error.Error())
+		// }
 		fmt.Println("Controlando la situación")
 
 	}

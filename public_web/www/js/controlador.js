@@ -27,6 +27,7 @@ Toast = Swal.mixin({
     //CargarUrl('cuerpo', 'inc/escritorio');
     Util.CargarJsonMenu(); 
     Util.DibujarEscritorio(JsonMenu);
+    Util.DibujarMenuLateral(JsonMenu);
 
     Util.ProcesoExitoso('&nbsp;La página se ha cargado exitosamente');
 
