@@ -1,16 +1,17 @@
 <!--
 Realizado por: Roxi Pabón
 Fecha: 01-11-2020
-Titulo: Maquetado de Seguimiento de Paquetes
+Titulo: Maquetado de Manejo de Distribución
  -->
+
 <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <!-- general form elements disabled -->
-                <div class="card card-warning">
+                <div class="card card-pink">
                     <div class="card-header">
-                        <h3 class="card-title">Segumiento de Paquetes</h3>
+                        <h3 class="card-title">Manejo de Distribución</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -35,7 +36,7 @@ Titulo: Maquetado de Seguimiento de Paquetes
                                     </div>
                                 </div>
                                 <div class="col-sm-2 mt-4">
-                                    <button type="button" class="btn btn-warning" onclick="BuscarPaquete()" name="button"><i class="fas fa-search"></i></button>
+                                    <button type="button" class="btn" style="background-color:#e83e8c; color:white" onclick="BuscarPaquete()" name="button"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
                             <div class="row" id="InfPaquete" style="display : none;">
@@ -59,10 +60,11 @@ Titulo: Maquetado de Seguimiento de Paquetes
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Estatus</label>
-                                        <select id="cmbestatus" class="form-control selected" onchange="ListarEstatus()">
+                                        <label>Tipo de Distribución</label>
+                                        <select id="cmbtipodistibucion" class="form-control selected" onchange="ListarTipoDistribucion()">
                                             <option value="0">Seleccione</option>
                                         </select>
+                                        <h6>Nota: Depende del tipo de distribución seleccionado, se desplejara un formulario distinto</h6>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
