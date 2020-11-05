@@ -11,6 +11,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/ipostelcore/ipostel/util"
 	_ "github.com/lib/pq"
+	_ "github.com/alexbrainman/odbc"
 )
 
 //MongoDBConexion Conexion a Mongo DB
@@ -26,15 +27,15 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 	c := mapa["sqlserver"]
 	//cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host
 	//cadena := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s", c.Host, c.Usuario, c.Clave, c.Puerto, c.Basedatos)
-	//cadena := "sqlserver://administrador:Rootsupr3m0@10.16.12.210:1433?database=Traking&connection+timeout=30"
+	//cadena := "sqlserver://innova:innova2020@10.16.12.210:1433?database=PuntoPostal_06&connection+timeout=30"
 	//cadena := "sqlserver://sa:operainfo123*@192.168.6.185:1433?database=PuntoPostal_06"
-	//cadena := "odbc:server=192.168.6.185\\SQLExpress;user id=sa;password=operainfo123*;database=PuntoPostal_06;app name=ipostel"
-	//cadena := "odbc:server=192.168.6.185;user id=sa;password=operainfo123*;database=PuntoPostal_06;app name=MyAppName"
-	cadena := "sqlserver://sa:operainfo123*@192.168.6.185/SQLExpress?database=PuntoPostal_06&connection+timeout=30"
+	//cadena := "odbc:server=10.16.12.210\\SQLExpress;user id=innova;password=innova2020;database=PuntoPostal_06;app name=innova"
+	//cadena := "odbc:server=10.16.12.210;user id=innova;password=innova2020;database=PuntoPostal_06;app name=MyAppName"
+	//cadena := "sqlserver://sa:operainfo123*@192.168.6.185/SQLExpress?database=PuntoPostal_06&connection+timeout=30"
 	//cadena := "server=192.168.6.185;user id=sa;password=operainfo123*;"
-	fmt.Println(cadena)
+	//fmt.Println(cadena)
 	//sqlcmd -S 192.168.6.185 -U sa -P operainfo123* -Q "SELECT @@version"
-	SqlServerPuntoPostal, err = sql.Open("sqlserver", cadena)
+	SqlServerPuntoPostal, err = sql.Open("odbc", "DSN=innova;Uid=innova;Pwd=innova2020")
 
 	//SqlServerPuntoPostal, err = sql.Open("mssql", cadena)
 
@@ -43,7 +44,11 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 		fmt.Println(err.Error())
 	} else {
 		fmt.Println("[Punto Postal: ", c.Host, "  OK...]")
+<<<<<<< HEAD
 		sq, err := PuntoPostalPostgres.Query("SELECT DESTINO, TARIFA FROM TARIFAEEB LIMIT 1")
+=======
+		sq, err := SqlServerPuntoPostal.Query("SELECT  codofic, descripcion FROM oficinas")
+>>>>>>> 60af6e41990d1910f57667ddff630e4f33f27c83
 		util.Error(err)
 		for sq.Next() {
 			var a, b string
