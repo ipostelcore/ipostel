@@ -107,7 +107,8 @@ class Utilidad{
     }
 
     DibujarMenuLateral(Mnu){
-        var cadena = `<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">`;
+        var cadena = `<nav class="mt-2" >
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">`;
        
        
         if (Mnu.Perfil.Menu != undefined){
@@ -138,12 +139,13 @@ class Utilidad{
             }
 
           });
-          cadena += menu + `</ul>`
+          cadena += menu + `</ul>
+          </nav>`
           $('#_menulateral').html(cadena);
         }else{
           console.log("No existen menus asociados a las cuentas.");
         }
-        verificarPrivilegioUsuario(Mnu);
+        //verificarPrivilegioUsuario(Mnu);
     }
 }
 

@@ -21,15 +21,13 @@ Toast = Swal.mixin({
   if (sessionStorage.getItem('ipostel') == undefined ){
     $(location).attr("href","index.html");
   }else{
-    console.info('Iniciando carga del sistema');
-    
-    CargarUrl('modales', 'inc/modales');
-    //CargarUrl('cuerpo', 'inc/escritorio');
     Util.CargarJsonMenu(); 
-    Util.DibujarEscritorio(JsonMenu);
+    CargarUrl('modales', 'inc/modales');
+    console.info('Iniciando carga del sistema');
     Util.DibujarMenuLateral(JsonMenu);
+    Util.DibujarEscritorio(JsonMenu);
 
-    Util.ProcesoExitoso('&nbsp;La página se ha cargado exitosamente');
+    //Util.ProcesoExitoso('&nbsp;La página se ha cargado exitosamente');
 
   }
     
