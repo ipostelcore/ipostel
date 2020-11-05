@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/informaticaipsfa/tunel/util"
+	"github.com/ipostelcore/ipostel/util"
 )
 
 type Migrar struct {
