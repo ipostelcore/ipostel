@@ -31,6 +31,11 @@ class Roles{
     Obtener(){}
 }
 
+function _mdlAgregarRoles(){
+    $("#_mdlTitulo").html("Agregar Roles");
+    $("#mdlGeneral").modal("show");
+}
+
 class Oficinas{
     constructor(){}
     Crear(req){
@@ -38,9 +43,6 @@ class Oficinas{
     }
     Obtener(){}
 }
-
-
-
 
 function _mdlAgregarServicio(){
     $("#_mdlTitulo").html("Agregar Servicio");
@@ -73,7 +75,7 @@ function ListarOficinas(){
             $("#cmboficinas").append(`<option value="${e.id}">${e.descripcion}</option>`);
         });
     });
-    
+
     console.log("Imprimiendo");
 
 }
