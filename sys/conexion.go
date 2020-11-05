@@ -44,11 +44,7 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 		fmt.Println(err.Error())
 	} else {
 		fmt.Println("[Punto Postal: ", c.Host, "  OK...]")
-<<<<<<< HEAD
-		sq, err := PuntoPostalPostgres.Query("SELECT DESTINO, TARIFA FROM TARIFAEEB LIMIT 1")
-=======
 		sq, err := SqlServerPuntoPostal.Query("SELECT  codofic, descripcion FROM oficinas")
->>>>>>> 60af6e41990d1910f57667ddff630e4f33f27c83
 		util.Error(err)
 		for sq.Next() {
 			var a, b string
