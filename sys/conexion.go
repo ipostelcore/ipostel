@@ -43,7 +43,7 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 		fmt.Println(err.Error())
 	} else {
 		fmt.Println("[Punto Postal: ", c.Host, "  OK...]")
-		sq, err := PuntoPostalPostgres.Query("SELECT DESTINO, TARIFA FROM TARIFAEEB LIMIT 10")
+		sq, err := PuntoPostalPostgres.Query("SELECT DESTINO, TARIFA FROM TARIFAEEB LIMIT 1")
 		util.Error(err)
 		for sq.Next() {
 			var a, b string
@@ -80,41 +80,17 @@ func ConexionPuntoPostalPostgres(mapa map[string]CadenaDeConexion) {
 
 }
 
-//ConexionEMPLEADO Funcion de Conexion a Postgres
-func ConexionEMPLEADO(mapa map[string]CadenaDeConexion) {
-	c := mapa["empleado"]
+//ConexionPuntoPostalIpostel Funcion de Conexion a Postgres
+func ConexionPuntoPostalIpostel(mapa map[string]CadenaDeConexion) {
+	c := mapa["ipostel"]
 	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
-	PostgreSQLEMPLEADOSIGESP, _ = sql.Open("postgres", cadena)
-	if PostgreSQLEMPLEADOSIGESP.Ping() != nil {
-		fmt.Println("[Empleado:   Error...] ", PostgreSQLEMPLEADOSIGESP.Ping())
+	PuntoPostalIpostel, _ = sql.Open("postgres", cadena)
+	if PuntoPostalIpostel.Ping() != nil {
+		fmt.Println("[Punto Postal Ipostel:   Error...] ", PuntoPostalIpostel.Ping())
 	} else {
-		fmt.Println("[Empleado: ", c.Host, "  OK...]")
+		fmt.Println("[Punto Postal Ipostel: ", c.Host, "  OK...]")
 	}
-}
 
-//ConexionPACE
-func ConexionPACE(mapa map[string]CadenaDeConexion) {
-	c := mapa["pace"]
-	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
-	PostgreSQLPACE, _ = sql.Open("postgres", cadena)
-	if PostgreSQLPACE.Ping() != nil {
-		fmt.Println("[Pace: ", c.Host, " Error...] ", PostgreSQLPACE.Ping())
-	} else {
-		fmt.Println("[Pace: ", c.Host, " OK...]")
-	}
-}
-
-//ConexionTARJETA
-func ConexionPENSION(mapa map[string]CadenaDeConexion) {
-	c := mapa["pension"]
-	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
-	PostgreSQLPENSION, _ = sql.Open("postgres", cadena)
-	if PostgreSQLPENSION.Ping() != nil {
-		fmt.Println("[Pensiones: Error...] ", PostgreSQLPENSION.Ping())
-	} else {
-		fmt.Println("[Pensiones: OK...]")
-	}
-	return
 }
 
 //ConexionTARJETA

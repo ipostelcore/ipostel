@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/ipostelcore/ipostel/mdl/migracion"
 	"github.com/ipostelcore/ipostel/sys"
 	"github.com/ipostelcore/ipostel/util"
 )
@@ -72,8 +73,8 @@ func (a *API) SubirArchivos(w http.ResponseWriter, r *http.Request) {
 
 //ProcesarTxt Proceso de archivo
 func ProcesarTxt(doc string, codigo string) {
-	var a util.Archivo
-	a.Ruta = "./public_web/ipostel/temp/migracion/" + doc
-	a.LeerCA(sys.PostgreSQLPENSION, codigo, doc)
+	var procesar migracion.Migrar
+	procesar.Ruta = "./public_web/www/temp/migracion/" + doc
+	procesar.Leer(sys.PuntoPostalPostgres, codigo, doc)
 
 }

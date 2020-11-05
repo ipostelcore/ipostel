@@ -23,6 +23,7 @@ import (
 	"time"
 
 	"github.com/gorilla/context"
+	"github.com/ipostelcore/ipostel/mdl/migracion"
 	"github.com/ipostelcore/ipostel/sys"
 	"github.com/ipostelcore/ipostel/sys/web"
 )
@@ -44,21 +45,11 @@ func init() {
 }
 
 func main() {
-	// var militar sssifanb.Militar
-	// militar.MGOActualizarPensionados()
-	// militar.MGOActualizarSobrevivientes() //Evalua y carga los porcentajes de los familiares
-	// militar.MGOActualizarSobrevivientesFideicomiso()
-	// militar.MGOActualizarFEVIDA()
-	// var pension sssifanb.Pension
-	//
-	// pension.ConsultarPensionadosReconocido()
-	// var pension sssifanb.Pension
-	// pension.Exportar("", 0)
-	// pension.ExportarFamiliares() //Pagar a los familiares
-	// var pension sssifanb.Pension
-	// pension.PensioanadosBeneficiarios()
-	// pension.ActualizarSobrevivientesPension()
-	//
+
+	var procesar migracion.Migrar
+	procesar.Ruta = "./public_web/www/tmp/migracion/tracking.csv"
+	procesar.Leer(sys.PuntoPostalIpostel, "primertestcsv", procesar.Ruta)
+
 	fmt.Println("Inciando la carga del sistema")
 	web.Cargar()
 

@@ -5,21 +5,24 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
-	"strconv"
 	"strings"
 
 	"github.com/informaticaipsfa/tunel/util"
 )
 
-type Migrar struct{}
+type Migrar struct {
+	Ruta      string
+	StrCols   []string
+	StrValues []string
+	Tabla     string
+}
 
 //Leer procesar archivos separados por puntos y comas csv
 func (m *Migrar) Leer(db *sql.DB, codigo string, doc string) bool {
-	var coma, concepto, tipo string
-	var cantidad int
+
 	codigomd5 := strings.Split(codigo, "|")
 
-	insertar := ""
+	//insertar := ""
 	archivo, err := os.Open(doc)
 	util.Error(err)
 	scan := bufio.NewScanner(archivo)
@@ -27,71 +30,76 @@ func (m *Migrar) Leer(db *sql.DB, codigo string, doc string) bool {
 	for scan.Scan() {
 		linea := strings.Split(scan.Text(), ";")
 		l := len(linea)
-		if i == 0 {
-			concepto = linea[0]
-			tipo = linea[4]
-		} else { //Leyendo la primera linea
-			cantidad++
-			if l > 2 {
-				if cantidad > 1 {
-					coma = ","
-				} else {
-					coma = ""
-				}
-
-				cedula, _ := strconv.Atoi(strings.Split(linea[0], ".")[0])
-				familiar, _ := strconv.Atoi(strings.Split(linea[1], ".")[0])
-				monto := linea[2]
-				insertar += coma + "('" + strconv.Itoa(cedula) + "','" + strconv.Itoa(familiar)
-				insertar += "','" + codigomd5[0] + "','" + concepto + "'," + monto + ", " + tipo + ", Now(), '" + codigomd5[1] + "' )"
-
-			} else { //DE LO CONTRARIO
-
-				if cantidad > 1 {
-					coma = ","
-				} else {
-					coma = ""
-				}
-
-				cedula, _ := strconv.Atoi(strings.Split(linea[0], ".")[0])
-				monto := linea[1]
-				insertar += coma + "('" + strconv.Itoa(cedula) + "','','" + codigomd5[0]
-				insertar += "','" + concepto + "'," + monto + ", " + tipo + ", Now(), '" + codigomd5[1] + "')"
-				//fmt.Println("Linea # ", i, cedula, "|", concepto)
+		if l > 0 {
+			m.StrCols = nil
+			m.StrValues = nil
+			m.picarCampos(linea[1])
+			m.Tabla = linea[0]
+			//fmt.Println(m.crearTabla())
+			_, err := db.Exec(m.crearTabla())
+			if err != nil {
+				fmt.Println("ERR. AL PROCESAR ARCHIVO TXT ", m.Tabla, err.Error())
+				//return false
 			}
 
+			i++
 		}
-		i++
 
 	}
 
-	fmt.Println("procesando ", i, doc)
-	_, err = db.Exec(insertar)
-	//fmt.Println(insertar)
+	fmt.Println("procesando ", i, doc, codigomd5)
+	/**
+	_, err = db.Exec(//)
 	if err != nil {
 		fmt.Println("ERR. AL PROCESAR ARCHIVO TXT ", doc, err.Error())
 		return false
-	}
+	}**/
 	return true
 }
 
-func seleccionarTipo(prefijo string) string {
+func (m *Migrar) picarCampos(campos string) {
+
+	splitCampos := strings.Split(campos, ",")
+	for i := 0; i < len(splitCampos); i++ {
+		valor := strings.Split(splitCampos[i], ".")
+		campo := m.seleccionarTipo(valor[0])
+
+		//fmt.Printf("campos: %s, tipo: %s \n", campo, valor[1])
+		m.StrCols = append(m.StrCols, valor[1]+" "+campo)
+		m.StrValues = append(m.StrValues, valor[1])
+	}
+
+}
+
+func (m *Migrar) seleccionarTipo(prefijo string) string {
 	var cadena string
 
 	switch prefijo {
-	case "int":
+	case "INT":
 		cadena = "INTEGER"
 		break
-	case "dbl":
+	case "DBL":
 		cadena = "NUMERIC (15,3)"
 		break
-	case "str":
+	case "STR":
 		cadena = "VARCHAR (256)"
 		break
-	case "txt":
+	case "VAR":
+		cadena = "VARCHAR (256)"
+		break
+	case "FLO":
+		cadena = "VARCHAR (256)"
+		break
+	case "TXT":
 		cadena = "TEXT"
 		break
-	case "fch":
+	case "BIN":
+		cadena = "BOOLEAN"
+		break
+	case "BIT":
+		cadena = "BOOLEAN"
+		break
+	case "TMS":
 		cadena = "TIMESTAMP"
 		break
 	default:
@@ -102,9 +110,17 @@ func seleccionarTipo(prefijo string) string {
 	return cadena
 }
 
-func crearTabla(nombre string, campos string) string {
+func (m *Migrar) crearTabla() string {
 	var tabla string
-	tabla = `CREATE TABLE IF NO EXISTS ` + nombre + ` ( m_oid serial PRIMARY KEY, )`
+	var coma, valores string
+	tabla = `CREATE TABLE IF NOT EXISTS ` + m.Tabla + ` ( m_oid serial PRIMARY KEY, `
+	for i := 0; i < len(m.StrCols); i++ {
+		if i > 0 {
+			coma = ","
+		}
+		valores += coma + m.StrCols[i]
+	}
+	tabla += valores + ")"
 	return tabla
 }
 
