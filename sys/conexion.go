@@ -7,11 +7,11 @@ import (
 
 	mgo "gopkg.in/mgo.v2"
 
+	_ "github.com/alexbrainman/odbc"
 	_ "github.com/denisenkom/go-mssqldb"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/ipostelcore/ipostel/util"
 	_ "github.com/lib/pq"
-	_ "github.com/alexbrainman/odbc"
 )
 
 //MongoDBConexion Conexion a Mongo DB
@@ -35,7 +35,7 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 	//cadena := "server=192.168.6.185;user id=sa;password=operainfo123*;"
 	//fmt.Println(cadena)
 	//sqlcmd -S 192.168.6.185 -U sa -P operainfo123* -Q "SELECT @@version"
-	SqlServerPuntoPostal, err = sql.Open("odbc", "DSN=innova;Uid=innova;Pwd=innova2020")
+	SqlServerPuntoPostal, err = sql.Open("odbc", "server=10.16.12.210;DSN=innova;Uid=innova;Pwd=innova2020")
 
 	//SqlServerPuntoPostal, err = sql.Open("mssql", cadena)
 
@@ -44,11 +44,7 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 		fmt.Println(err.Error())
 	} else {
 		fmt.Println("[Punto Postal: ", c.Host, "  OK...]")
-<<<<<<< HEAD
-		sq, err := PuntoPostalPostgres.Query("SELECT DESTINO, TARIFA FROM TARIFAEEB LIMIT 1")
-=======
 		sq, err := SqlServerPuntoPostal.Query("SELECT  codofic, descripcion FROM oficinas")
->>>>>>> 60af6e41990d1910f57667ddff630e4f33f27c83
 		util.Error(err)
 		for sq.Next() {
 			var a, b string
