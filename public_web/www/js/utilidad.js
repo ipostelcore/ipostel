@@ -126,7 +126,7 @@ class Utilidad{
               var submenu = "";
               v.SubMenu.forEach(vx => {
                 submenu += `<li class="nav-item">
-                  <a href="#" onclick="${v.accion}" class="nav-link ">
+                  <a href="#" onclick="${vx.accion}" class="nav-link ">
                     <i class="${vx.icono} nav-icon"></i>
                     <p>${vx.nombre}</p>
                   </a>

@@ -156,20 +156,20 @@ function IniciarSesion(){
    CargarUrl('cargamasiva', 'inc/tracking/consignacionmodal');
  }
 
- function consignacionlote(){
+ function CargarConsignacionLote(){
    CargarUrl('cuerpo', 'inc/tracking/consignacion');
    CargarUrl('cargamasiva', 'inc/tracking/consignacionmodal');
  }
 
- function seguimiento(){
+ function CargarSeguimiento(){
    CargarUrl('cuerpo', 'inc/tracking/seguimiento');
  }
 
- function distribucion(){
+ function CargarDistribucion(){
    CargarUrl('cuerpo', 'inc/tracking/manejodistribucion');
  }
 
- function configuracion(){
+ function CargarConfiguracion(){
    CargarUrl('cuerpo', 'inc/tracking/submenu_distribucion');
  }
 
