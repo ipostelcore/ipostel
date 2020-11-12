@@ -143,10 +143,21 @@ func (usr *Usuario) Salvar() error {
 //Validar Usuarios
 func (usr *Usuario) Validar(login string, clave string) (err error) {
 	usr.Nombre = ""
+	var usrs interface{}
 	c := sys.MGOSession.DB(sys.CBASE).C(sys.CUSUARIO)
-	err = c.Find(bson.M{"login": login, "clave": clave}).Select(bson.M{"clave": false}).One(&usr)
 
-	return
+	errs := c.Find(bson.M{"login": login, "clave": clave}).One(&usrs)
+	if errs != nil {
+		return err
+	}
+	fmt.Println("Me conecte a una nueva interfaz")
+	err = c.Find(bson.M{"login": login, "clave": clave}).Select(bson.M{"clave": false}).One(&usr)
+	if err != nil {
+		fmt.Println("Error: Validar usuario # ", err.Error())
+		return err
+	}
+	fmt.Println("Conectando a la base de datos...", sys.CBASE)
+	return err
 }
 
 func CrearClaveTodos() {

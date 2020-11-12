@@ -3,6 +3,7 @@ package sys
 const (
 	SERVERIMG         string = "htttp://192.168.12.161/imagenes/"
 	CBASE             string = "ipostel"
+	APICORE           string = "apicore"
 	CTIM              string = "tim"
 	CESTADO           string = "estado"
 	CFAMILIAR         string = "familiar"

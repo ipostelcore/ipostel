@@ -24,46 +24,21 @@ func MongoDBConexion(mapa map[string]CadenaDeConexion) {
 
 //ConexionPuntoPostal Funcion de Conexion a Postgres
 func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
-	c := mapa["sqlserver"]
-	//cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host
-	//cadena := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s", c.Host, c.Usuario, c.Clave, c.Puerto, c.Basedatos)
-	//cadena := "sqlserver://innova:innova2020@10.16.12.210:1433?database=PuntoPostal_06&connection+timeout=30"
-	//cadena := "sqlserver://sa:operainfo123*@192.168.6.185:1433?database=PuntoPostal_06"
-	//cadena := "odbc:server=10.16.12.210\\SQLExpress;user id=innova;password=innova2020;database=PuntoPostal_06;app name=innova"
-	//cadena := "odbc:server=10.16.12.210;user id=innova;password=innova2020;database=PuntoPostal_06;app name=MyAppName"
-	//cadena := "sqlserver://sa:operainfo123*@192.168.6.185/SQLExpress?database=PuntoPostal_06&connection+timeout=30"
-	//cadena := "server=192.168.6.185;user id=sa;password=operainfo123*;"
-	//fmt.Println(cadena)
-	//sqlcmd -S 192.168.6.185 -U sa -P operainfo123* -Q "SELECT @@version"
-	SqlServerPuntoPostal, err = sql.Open("odbc", "server=10.16.12.210;DSN=innova;Uid=innova;Pwd=innova2020")
-
-	//SqlServerPuntoPostal, err = sql.Open("mssql", cadena)
-
+	c := mapa["puntopostal"]
+	SqlServerPuntoPostal, err = sql.Open("odbc", "server=192.168.6.185;DSN=ipostel;Uid=ipostel;Pwd=Za63qj2p##")
 	if err != nil {
 		fmt.Println("[Punto Postal:   Error...] ", SqlServerPuntoPostal.Ping())
 		fmt.Println(err.Error())
 	} else {
 		fmt.Println("[Punto Postal: ", c.Host, "  OK...]")
-		sq, err := SqlServerPuntoPostal.Query("SELECT  codofic, descripcion FROM oficinas")
+		sq, err := SqlServerPuntoPostal.Query("SELECT TOP 2 codofic, descripcion FROM oficinas")
 		util.Error(err)
 		for sq.Next() {
 			var a, b string
 			sq.Scan(&a, &b)
 			fmt.Println(a, b)
 		}
-		// ctx := context.Background()
-		// err = SqlServerPuntoPostal.PingContext(ctx)
-		// if err != nil {
-		// 	fmt.Println("Control...", err.Error())
-		// }
-		// var result string
-
-		// error := SqlServerPuntoPostal.QueryRowContext(ctx, "SELECT @@version").Scan(&result)
-		// if error != nil {
-		// 	fmt.Println("LLLL ", error.Error())
-		// }
 		fmt.Println("Controlando la situación")
-
 	}
 	return
 }

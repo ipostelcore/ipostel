@@ -1,0 +1,55 @@
+[{
+    "modulo": "control",
+    "driver": "puntopostal",
+    "query": "SELECT CLIENTE, DESCRIPCION FROM CLIENTES",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerClientes",
+    "metodo": "POST"
+},{
+    "modulo": "control",
+    "driver": "puntopostal",
+    "query": "SELECT CODOFIC, DESCRIPCION, DIRECCION, CODPOSTAL, TELEFONO, FAX, JEFE FROM OFICINAS",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerOficinas",
+    "metodo": "POST"
+},{
+    "modulo": "control",
+    "driver": "puntopostal",
+    "query": "SELECT CODSERV, DESTINO, DESDE, HASTA, TARIFA FROM TARIFAEEB",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerTarifasEEB",
+    "metodo": "POST"
+},{
+    "modulo": "control",
+    "driver": "puntopostal",
+    "query": "SELECT CODSERV,DESTINO,DESDE, HASTA, TARIFA FROM TARIFAEEE",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerTarifasEEE",
+    "metodo": "POST"
+},{
+    "modulo": "control",
+    "driver": "puntopostal",
+    "query": "SELECT dbo.ESTADISTICAS.CODOPT, dbo.OFICINAS.DESCRIPCION, dbo.ESTADISTICAS.FECHA, dbo.ESTADISTICAS.CONCEPTO, dbo.ESTADISTICAS.CODSERV, dbo.MAESTROSERVICIOS.DESCRIPCION AS SERVICIO, SUM(dbo.ESTADISTICAS.TOTAL) AS TOTAL_DIA FROM dbo.ESTADISTICAS LEFT OUTER JOIN dbo.OFICINAS ON dbo.OFICINAS.CODOFIC = dbo.ESTADISTICAS.CODOPT LEFT OUTER JOIN dbo.MAESTROSERVICIOS ON dbo.MAESTROSERVICIOS.CODSERV = dbo.ESTADISTICAS.CODSERV GROUP BY dbo.ESTADISTICAS.CODOPT, dbo.OFICINAS.DESCRIPCION, dbo.ESTADISTICAS.FECHA, dbo.ESTADISTICAS.CONCEPTO, dbo.ESTADISTICAS.CODSERV, dbo.MAESTROSERVICIOS.DESCRIPCION",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ReporteVentasDiarias",
+    "metodo": "POST"
+} ,{
+    "modulo": "control",
+    "driver": "puntopostal",
+    "query": "SELECT dbo.ESTADISTICAS.CODOPT, dbo.OFICINAS.DESCRIPCION, dbo.ESTADISTICAS.FECHA, dbo.ESTADISTICAS.CONCEPTO, dbo.ESTADISTICAS.CODSERV, dbo.MAESTROSERVICIOS.DESCRIPCION AS SERVICIO, SUM(dbo.ESTADISTICAS.TOTAL) AS TOTAL_DIA FROM dbo.ESTADISTICAS LEFT OUTER JOIN dbo.OFICINAS ON dbo.OFICINAS.CODOFIC = dbo.ESTADISTICAS.CODOPT LEFT OUTER JOIN dbo.MAESTROSERVICIOS ON dbo.MAESTROSERVICIOS.CODSERV = dbo.ESTADISTICAS.CODSERV GROUP BY dbo.ESTADISTICAS.CODOPT, dbo.OFICINAS.DESCRIPCION, dbo.ESTADISTICAS.FECHA, dbo.ESTADISTICAS.CONCEPTO, dbo.ESTADISTICAS.CODSERV, dbo.MAESTROSERVICIOS.DESCRIPCION WHERE dbo.ESTADISTICAS.CODOPT = '$0'",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ReporteVentasDiariasPorOpt",
+    "metodo": "POST"
+}   ]

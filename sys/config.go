@@ -28,6 +28,7 @@ var (
 	PostgreSQLEMPLEADOSIGESP *sql.DB
 	MysqlFullText            *sql.DB
 	SqlServerPuntoPostal     *sql.DB
+	SqlServerTracking        *sql.DB
 	Error                    error
 	HostIPPace               string = ""
 	HostUrlPace              string = ""
@@ -79,9 +80,20 @@ func init() {
 	e := json.Unmarshal(data, &Conexiones)
 	for _, valor := range Conexiones {
 		switch valor.Driver {
-		case "sqlserver":
+		case "puntopostal":
 			cad := make(map[string]CadenaDeConexion)
-			cad["sqlserver"] = CadenaDeConexion{
+			cad["puntopostal"] = CadenaDeConexion{
+				Driver:    valor.Driver,
+				Usuario:   valor.Usuario,
+				Basedatos: valor.Basedatos,
+				Clave:     valor.Clave,
+				Host:      valor.Host,
+				Puerto:    valor.Puerto,
+			}
+			ConexionPuntoPostal(cad)
+		case "tracking":
+			cad := make(map[string]CadenaDeConexion)
+			cad["tracking"] = CadenaDeConexion{
 				Driver:    valor.Driver,
 				Usuario:   valor.Usuario,
 				Basedatos: valor.Basedatos,

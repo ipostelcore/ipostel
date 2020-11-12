@@ -3,9 +3,13 @@ package core
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
+	"strconv"
+	"strings"
 
 	"github.com/ipostelcore/ipostel/sys"
 	"github.com/ipostelcore/ipostel/util"
+	"gopkg.in/mgo.v2/bson"
 )
 
 //Core Ejecucion
@@ -22,6 +26,18 @@ type Oficina struct {
 	CodigoOficina string `json:"codigo"`
 	Descripcion   string `json:"descripcion"`
 }
+
+type ApiCore struct {
+	Modulo     string `json:"modula"`
+	Driver     string `json:"driver"`
+	Query      string `json:"query"`
+	Campos     string `json:"campos"`
+	Parametros string `json:"parametros"`
+	Ruta       string `json:"ruta"`
+	Retorna    string `json:"retorna"`
+}
+
+type Object map[string]interface{}
 
 //Oficinas Reporte de oficinas
 func (C *Core) Oficinas() (jSon []byte, err error) {
@@ -41,5 +57,84 @@ func (C *Core) Oficinas() (jSon []byte, err error) {
 
 	}
 	jSon, err = json.Marshal(lst)
+	return
+}
+
+//CrearQuery Creación dinamica de Consultas
+func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
+
+	lista := make([]map[string]interface{}, 0)
+	c, a := leerValores(v)
+	valores := strings.Split(a.Parametros, ",")
+	consulta := a.Query
+	cantidad := len(valores)
+
+	for i := 0; i < cantidad; i++ {
+
+		svalor := valores[i]
+		pos := "$" + strconv.Itoa(i)
+		consulta = strings.Replace(a.Query, pos, svalor, -1)
+	}
+
+	fmt.Println(consulta)
+	rs, _ := c.Query(consulta)
+	cols, err := rs.Columns()
+	if err != nil {
+		panic(err)
+	}
+	colvals := make([]interface{}, len(cols))
+
+	for rs.Next() {
+		colassoc := make(map[string]interface{}, len(cols))
+		for i, _ := range colvals {
+			colvals[i] = new(interface{})
+		}
+		if err := rs.Scan(colvals...); err != nil {
+			panic(err)
+		}
+		for i, col := range cols {
+			contenido := *colvals[i].(*interface{})
+			colassoc[col] = fmt.Sprintf("%s", contenido)
+		}
+		lista = append(lista, colassoc)
+
+	}
+	jSon, err = json.Marshal(lista)
+	return
+}
+
+func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
+
+	var parametro, ruta string
+
+	for k, vs := range v {
+
+		switch k {
+		case "ruta":
+			ruta = vs.(string)
+			break
+		case "parametros":
+			parametro = vs.(string)
+			break
+		case "metodo":
+
+		}
+	}
+
+	c := sys.MGOSession.DB(sys.CBASE).C(sys.APICORE)
+	err := c.Find(bson.M{"ruta": ruta}).One(&a)
+	if err != nil {
+		fmt.Println("Error creando Query en Mongodb ", err.Error())
+	}
+	switch a.Driver {
+	case "puntopostal":
+		db = sys.SqlServerPuntoPostal
+		break
+	case "tracking":
+		db = sys.SqlServerTracking
+		break
+	}
+	a.Parametros = parametro
+	fmt.Println("Driver seleccionado: ", a.Driver)
 	return
 }

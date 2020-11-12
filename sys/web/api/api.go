@@ -1,10 +1,12 @@
 package api
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/ipostelcore/ipostel/mdl/core"
 	"github.com/ipostelcore/ipostel/sys/seguridad"
+	"github.com/ipostelcore/ipostel/util"
 )
 
 //UsuarioConectado Seguridad Informatica
@@ -39,4 +41,18 @@ func (a *API) Oficinas(w http.ResponseWriter, r *http.Request) {
 	j, _ := c.Oficinas()
 	w.Write(j)
 	return
+}
+
+//Crud conexion para solicitud de token
+func (a *API) Crud(w http.ResponseWriter, r *http.Request) {
+	var c core.Core
+	Cabecera(w, r)
+	var v map[string]interface{}
+	e := json.NewDecoder(r.Body).Decode(&v)
+	util.Error(e)
+
+	j, _ := c.CrearQuery(v)
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(j)
 }

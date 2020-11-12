@@ -35,11 +35,7 @@ func CargarModulosWeb() {
 	Enrutador.HandleFunc("/ipostel/api/crud/{id}", wUsuario.ValidarToken(ap.Consultar)).Methods("GET")
 	Enrutador.HandleFunc("/ipostel/api/oficina/listar", wUsuario.ValidarToken(ap.Oficinas)).Methods("GET")
 
-	// Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(per.Actualizar)).Methods("PUT")
-	// Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(per.Insertar)).Methods("POST")
-	// Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(per.Eliminar)).Methods("DELETE")
-	// Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(per.Opciones)).Methods("OPTIONS")
-	// Enrutador.HandleFunc("/ipostel/api/listado", wUsuario.ValidarToken(per.Listado)).Methods("POST")
+	Enrutador.HandleFunc("/ipostel/api/crud", ap.Crud).Methods("POST")
 
 }
 
