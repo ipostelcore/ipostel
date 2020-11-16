@@ -105,21 +105,7 @@ func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 
 func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 
-	var parametro, ruta string
-
-	for k, vs := range v {
-
-		switch k {
-		case "ruta":
-			ruta = vs.(string)
-			break
-		case "parametros":
-			parametro = vs.(string)
-			break
-		case "metodo":
-
-		}
-	}
+	parametro, ruta := retornaValores(v)
 
 	c := sys.MGOSession.DB(sys.CBASE).C(sys.APICORE)
 	err := c.Find(bson.M{"ruta": ruta}).One(&a)
@@ -137,4 +123,19 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 	a.Parametros = parametro
 	fmt.Println("Driver seleccionado: ", a.Driver)
 	return
+}
+func retornaValores(v map[string]interface{}) (parametro string, ruta string) {
+	for k, vs := range v {
+
+		switch k {
+		case "ruta":
+			ruta = vs.(string)
+			break
+		case "parametros":
+			parametro = vs.(string)
+			break
+		case "metodo":
+
+		}
+	}
 }
