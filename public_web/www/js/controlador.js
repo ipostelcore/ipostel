@@ -169,7 +169,7 @@ function IniciarSesion(){
    CargarUrl('cuerpo', 'inc/tracking/manejodistribucion');
  }
 
- function CargarConfiguracion(){
+ function CargarConfiguracionTracking(){
    CargarUrl('cuerpo', 'inc/tracking/submenu_distribucion');
  }
 
@@ -210,3 +210,9 @@ function IniciarSesion(){
      CargarUrl('cuerpo', 'inc/ventas/telegramas');
     //Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
  }
+
+ //Configuracion
+
+ function CargarConfiguracion(){
+  CargarUrl('cuerpo', 'inc/configuracion/submenu');
+}

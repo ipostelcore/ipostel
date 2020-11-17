@@ -25,20 +25,29 @@ func MongoDBConexion(mapa map[string]CadenaDeConexion) {
 //ConexionPuntoPostal Funcion de Conexion a Postgres
 func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 	c := mapa["puntopostal"]
-	SqlServerPuntoPostal, err = sql.Open("odbc", "server=192.168.6.185;DSN=ipostel;Uid=ipostel;Pwd=Za63qj2p##")
+
+	SqlServerPuntoPostal, err = sql.Open("odbc", "server="+c.Host+";DSN=ipostel;Uid=ipostel;Pwd="+c.Clave)
 	if err != nil {
 		fmt.Println("[Punto Postal:   Error...] ", SqlServerPuntoPostal.Ping())
 		fmt.Println(err.Error())
+		return
 	} else {
-		fmt.Println("[Punto Postal: ", c.Host, "  OK...]")
-		sq, err := SqlServerPuntoPostal.Query("SELECT TOP 2 codofic, descripcion FROM oficinas")
-		util.Error(err)
-		for sq.Next() {
-			var a, b string
-			sq.Scan(&a, &b)
-			fmt.Println(a, b)
+		//"SELECT TOP 2 codofic, descripcion FROM oficinas"
+		_, err := SqlServerPuntoPostal.Query("SELECT TOP 1 CODOFIC, DESCRIPCION, DIRECCION, CODPOSTAL, TELEFONO, FAX, JEFE FROM OFICINAS")
+
+		if err != nil {
+			fmt.Println("[Punto Postal: ", c.Host, "  Error...] ", err.Error())
+			return err
+		} else {
+			fmt.Println("[Punto Postal: ", c.Host, "  OK...]")
+			// for sq.Next() {
+			// 	var a, b string
+			// 	sq.Scan(&a, &b)
+			// 	fmt.Println(a, b)
+			// }
+			fmt.Println("Controlando la situación")
 		}
-		fmt.Println("Controlando la situación")
+
 	}
 	return
 }

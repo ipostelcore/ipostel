@@ -4,8 +4,10 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/ipostelcore/ipostel/sys"
 	"github.com/ipostelcore/ipostel/util"
@@ -62,22 +64,43 @@ func (C *Core) Oficinas() (jSon []byte, err error) {
 
 //CrearQuery Creación dinamica de Consultas
 func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
-
-	lista := make([]map[string]interface{}, 0)
-	c, a := leerValores(v)
+	conexion, a := leerValores(v)
 	valores := strings.Split(a.Parametros, ",")
+
 	consulta := a.Query
 	cantidad := len(valores)
-
 	for i := 0; i < cantidad; i++ {
 
 		svalor := valores[i]
 		pos := "$" + strconv.Itoa(i)
-		consulta = strings.Replace(a.Query, pos, svalor, -1)
+		consulta = strings.Replace(consulta, pos, svalor, -1)
+	}
+	tpQuery := evaluarQuery(consulta)
+
+	for cf, vf := range tpQuery {
+		if vf == true {
+			switch cf {
+			case "select":
+				jSon, err = C.Select(v, consulta, conexion)
+				break
+			default:
+				jSon, err = C.IUDQuery(consulta, conexion)
+				break
+
+			}
+		}
+
 	}
 
-	fmt.Println(consulta)
-	rs, _ := c.Query(consulta)
+	return
+}
+
+//Select Crear Consultas Sql
+func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.DB) (jSon []byte, err error) {
+
+	lista := make([]map[string]interface{}, 0)
+	//fmt.Println("VIDA ", consulta)
+	rs, _ := conexion.Query(consulta)
 	cols, err := rs.Columns()
 	if err != nil {
 		panic(err)
@@ -86,7 +109,7 @@ func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 
 	for rs.Next() {
 		colassoc := make(map[string]interface{}, len(cols))
-		for i, _ := range colvals {
+		for i := range colvals {
 			colvals[i] = new(interface{})
 		}
 		if err := rs.Scan(colvals...); err != nil {
@@ -94,7 +117,23 @@ func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 		}
 		for i, col := range cols {
 			contenido := *colvals[i].(*interface{})
-			colassoc[col] = fmt.Sprintf("%s", contenido)
+			evalreflect := reflect.ValueOf(contenido)
+
+			//fmt.Println("TIPO ", evalreflect.Kind())
+			switch evalreflect.Kind() {
+			case reflect.Slice:
+				valorstr := fmt.Sprintf("%s", contenido)
+				colassoc[col] = strings.Trim(valorstr, " ")
+				break
+			case reflect.Float64:
+				colassoc[col] = evalreflect.Float()
+				break
+				//WHERE dbo.ESTADISTICAS.CODOPT = '$0'
+			case reflect.Int32:
+				colassoc[col] = evalreflect.Int()
+				break
+			}
+
 		}
 		lista = append(lista, colassoc)
 
@@ -103,10 +142,27 @@ func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 	return
 }
 
+//IUDQuery Insert, Update, Delete Generador de Consultas
+func (C *Core) IUDQuery(consulta string, conexion *sql.DB) (jSon []byte, err error) {
+	var M util.Mensajes
+	_, err = conexion.Exec(consulta)
+	M.Fecha = time.Now()
+	if err != nil {
+		M.Msj = "Erro ejecutando consulta: " + err.Error()
+		M.Tipo = 0
+		jSon, err = json.Marshal(M)
+	} else {
+		M.Msj = "Proceso Exitoso"
+		M.Tipo = 1
+		jSon, err = json.Marshal(M)
+	}
+
+	return
+
+}
+
 func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
-
-	parametro, ruta := retornaValores(v)
-
+	parametro, ruta, _ := retornaValores(v)
 	c := sys.MGOSession.DB(sys.CBASE).C(sys.APICORE)
 	err := c.Find(bson.M{"ruta": ruta}).One(&a)
 	if err != nil {
@@ -116,6 +172,9 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 	case "puntopostal":
 		db = sys.SqlServerPuntoPostal
 		break
+	case "ipostel":
+		db = sys.PuntoPostalIpostel
+		break
 	case "tracking":
 		db = sys.SqlServerTracking
 		break
@@ -124,7 +183,8 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 	fmt.Println("Driver seleccionado: ", a.Driver)
 	return
 }
-func retornaValores(v map[string]interface{}) (parametro string, ruta string) {
+
+func retornaValores(v map[string]interface{}) (parametro string, ruta string, metodo string) {
 	for k, vs := range v {
 
 		switch k {
@@ -135,7 +195,18 @@ func retornaValores(v map[string]interface{}) (parametro string, ruta string) {
 			parametro = vs.(string)
 			break
 		case "metodo":
-
+			metodo = vs.(string)
+			break
 		}
 	}
+	return
+}
+
+func evaluarQuery(cadena string) (s map[string]bool) {
+	s = make(map[string]bool)
+	s["select"] = strings.Contains(cadena, "SELECT")
+	s["insert"] = strings.Contains(cadena, "INSERT")
+	s["update"] = strings.Contains(cadena, "UPDATE")
+	s["delete"] = strings.Contains(cadena, "DELETE")
+	return s
 }
