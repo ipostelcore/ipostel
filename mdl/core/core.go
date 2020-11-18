@@ -20,6 +20,7 @@ type Core struct {
 	Consulta string
 	Ruta     string
 	Autor    string
+	ApiCore
 }
 
 //Oficina Describe una oficinas
@@ -69,10 +70,13 @@ func (C *Core) Oficinas() (jSon []byte, err error) {
 
 //CrearQuery Creación dinamica de Consultas
 func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
-	conexion, a := leerValores(v)
-	valores := strings.Split(a.Parametros, ",")
 
-	consulta := a.Query
+	conexion, a := leerValores(v)
+	C.ApiCore = a
+
+	valores := strings.Split(C.ApiCore.Parametros, ",")
+
+	consulta := C.ApiCore.Query
 	cantidad := len(valores)
 	for i := 0; i < cantidad; i++ {
 
@@ -143,7 +147,9 @@ func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.D
 		lista = append(lista, colassoc)
 
 	}
-
+	if C.ApiCore.Migrar == "true" {
+		go C.IUDQueryBash("", lista, "", conexion)
+	}
 	jSon, err = json.Marshal(lista)
 	return
 }
@@ -169,22 +175,23 @@ func (C *Core) IUDQuery(consulta string, conexion *sql.DB) (jSon []byte, err err
 
 //IUDQueryBash Insert, Update, Delete Generador de Consultas
 func (C *Core) IUDQueryBash(campos string, lista []map[string]interface{}, consulta string, conexion *sql.DB) (jSon []byte, err error) {
-	var M util.Mensajes
+	//var M util.Mensajes
 
 	for clave, valor := range lista {
+		fmt.Println(clave, valor)
+	}
 
-	}
-	_, err = conexion.Exec(consulta)
-	M.Fecha = time.Now()
-	if err != nil {
-		M.Msj = "Erro ejecutando consulta: " + err.Error()
-		M.Tipo = 0
-		jSon, err = json.Marshal(M)
-	} else {
-		M.Msj = "Proceso Exitoso"
-		M.Tipo = 1
-		jSon, err = json.Marshal(M)
-	}
+	// _, err = conexion.Exec(consulta)
+	// M.Fecha = time.Now()
+	// if err != nil {
+	// 	M.Msj = "Erro ejecutando consulta: " + err.Error()
+	// 	M.Tipo = 0
+	// 	jSon, err = json.Marshal(M)
+	// } else {
+	// 	M.Msj = "Proceso Exitoso"
+	// 	M.Tipo = 1
+	// 	jSon, err = json.Marshal(M)
+	// }
 
 	return
 
