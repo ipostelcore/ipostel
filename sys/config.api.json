@@ -52,4 +52,16 @@
     "retorna": "true",
     "ruta": "ReporteVentasDiariasPorOpt",
     "metodo": "POST"
-}   ]
+} ,{
+    "modulo": "ipostel",
+    "driver": "ipostel",
+    "query": "INSERT INTO public.maeenvio(m_oid, cod_envio, descripcion) VALUES ($0, $1, '$2');",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "GuardarMaestroEnvio",
+    "metodo": "POST"
+}  
+
+]
+
