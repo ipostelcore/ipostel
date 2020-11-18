@@ -23,13 +23,13 @@ Titulo: Maquetado de Consignacón de Paquetes
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Hora</label>
-                                                    <input type="time" class="form-control" placeholder="Enter ...">
+                                                    <input type="time" id="txtHora"class="form-control" placeholder="Enter ...">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Fecha</label>
-                                                    <input type="date" class="form-control" placeholder="Enter ...">
+                                                    <input type="datetime" id="txtFecha" class="form-control" placeholder="Enter ...">
                                                 </div>
                                             </div>
                                         </div>
@@ -38,7 +38,7 @@ Titulo: Maquetado de Consignacón de Paquetes
                                             <div class="col-md-5 mr-3">
                                                 <div class="form-group">
                                                     <label>Tipo de Envio</label>
-                                                    <select class="form-control selected" id="cmboTipoEnvio" onchange="ListarTipoEnvio()">
+                                                    <select class="form-control selected" id="cmbTipoEnvio" onchange="ListarTipoEnvio()">
                                                         <option value="0">Seleccione</option>
                                                         <option value="1">Envios Express Bolivarianos (CONTADO)</option>
                                                         <option value="2">Envios Express Bolivarianos (CREDITO)</option>
@@ -46,11 +46,11 @@ Titulo: Maquetado de Consignacón de Paquetes
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Nº de Sticker</label>
-                                                    <input type="text" class="form-control" placeholder="Enter ...">
+                                                    <input type="text" id="txtSticker" class="form-control" placeholder="Enter ...">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Oficina de Origen</label>
-                                                    <select id="cmboficinas" class="form-control selected" onchange="ListarOficinas()">
+                                                    <select id="cmbOficinaOrigen" class="form-control selected" onchange="ListarOficinas()">
                                                         <option value="0">Seleccione</option>
                                                     </select>
                                                 </div>
@@ -61,13 +61,13 @@ Titulo: Maquetado de Consignacón de Paquetes
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Peso (Gramos)</label>
-                                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                                            <input type="text" id="txtPeso" class="form-control" placeholder="Enter ...">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Tipo</label>
-                                                            <select id="cmbtipo" class="form-control selected" onchange="ListarTipo()">
+                                                            <select id="cmbTipo" class="form-control selected" onchange="ListarTipo()">
                                                                 <option value="0">Seleccione</option>
                                                             </select>
                                                         </div>
@@ -75,7 +75,7 @@ Titulo: Maquetado de Consignacón de Paquetes
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Tarifa</label>
-                                                            <select id="cmbtarifa" class="form-control selected" onchange="ListarTarifa()">
+                                                            <select id="cmbTarifa" class="form-control selected" onchange="ListarTarifa()">
                                                                 <option value="0">Seleccione</option>
                                                             </select>
                                                         </div>
@@ -83,8 +83,8 @@ Titulo: Maquetado de Consignacón de Paquetes
                                                     <div class="col-md-6 mt-4 text-center">
                                                         <div class="form-group">
                                                             <div class="icheck-primary d-inline">
-                                                                <input type="radio" id="radioPrimary1" name="r1" checked>
-                                                                <label for="radioPrimary1">
+                                                                <input type="radio" id="radExonerado" name="radExonerado" checked>
+                                                                <label for="radExonerado">
                                                                     Exonerado
                                                                 </label>
                                                             </div>
@@ -93,19 +93,19 @@ Titulo: Maquetado de Consignacón de Paquetes
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>Monto</label>
-                                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                                            <input type="text" id="txtMonto"class="form-control" placeholder="Enter ...">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>Total + Iva</label>
-                                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                                            <input type="text" id="txtTotal"class="form-control" placeholder="Enter ...">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label>Cobrado</label>
-                                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                                            <input type="text" id="txtCobrado" class="form-control" placeholder="Enter ...">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -117,14 +117,14 @@ Titulo: Maquetado de Consignacón de Paquetes
                                                 <h5 for=""><b>*Remitente</b></h5>
                                                 <div class="form-group">
                                                     <div class="icheck-primary d-inline">
-                                                        <input type="radio" id="radioPrimary2" name="r1" checked>
-                                                        <label for="radioPrimary2">
+                                                        <input type="radio" id="radContado" name="radContado" checked>
+                                                        <label for="radContado">
                                                             Contado
                                                         </label>
                                                     </div>
                                                     <div class="icheck-primary d-inline">
-                                                        <input type="radio" id="radioPrimary3" name="r1" checked>
-                                                        <label for="radioPrimary3">
+                                                        <input type="radio" id="radCredito" name="radCredito" checked>
+                                                        <label for="radCredito">
                                                             Crédito
                                                         </label>
                                                     </div>
@@ -132,27 +132,27 @@ Titulo: Maquetado de Consignacón de Paquetes
                                                 <hr>
                                                 <div class="form-group">
                                                     <label>Cédula / Indentificación</label>
-                                                    <input type="text" class="form-control" placeholder="Enter ...">
+                                                    <input type="text" id="txtCedula" class="form-control" placeholder="Enter ...">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Nombre y Apellido</label>
-                                                    <input type="text" class="form-control" placeholder="Enter ...">
+                                                    <input type="text" id="txtNombre"class="form-control" placeholder="Enter ...">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Dirección</label>
-                                                    <input type="text" class="form-control" placeholder="Enter ...">
+                                                    <input type="text" id="txtDireccion" class="form-control" placeholder="Enter ...">
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-5">
                                                         <div class="form-group">
                                                             <label>Teléfono</label>
-                                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                                            <input type="text" id="txtTelefono" class="form-control" placeholder="Enter ...">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-7">
                                                         <div class="form-group">
                                                             <label>Correo</label>
-                                                            <input type="email" class="form-control" placeholder="Enter ...">
+                                                            <input type="text" id="txtCorreo" class="form-control" placeholder="Enter ...">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -162,19 +162,19 @@ Titulo: Maquetado de Consignacón de Paquetes
                                                 <h5 for=""><b>*Destinatario</b></h5>
                                                 <div class="form-group">
                                                     <label>Nombre y Apellido</label>
-                                                    <input type="text" class="form-control" placeholder="Enter ...">
+                                                    <input type="text" id="txtNombreDestinatario" class="form-control" placeholder="Enter ...">
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Pais Destino</label>
-                                                            <input type="text" class="form-control" placeholder="VENEZUELA" disabled>
+                                                            <input type="text" id="txtPais"class="form-control" placeholder="VENEZUELA" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Oficina Destino</label>
-                                                            <select id="cmboficinas" class="form-control selected" onchange="ListarOficinas()">
+                                                            <select id="cmbOficinaDestino" class="form-control selected" onchange="ListarOficinas()">
                                                                 <option value="0">Seleccione</option>
                                                             </select>
                                                         </div>
@@ -182,11 +182,11 @@ Titulo: Maquetado de Consignacón de Paquetes
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Dirección</label>
-                                                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                                    <textarea id="txtDireccionDestino" class="form-control" rows="3" placeholder="Enter ..."></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Teléfono</label>
-                                                    <input type="text" class="form-control" placeholder="VENEZUELA" disabled>
+                                                    <input type="text" id="txtTelefonoDestino" class="form-control" placeholder="VENEZUELA" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -199,7 +199,7 @@ Titulo: Maquetado de Consignacón de Paquetes
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" id="btnGuardar" onclick="GuardarConsignacion()">Guardar</button>
             </div>
         </div>
     </div>

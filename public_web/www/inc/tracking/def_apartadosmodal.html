@@ -24,7 +24,7 @@ TITULO: MAQUETADO DE definicón de Apartados
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                     <label>Inicio del Rango de Apodos</label>
-                                                    <input type="text" class="form-control"
+                                                    <input type="text" id="txtInicioRango" class="form-control"
                                                         placeholder="Enter ...">
                                                 </div>
                                             </div>
@@ -32,7 +32,7 @@ TITULO: MAQUETADO DE definicón de Apartados
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                     <label>Fin del Rango de Apodos</label>
-                                                    <input type="text" class="form-control"
+                                                    <input type="text" id="txtFinRango"class="form-control"
                                                         placeholder="Enter ...">
                                                 </div>
                                             </div>
@@ -40,7 +40,7 @@ TITULO: MAQUETADO DE definicón de Apartados
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                     <label>Oficina a la que Pertenece</label>
-                                                    <select class="form-control selected" id="" onchange="">
+                                                    <select class="form-control selected" id="cmbOficinaPerteneciente" onchange="">
                                                         <option value="0">Seleccione</option>
                                                         <option value="1">Oficina 1</option>
                                                         <option value="2">Oficina 2</option>
@@ -51,14 +51,14 @@ TITULO: MAQUETADO DE definicón de Apartados
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                     <label>Zona Postal de la Oficina</label>
-                                                    <input type="text" class="form-control"
+                                                    <input type="text" id="txtZonaPostal"class="form-control"
                                                         placeholder="Enter ...">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Ruta</label>
-                                                    <textarea class="form-control" rows="3"
+                                                    <textarea id="txtRuta" class="form-control" rows="3"
                                                         placeholder="Enter ..."></textarea>
                                                 </div>
                                             </div>
@@ -72,7 +72,7 @@ TITULO: MAQUETADO DE definicón de Apartados
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" onclick="GuardarApartados()">Guardar</button>
             </div>
         </div>
     </div>

@@ -47,8 +47,8 @@ Toast = Swal.mixin({
  * V 1.0
  */
  function CargarConfiguracion(){
-    CargarUrl('cuerpo', 'inc/configuracion/submenu');
-    //Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
+    //CargarUrl('cuerpo', 'inc/configuracion/submenu');
+    Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
  }
 
  function CargarUsuarios(){

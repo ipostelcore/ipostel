@@ -19,19 +19,19 @@ Titulo: Maquetado de Seguimiento de Paquetes
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Hora</label>
-                                        <input type="time" class="form-control" placeholder="Enter ...">
+                                        <input type="time" id="txtHora"class="form-control" placeholder="Enter ...">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Fecha</label>
-                                        <input type="date" class="form-control" placeholder="Enter ...">
+                                        <input type="date" id="txtFecha" class="form-control" placeholder="Enter ...">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Nº de Sticker</label>
-                                        <input type="text" class="form-control" placeholder="Enter ...">
+                                        <input type="text" id="txtSticker" class="form-control" placeholder="Enter ...">
                                     </div>
                                 </div>
                                 <div class="col-sm-2 mt-4">
@@ -42,25 +42,25 @@ Titulo: Maquetado de Seguimiento de Paquetes
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Destinatario</label>
-                                        <input type="text" class="form-control" disabled>
+                                        <input type="text" id="txtDestinatario" class="form-control" disabled>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Remitente</label>
-                                        <input type="text" class="form-control" disabled>
+                                        <input type="text" id="txtRemitente" class="form-control" disabled>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Peso</label>
-                                        <input type="text" class="form-control" disabled>
+                                        <input type="text" id="txtPeso" class="form-control" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Estatus</label>
-                                        <select id="cmbestatus" class="form-control selected" onchange="ListarEstatus()">
+                                        <select id="cmbEstatus" class="form-control selected" onchange="ListarEstatus()">
                                             <option value="0">Seleccione</option>
                                         </select>
                                     </div>
@@ -68,9 +68,8 @@ Titulo: Maquetado de Seguimiento de Paquetes
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Observación</label>
-                                        <textarea class="form-control" rows="1" placeholder="Enter ..."></textarea>
-                                    </div>
-                                </div>
+                                        <textarea id="txtObservacion" class="form-control" rows="1" placeholder="Enter ..."></textarea>
+                                    </div> 
                             </div>
                         </form>
                     </div>
