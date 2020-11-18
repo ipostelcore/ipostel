@@ -28,24 +28,22 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 
 	SqlServerPuntoPostal, err = sql.Open("odbc", "server="+c.Host+";DSN=ipostel;Uid=ipostel;Pwd="+c.Clave)
 	if err != nil {
-		fmt.Println("[Punto Postal:   Error...] ", SqlServerPuntoPostal.Ping())
-		fmt.Println(err.Error())
-		return
+		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + "  Error...] ")
 	} else {
 		//"SELECT TOP 2 codofic, descripcion FROM oficinas"
 		_, err := SqlServerPuntoPostal.Query("SELECT TOP 1 CODOFIC, DESCRIPCION, DIRECCION, CODPOSTAL, TELEFONO, FAX, JEFE FROM OFICINAS")
 
 		if err != nil {
-			fmt.Println("[Punto Postal: ", c.Host, "  Error...] ", err.Error())
+			fmt.Println("[Host: "+c.Host+" Base De Datos: "+c.Basedatos+"  Error...] ", err.Error())
 			return err
 		} else {
-			fmt.Println("[Punto Postal: ", c.Host, "  OK...]")
+			fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + " OK...]")
 			// for sq.Next() {
 			// 	var a, b string
 			// 	sq.Scan(&a, &b)
 			// 	fmt.Println(a, b)
 			// }
-			fmt.Println("Controlando la situación")
+			// fmt.Println("Controlando la situación")
 		}
 
 	}
@@ -53,53 +51,53 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 }
 
 //ConexionPuntoPostalPostgres Funcion de Conexion a Postgres
-func ConexionPuntoPostalPostgres(mapa map[string]CadenaDeConexion) {
+func ConexionPuntoPostalPostgres(mapa map[string]CadenaDeConexion) (err error) {
 	c := mapa["postgres"]
 	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
-	PuntoPostalPostgres, _ = sql.Open("postgres", cadena)
-	if PuntoPostalPostgres.Ping() != nil {
-		fmt.Println("[Punto Postal Postgres:   Error...] ", PuntoPostalPostgres.Ping())
+	PuntoPostalPostgres, err = sql.Open("postgres", cadena)
+	if err != nil {
+		fmt.Println("[Host: "+c.Host+" Base De Datos: "+c.Basedatos+" Error...] ", err.Error())
 	} else {
-		fmt.Println("[Punto Postal Postgres: ", c.Host, "  OK...]")
-	}
-
-}
-
-//ConexionPuntoPostalIpostel Funcion de Conexion a Postgres
-func ConexionPuntoPostalIpostel(mapa map[string]CadenaDeConexion) {
-	c := mapa["ipostel"]
-	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
-	PuntoPostalIpostel, _ = sql.Open("postgres", cadena)
-	if PuntoPostalIpostel.Ping() != nil {
-		fmt.Println("[Punto Postal Ipostel:   Error...] ", PuntoPostalIpostel.Ping())
-	} else {
-		fmt.Println("[Punto Postal Ipostel: ", c.Host, "  OK...]")
-	}
-
-}
-
-//ConexionTARJETA
-func ConexionPENSIONSIGESP(mapa map[string]CadenaDeConexion) {
-	c := mapa["pensiones"]
-	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
-	PostgreSQLPENSIONSIGESP, _ = sql.Open("postgres", cadena)
-	if PostgreSQLPENSIONSIGESP.Ping() != nil {
-		fmt.Println("[Pensiones SIGESP: Error...] ", PostgreSQLPENSIONSIGESP.Ping())
-	} else {
-		fmt.Println("[Pensiones SIGESP: OK...]")
+		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + " OK...]")
 	}
 	return
 }
 
-//ConexionMYSQL
-func ConexionMYSQL(mapa map[string]CadenaDeConexion) {
+//ConexionPuntoPostalIpostel Funcion de Conexion a Postgres
+func ConexionPuntoPostalIpostel(mapa map[string]CadenaDeConexion) (err error) {
+	c := mapa["ipostel"]
+	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
+	PuntoPostalIpostel, err = sql.Open("postgres", cadena)
+	if err != nil {
+		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + " Error...] ")
+	} else {
+		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + " OK...]")
+	}
+	return
+}
+
+//ConexionPENSIONSIGESP Control de datos
+func ConexionPENSIONSIGESP(mapa map[string]CadenaDeConexion) (err error) {
+	c := mapa["pensiones"]
+	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
+	PostgreSQLPENSIONSIGESP, _ = sql.Open("postgres", cadena)
+	if err != nil {
+		fmt.Println("[Host: "+c.Host+" Base De Datos: "+c.Basedatos+" Error...] ", err.Error())
+	} else {
+		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + " OK...]")
+	}
+	return
+}
+
+//ConexionMYSQL Control de datos MyISAM
+func ConexionMYSQL(mapa map[string]CadenaDeConexion) (err error) {
 	c := mapa["mysql"]
 	cadena := c.Usuario + ":" + c.Clave + "@tcp(" + c.Host + ":3306)/sssifanb"
-	MysqlFullText, _ = sql.Open("mysql", cadena)
+	MysqlFullText, err = sql.Open("mysql", cadena)
 	if MysqlFullText.Ping() != nil {
-		fmt.Println("[mysql FULLTEXT: Error...] ", MysqlFullText.Ping())
+		fmt.Println("[MySQL Host: "+c.Host+" Base De Datos: "+c.Basedatos+"  Error...] ", err.Error())
 	} else {
-		fmt.Println("[mysql FULLTEXT: OK...]")
+		fmt.Println("[MySQL Host: " + c.Host + " Base De Datos: " + c.Basedatos + "  OK...]")
 	}
 	return
 }

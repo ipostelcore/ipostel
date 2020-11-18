@@ -29,16 +29,21 @@ type Oficina struct {
 	Descripcion   string `json:"descripcion"`
 }
 
+//ApiCore Estructura de conexion
 type ApiCore struct {
-	Modulo     string `json:"modula"`
-	Driver     string `json:"driver"`
-	Query      string `json:"query"`
-	Campos     string `json:"campos"`
-	Parametros string `json:"parametros"`
-	Ruta       string `json:"ruta"`
-	Retorna    string `json:"retorna"`
+	Modulo       string `json:"modula"`
+	Driver       string `json:"driver"`
+	Query        string `json:"query"`
+	Campos       string `json:"campos"`
+	Parametros   string `json:"parametros"`
+	Ruta         string `json:"ruta"`
+	Retorna      string `json:"retorna"`
+	Concurrencia string `json:"concurrencia"`
+	Migrar       string `json:"migrar"`
+	Metodo       string `json:"metodo"`
 }
 
+//Object Objeto para reflexiones
 type Object map[string]interface{}
 
 //Oficinas Reporte de oficinas
@@ -138,6 +143,7 @@ func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.D
 		lista = append(lista, colassoc)
 
 	}
+
 	jSon, err = json.Marshal(lista)
 	return
 }
@@ -161,8 +167,31 @@ func (C *Core) IUDQuery(consulta string, conexion *sql.DB) (jSon []byte, err err
 
 }
 
+//IUDQueryBash Insert, Update, Delete Generador de Consultas
+func (C *Core) IUDQueryBash(campos string, lista []map[string]interface{}, consulta string, conexion *sql.DB) (jSon []byte, err error) {
+	var M util.Mensajes
+
+	for clave, valor := range lista {
+
+	}
+	_, err = conexion.Exec(consulta)
+	M.Fecha = time.Now()
+	if err != nil {
+		M.Msj = "Erro ejecutando consulta: " + err.Error()
+		M.Tipo = 0
+		jSon, err = json.Marshal(M)
+	} else {
+		M.Msj = "Proceso Exitoso"
+		M.Tipo = 1
+		jSon, err = json.Marshal(M)
+	}
+
+	return
+
+}
+
 func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
-	parametro, ruta, _ := retornaValores(v)
+	parametro, ruta, metodo, migrar := retornaValores(v)
 	c := sys.MGOSession.DB(sys.CBASE).C(sys.APICORE)
 	err := c.Find(bson.M{"ruta": ruta}).One(&a)
 	if err != nil {
@@ -180,11 +209,13 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 		break
 	}
 	a.Parametros = parametro
+	a.Migrar = migrar
+	a.Metodo = metodo
 	fmt.Println("Driver seleccionado: ", a.Driver)
 	return
 }
 
-func retornaValores(v map[string]interface{}) (parametro string, ruta string, metodo string) {
+func retornaValores(v map[string]interface{}) (parametro string, ruta string, metodo string, migrar string) {
 	for k, vs := range v {
 
 		switch k {
@@ -196,6 +227,9 @@ func retornaValores(v map[string]interface{}) (parametro string, ruta string, me
 			break
 		case "metodo":
 			metodo = vs.(string)
+			break
+		case "migrar":
+			migrar = vs.(string)
 			break
 		}
 	}

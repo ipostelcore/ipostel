@@ -124,8 +124,8 @@ func (m *Migrar) crearTabla() string {
 	return tabla
 }
 
-func isertar(tabla string, campos string) string {
+func isertar(tabla string, campos string, valores string) string {
 	var fila string
-	fila = `INSERT INTO  ` + tabla + ` (` + campos + `) VALUES `
+	fila = `INSERT INTO  ` + tabla + ` (` + campos + `) VALUES (` + valores + `)`
 	return fila
 }

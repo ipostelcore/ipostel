@@ -147,6 +147,14 @@ class Utilidad{
         }
         //verificarPrivilegioUsuario(Mnu);
     }
+
+    /**
+     * 
+     * @param {*} cmb ComboBox para llenar automaticamente
+     */
+    CargarOficinas(cmb){
+
+    }
 }
 
 function verificarPrivilegioUsuario(Usuario){
