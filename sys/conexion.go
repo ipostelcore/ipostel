@@ -26,7 +26,7 @@ func MongoDBConexion(mapa map[string]CadenaDeConexion) {
 func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 	c := mapa["puntopostal"]
 
-	SqlServerPuntoPostal, err = sql.Open("odbc", "server="+c.Host+";DSN=ipostel;Uid=ipostel;Pwd="+c.Clave)
+	SqlServerPuntoPostal, err = sql.Open("odbc", "server="+c.Host+";database="+c.Basedatos+";DSN=ipostel;Uid=sa;Pwd="+c.Clave)
 	if err != nil {
 		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + "  Error...] ")
 	} else {

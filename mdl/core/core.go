@@ -108,7 +108,7 @@ func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.DB) (jSon []byte, err error) {
 
 	lista := make([]map[string]interface{}, 0)
-	//fmt.Println("VIDA ", consulta)
+	fmt.Println("VIDA ", consulta)
 	rs, _ := conexion.Query(consulta)
 	cols, err := rs.Columns()
 	if err != nil {
@@ -148,7 +148,7 @@ func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.D
 
 	}
 	if C.ApiCore.Migrar == "true" {
-		go C.IUDQueryBash("", lista, "", conexion)
+		go C.IUDQueryBash("oficinas", lista, "", conexion)
 	}
 	jSon, err = json.Marshal(lista)
 	return
@@ -174,24 +174,52 @@ func (C *Core) IUDQuery(consulta string, conexion *sql.DB) (jSon []byte, err err
 }
 
 //IUDQueryBash Insert, Update, Delete Generador de Consultas
-func (C *Core) IUDQueryBash(campos string, lista []map[string]interface{}, consulta string, conexion *sql.DB) (jSon []byte, err error) {
-	//var M util.Mensajes
+func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consulta string, conexion *sql.DB) (jSon []byte, err error) {
+	var M util.Mensajes
+	var campos, valores string
+	i := 0
+	j := 0
 
-	for clave, valor := range lista {
-		fmt.Println(clave, valor)
+	for _, valor := range lista {
+		insert := "INSERT INTO " + tabla + " "
+		campos = "("
+		valores = "("
+		i++
+
+		for c, v := range valor {
+			comax := ","
+			if j == 0 {
+				comax = ""
+			}
+			campos += comax + c
+
+			valores += comax + "'" + strings.Trim(v.(string), " ") + "'"
+
+			j++
+		}
+		j = 0
+		valores += ")"
+		campos += ")"
+		insert += campos + " VALUES " + valores + ";"
+		campos = ""
+		valores = ""
+
+		_, err = sys.PuntoPostalIpostel.Exec(insert)
+		M.Fecha = time.Now()
+		if err != nil {
+			fmt.Println("----> ", err.Error())
+
+			M.Msj = "Erro ejecutando consulta: " + err.Error()
+			M.Tipo = 0
+			jSon, err = json.Marshal(M)
+		} else {
+			M.Msj = "Proceso Exitoso"
+			M.Tipo = 1
+			jSon, err = json.Marshal(M)
+
+		}
+		fmt.Println(insert)
 	}
-
-	// _, err = conexion.Exec(consulta)
-	// M.Fecha = time.Now()
-	// if err != nil {
-	// 	M.Msj = "Erro ejecutando consulta: " + err.Error()
-	// 	M.Tipo = 0
-	// 	jSon, err = json.Marshal(M)
-	// } else {
-	// 	M.Msj = "Proceso Exitoso"
-	// 	M.Tipo = 1
-	// 	jSon, err = json.Marshal(M)
-	// }
 
 	return
 
