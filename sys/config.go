@@ -22,7 +22,6 @@ var (
 	MGOSession               *mgo.Session
 	PostgreSQLSAMAN          *sql.DB
 	PuntoPostalPostgres      *sql.DB
-	PuntoPostalIpostel       *sql.DB
 	PostgreSQLPENSION        *sql.DB
 	PostgreSQLPENSIONSIGESP  *sql.DB
 	PostgreSQLEMPLEADOSIGESP *sql.DB
@@ -101,7 +100,7 @@ func init() {
 				Host:      valor.Host,
 				Puerto:    valor.Puerto,
 			}
-			ConexionPuntoPostal(cad)
+			ConexionTracking(cad)
 		case "postgres":
 			cad := make(map[string]CadenaDeConexion)
 			cad["postgres"] = CadenaDeConexion{
@@ -113,19 +112,6 @@ func init() {
 				Puerto:    valor.Puerto,
 			}
 			ConexionPuntoPostalPostgres(cad)
-		case "ipostel":
-			cad := make(map[string]CadenaDeConexion)
-			cad["ipostel"] = CadenaDeConexion{
-				Driver:    valor.Driver,
-				Usuario:   valor.Usuario,
-				Basedatos: valor.Basedatos,
-				Clave:     valor.Clave,
-				Host:      valor.Host,
-				Puerto:    valor.Puerto,
-			}
-			HostIPPace = valor.Host
-			HostUrlPace = valor.StrUrl
-			ConexionPuntoPostalIpostel(cad)
 		case "mysql":
 			MySQL = true
 			cad := make(map[string]CadenaDeConexion)

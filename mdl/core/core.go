@@ -42,6 +42,7 @@ type ApiCore struct {
 	Concurrencia string `json:"concurrencia"`
 	Migrar       string `json:"migrar"`
 	Metodo       string `json:"metodo"`
+	Destino      string `json:"destino"`
 }
 
 //Object Objeto para reflexiones
@@ -108,7 +109,7 @@ func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.DB) (jSon []byte, err error) {
 
 	lista := make([]map[string]interface{}, 0)
-	fmt.Println("VIDA ", consulta)
+	//fmt.Println("VIDA ", consulta)
 	rs, _ := conexion.Query(consulta)
 	cols, err := rs.Columns()
 	if err != nil {
@@ -148,7 +149,7 @@ func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.D
 
 	}
 	if C.ApiCore.Migrar == "true" {
-		go C.IUDQueryBash("oficinas", lista, "", conexion)
+		go C.IUDQueryBash(C.ApiCore.Destino, lista, "", conexion)
 	}
 	jSon, err = json.Marshal(lista)
 	return
@@ -193,7 +194,28 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 			}
 			campos += comax + c
 
-			valores += comax + "'" + strings.Trim(v.(string), " ") + "'"
+			evalreflect := reflect.ValueOf(v)
+
+			//fmt.Println("TIPO ", evalreflect.Kind())
+			switch evalreflect.Kind() {
+			case reflect.String:
+				valorstr := fmt.Sprintf("%s", v)
+				valores += comax + "'" + strings.Trim(valorstr, " ") + "'"
+				break
+			case reflect.Slice:
+				valorstr := fmt.Sprintf("%s", v)
+				valores += comax + "'" + strings.Trim(valorstr, " ") + "'"
+				break
+			case reflect.Float64:
+				f := evalreflect.Float()
+				valores += comax + strconv.FormatFloat(f, 'f', 2, 64)
+				break
+				//WHERE dbo.ESTADISTICAS.CODOPT = '$0'
+			case reflect.Int32:
+				n := evalreflect.Int()
+				valores += comax + strconv.FormatInt(n, 10)
+				break
+			}
 
 			j++
 		}
@@ -204,7 +226,7 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 		campos = ""
 		valores = ""
 
-		_, err = sys.PuntoPostalIpostel.Exec(insert)
+		_, err = sys.PuntoPostalPostgres.Exec(insert)
 		M.Fecha = time.Now()
 		if err != nil {
 			fmt.Println("----> ", err.Error())
@@ -226,7 +248,7 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 }
 
 func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
-	parametro, ruta, metodo, migrar := retornaValores(v)
+	parametro, ruta, metodo, migrar, destino := retornaValores(v)
 	c := sys.MGOSession.DB(sys.CBASE).C(sys.APICORE)
 	err := c.Find(bson.M{"ruta": ruta}).One(&a)
 	if err != nil {
@@ -237,7 +259,7 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 		db = sys.SqlServerPuntoPostal
 		break
 	case "ipostel":
-		db = sys.PuntoPostalIpostel
+		db = sys.PuntoPostalPostgres
 		break
 	case "tracking":
 		db = sys.SqlServerTracking
@@ -246,11 +268,12 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 	a.Parametros = parametro
 	a.Migrar = migrar
 	a.Metodo = metodo
+	a.Destino = destino
 	fmt.Println("Driver seleccionado: ", a.Driver)
 	return
 }
 
-func retornaValores(v map[string]interface{}) (parametro string, ruta string, metodo string, migrar string) {
+func retornaValores(v map[string]interface{}) (parametro string, ruta string, metodo string, migrar string, destino string) {
 	for k, vs := range v {
 
 		switch k {
@@ -265,6 +288,9 @@ func retornaValores(v map[string]interface{}) (parametro string, ruta string, me
 			break
 		case "migrar":
 			migrar = vs.(string)
+			break
+		case "destino":
+			destino = vs.(string)
 			break
 		}
 	}

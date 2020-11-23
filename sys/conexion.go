@@ -22,16 +22,44 @@ func MongoDBConexion(mapa map[string]CadenaDeConexion) {
 	util.Error(Error)
 }
 
-//ConexionPuntoPostal Funcion de Conexion a Postgres
+//ConexionPuntoPostal Funcion de Conexion a SQL SERVER
 func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 	c := mapa["puntopostal"]
 
-	SqlServerPuntoPostal, err = sql.Open("odbc", "server="+c.Host+";database="+c.Basedatos+";DSN=ipostel;Uid=sa;Pwd="+c.Clave)
+	SqlServerPuntoPostal, err = sql.Open("odbc", "server="+c.Host+";database="+c.Basedatos+";DSN=ipostel;Uid="+c.Usuario+";Pwd="+c.Clave)
 	if err != nil {
 		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + "  Error...] ")
 	} else {
 		//"SELECT TOP 2 codofic, descripcion FROM oficinas"
 		_, err := SqlServerPuntoPostal.Query("SELECT TOP 1 CODOFIC, DESCRIPCION, DIRECCION, CODPOSTAL, TELEFONO, FAX, JEFE FROM OFICINAS")
+
+		if err != nil {
+			fmt.Println("[Host: "+c.Host+" Base De Datos: "+c.Basedatos+"  Error...] ", err.Error())
+			return err
+		} else {
+			fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + " OK...]")
+			// for sq.Next() {
+			// 	var a, b string
+			// 	sq.Scan(&a, &b)
+			// 	fmt.Println(a, b)
+			// }
+			// fmt.Println("Controlando la situación")
+		}
+
+	}
+	return
+}
+
+//ConexionTracking Funcion de Conexion a SQL SERVER
+func ConexionTracking(mapa map[string]CadenaDeConexion) (err error) {
+	c := mapa["tracking"]
+
+	SqlServerTracking, err = sql.Open("odbc", "server="+c.Host+";database="+c.Basedatos+";DSN=tracking;Uid="+c.Usuario+";Pwd="+c.Clave)
+	if err != nil {
+		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + "  Error...] ")
+	} else {
+		//"SELECT TOP 2 codofic, descripcion FROM oficinas"
+		_, err := SqlServerTracking.Query("SELECT TOP 1 of_Id, of_Codigo FROM MA_OFICINA")
 
 		if err != nil {
 			fmt.Println("[Host: "+c.Host+" Base De Datos: "+c.Basedatos+"  Error...] ", err.Error())
@@ -57,19 +85,6 @@ func ConexionPuntoPostalPostgres(mapa map[string]CadenaDeConexion) (err error) {
 	PuntoPostalPostgres, err = sql.Open("postgres", cadena)
 	if err != nil {
 		fmt.Println("[Host: "+c.Host+" Base De Datos: "+c.Basedatos+" Error...] ", err.Error())
-	} else {
-		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + " OK...]")
-	}
-	return
-}
-
-//ConexionPuntoPostalIpostel Funcion de Conexion a Postgres
-func ConexionPuntoPostalIpostel(mapa map[string]CadenaDeConexion) (err error) {
-	c := mapa["ipostel"]
-	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
-	PuntoPostalIpostel, err = sql.Open("postgres", cadena)
-	if err != nil {
-		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + " Error...] ")
 	} else {
 		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + " OK...]")
 	}
