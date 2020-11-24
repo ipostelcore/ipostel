@@ -52,7 +52,8 @@ Toast = Swal.mixin({
  }
 
  function CargarUsuarios(){
-   CargarUrl('cuerpo', 'inc/configuracion/usuarios');
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Usuarios");
+   //CargarUrl('cuerpo', 'inc/configuracion/usuarios');
    CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
  }
 
@@ -93,18 +94,6 @@ Toast = Swal.mixin({
 function CargarControl(){
   Util.DibujarSubMenuEscritorio(JsonMenu, "Control");
 }
-
-
-
-/**
- * Carga inicial de Ventas
- * V 1.0
- */
-function CargarVentas(){
-  //CargarUrl('cuerpo', 'inc/configuracion/submenu');
-  Util.DibujarSubMenuEscritorio(JsonMenu, "Ventas");
-}
-
 
 
 function CerrarSesion(){
@@ -197,19 +186,45 @@ function IniciarSesion(){
  // PUNTO POSTAL VENTAS
 
  function CargarVentas(){
-    CargarUrl('cuerpo', 'inc/ventas/submenu');
-    //Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
- }
+  //CargarUrl('cuerpo', 'inc/configuracion/submenu');
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Ventas");
+}
 
  function CargarServicios(){
-    CargarUrl('cuerpo', 'inc/ventas/submenu_servpostales');
-    //Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
+    //CargarUrl('cuerpo', 'inc/ventas/submenu_servpostales');
+    Util.DibujarSubMenuEscritorio(JsonMenu, "Servicios");
  }
 
+ function CargarServiciosPostales(){
+  //CargarUrl('cuerpo', 'inc/ventas/telegramas');
+ Util.DibujarSubMenuEscritorio(JsonMenu, "Postales");
+}
+
  function CargarServiciosTelegraficos(){
-     CargarUrl('cuerpo', 'inc/ventas/telegramas');
-    //Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
+  //CargarUrl('cuerpo', 'inc/ventas/telegramas');
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Telegraficos");
  }
+
+ function CargarServiciosVarios(){
+  //CargarUrl('cuerpo', 'inc/ventas/telegramas');
+ Util.DibujarSubMenuEscritorio(JsonMenu, "Varios");
+}
+
+function CargarServiciosEbsEms(){
+  //CargarUrl('cuerpo', 'inc/ventas/telegramas');
+ Util.DibujarSubMenuEscritorio(JsonMenu, "EBS/EMS");
+}
+
+function CargarServiciosApartados(){
+  //CargarUrl('cuerpo', 'inc/ventas/telegramas');
+ Util.DibujarSubMenuEscritorio(JsonMenu, "Apartados");
+}
+
+function CargarServiciosReportes(){
+  //CargarUrl('cuerpo', 'inc/ventas/telegramas');
+ Util.DibujarSubMenuEscritorio(JsonMenu, "Reportes");
+}
+
 
  //Configuracion
 

@@ -6,6 +6,11 @@
  */
 
 
+/**
+ * Clase Consignación
+ * Hereda de inc/tracking/consignacionmodal.html
+ */
+
 class Consignacion{
     constructor(){
         this.hora = "";
@@ -65,6 +70,10 @@ class Consignacion{
 function GuardarConsignacion(){
 
 }
+/**
+ * Clase Seguimiento
+ * Hereda de inc/tracking/seguimiento.html
+ */
 
 class Seguimiento{
     constructor(){
@@ -98,6 +107,10 @@ function BuscarPaquete(){
 
 }
 
+/**
+ * Clase Distribución
+ * Hereda de inc/tracking/distribucion.html
+ */
 class Distribucion{
     constructor(){
         this.hora = "";
@@ -127,6 +140,10 @@ class Distribucion{
 
 }
     
+/**
+ * Clase Ruta
+ * Hereda de inc/tracking/def_rutamodal.html
+ */
 class Ruta{
     constructor(){
         this.localidad = "";
@@ -145,6 +162,10 @@ class Ruta{
     }
 }
 
+/**
+ * Clase Ruta
+ * Hereda de inc/tracking/def_apartadosmodal.html
+ */
 class Apartados{
     constructor(){
         this.iniciorango = "";
@@ -171,6 +192,10 @@ function GuardarApartados(){
 
 }
 
+/**
+ * Clase Ruta
+ * Hereda de inc/tracking/def_repartidoresmodal.html
+ */
 class Repartidores{
     constructor(){
         this.repatidor = "";
@@ -191,7 +216,10 @@ function GuardarRepartidor(){
 
 }
 
-
+/**
+ * Clase Incentivos
+ * Hereda de inc/tracking/def_incentivosmodal.html
+ */
 class Incentivos{
     constructor(){
         this.desde = "";
