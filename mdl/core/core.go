@@ -91,7 +91,16 @@ func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 		if vf == true {
 			switch cf {
 			case "select":
-				jSon, err = C.Select(v, consulta, conexion)
+				if C.ApiCore.Retorna == "false" && C.ApiCore.Migrar == "true" {
+					var M util.Mensajes
+					M.Msj = "Proceso finalizado"
+					M.Tipo = 1
+					go C.Select(v, consulta, conexion)
+					jSon, err = json.Marshal(M)
+				} else {
+					jSon, err = C.Select(v, consulta, conexion)
+				}
+
 				break
 			default:
 				jSon, err = C.IUDQuery(consulta, conexion)
@@ -128,18 +137,21 @@ func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.D
 		for i, col := range cols {
 			contenido := *colvals[i].(*interface{})
 			evalreflect := reflect.ValueOf(contenido)
-
-			//fmt.Println("TIPO ", evalreflect.Kind())
 			switch evalreflect.Kind() {
 			case reflect.Slice:
 				valorstr := fmt.Sprintf("%s", contenido)
 				colassoc[col] = strings.Trim(valorstr, " ")
 				break
+			case reflect.Float32:
+				colassoc[col] = evalreflect.Float()
+				break
 			case reflect.Float64:
 				colassoc[col] = evalreflect.Float()
 				break
-				//WHERE dbo.ESTADISTICAS.CODOPT = '$0'
 			case reflect.Int32:
+				colassoc[col] = evalreflect.Int()
+				break
+			case reflect.Int64:
 				colassoc[col] = evalreflect.Int()
 				break
 			}
@@ -196,7 +208,6 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 
 			evalreflect := reflect.ValueOf(v)
 
-			//fmt.Println("TIPO ", evalreflect.Kind())
 			switch evalreflect.Kind() {
 			case reflect.String:
 				valorstr := fmt.Sprintf("%s", v)
@@ -206,15 +217,26 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 				valorstr := fmt.Sprintf("%s", v)
 				valores += comax + "'" + strings.Trim(valorstr, " ") + "'"
 				break
+			case reflect.Float32:
+				f := evalreflect.Float()
+				valores += comax + strconv.FormatFloat(f, 'f', 2, 64)
+				break
 			case reflect.Float64:
 				f := evalreflect.Float()
 				valores += comax + strconv.FormatFloat(f, 'f', 2, 64)
 				break
-				//WHERE dbo.ESTADISTICAS.CODOPT = '$0'
 			case reflect.Int32:
 				n := evalreflect.Int()
 				valores += comax + strconv.FormatInt(n, 10)
 				break
+			case reflect.Int64:
+				n := evalreflect.Int()
+				valores += comax + strconv.FormatInt(n, 10)
+				break
+				// default:
+				// 	valores += comax + "''"
+				// 	fmt.Println(c+" TIPO ", " ESPACIO ")
+				// 	break
 			}
 
 			j++
@@ -230,7 +252,6 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 		M.Fecha = time.Now()
 		if err != nil {
 			fmt.Println("----> ", err.Error())
-
 			M.Msj = "Erro ejecutando consulta: " + err.Error()
 			M.Tipo = 0
 			jSon, err = json.Marshal(M)
@@ -238,19 +259,18 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 			M.Msj = "Proceso Exitoso"
 			M.Tipo = 1
 			jSon, err = json.Marshal(M)
-
 		}
-		fmt.Println(insert)
+		//fmt.Println(insert)
 	}
-
 	return
 
 }
 
 func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
-	parametro, ruta, metodo, migrar, destino := retornaValores(v)
+
+	ApiCoreAux := retornaValores(v)
 	c := sys.MGOSession.DB(sys.CBASE).C(sys.APICORE)
-	err := c.Find(bson.M{"ruta": ruta}).One(&a)
+	err := c.Find(bson.M{"ruta": ApiCoreAux.Ruta}).One(&a)
 	if err != nil {
 		fmt.Println("Error creando Query en Mongodb ", err.Error())
 	}
@@ -265,32 +285,35 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 		db = sys.SqlServerTracking
 		break
 	}
-	a.Parametros = parametro
-	a.Migrar = migrar
-	a.Metodo = metodo
-	a.Destino = destino
+	a.Parametros = ApiCoreAux.Parametros
+	a.Migrar = ApiCoreAux.Migrar
+	a.Metodo = ApiCoreAux.Metodo
+	a.Destino = ApiCoreAux.Destino
+	a.Retorna = ApiCoreAux.Retorna
 	fmt.Println("Driver seleccionado: ", a.Driver)
 	return
 }
 
-func retornaValores(v map[string]interface{}) (parametro string, ruta string, metodo string, migrar string, destino string) {
+func retornaValores(v map[string]interface{}) (a ApiCore) {
 	for k, vs := range v {
-
 		switch k {
 		case "ruta":
-			ruta = vs.(string)
+			a.Ruta = vs.(string)
 			break
 		case "parametros":
-			parametro = vs.(string)
+			a.Parametros = vs.(string)
 			break
 		case "metodo":
-			metodo = vs.(string)
+			a.Metodo = vs.(string)
 			break
 		case "migrar":
-			migrar = vs.(string)
+			a.Migrar = vs.(string)
 			break
 		case "destino":
-			destino = vs.(string)
+			a.Destino = vs.(string)
+			break
+		case "retorna":
+			a.Retorna = vs.(string)
 			break
 		}
 	}

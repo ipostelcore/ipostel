@@ -47,7 +47,7 @@ Toast = Swal.mixin({
  * V 1.0
  */
  function CargarConfiguracion(){
-    //CargarUrl('cuerpo', 'inc/configuracion/submenu');
+    
     Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
  }
 
@@ -147,8 +147,7 @@ function IniciarSesion(){
  // TRACKING
 
  function CargarTraking(){
-    CargarUrl('cuerpo', 'inc/tracking/submenu');
-    //Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
+    Util.DibujarSubMenuEscritorio(JsonMenu, "Tracking");
  }
 
  function CargarConsignacion(){
@@ -208,11 +207,14 @@ function IniciarSesion(){
 
  function CargarServiciosTelegraficos(){
      CargarUrl('cuerpo', 'inc/ventas/telegramas');
-    //Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
+    
  }
 
- //Configuracion
+// TRACKING
 
- function CargarConfiguracion(){
-  CargarUrl('cuerpo', 'inc/configuracion/submenu');
+function CargarPanel(){
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Panel");
+}
+function CargarApiCore(){
+  CargarUrl('cuerpo', 'inc/panel/apicore');
 }
