@@ -14,47 +14,44 @@ Titulo: Panel de Control: APICORE
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">    
-                                                <label>HTTP / Puerto</label>                                              
+                                            <label>HTTP / Puerto</label>                                              
                                             <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 <input type="checkbox" id="http">
                                                 </span>
                                             </div>
-                                                <select class="form-control selected" id="cmbpuertohttp" onchange="#">
-                                                    <option value="0">Seleccione</option>
-                                                    <option value="1">2286</option>
-                                                    <option value="2">1423</option>
+                                                <select class="form-control selected" id="cmbpuertohttp">
+                                                    <option value="0">SELECCIONE</option>
+                                                    <option value="1">8012</option>
+                                                    <option value="2">8013</option>
                                                 </select>
                                             </div>
                                             <!-- /input-group -->
-                                        </div>
-                                    
+                                    </div>
                                 </div>
                                     <div class="col-sm-6">
                                     <div class="form-group">    
                                                 <label>HTTPS / Puerto</label>                                              
                                             <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                <input type="checkbox" id="https">
-                                                </span>
-                                            </div>
-                                                <select class="form-control selected" id="cmbpuertohttps" onchange="#">
-                                                    <option value="0">Seleccione</option>
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                    <input type="checkbox" id="https">
+                                                    </span>
+                                                </div>
+                                                <select class="form-control selected" id="cmbpuertohttps">
+                                                    <option value="0">SELECCIONE</option>
                                                     <option value="1">2286</option>
-                                                    <option value="2">1423</option>
+                                                    <option value="2">2385</option>
                                                 </select>
+                                                <div class="input-group-append">
+                                                 <span class="input-group-text"><i class="fas fa-eye"></i></span>
+                                                </div>
                                             </div>
                                             <!-- /input-group -->
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Descripción</label>
-                                                <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Enter ..."></textarea>
-                                            </div>
-                                        </div>
+                                    
                                 </div>
 
 
@@ -69,7 +66,7 @@ Titulo: Panel de Control: APICORE
                                             <div class="form-group">
                                                 <label>Driver</label>
                                                 <select id="cmbDriver" class="form-control selected" onchange="#">
-                                                    <option value="0">Seleccione</option>
+                                                    <option value="0">SELECCIONE</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -79,42 +76,52 @@ Titulo: Panel de Control: APICORE
                                                 <textarea class="form-control" rows="3" id="txtConsulta" placeholder="Enter ..."></textarea>
                                             </div>
                                         </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Descripción</label>
+                                                <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Enter ..."></textarea>
+                                            </div>
+                                    </div>
                                         <div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Metodo</label>
-                                                <select id="cmbMetodo" class="form-control selected" onchange="#">
-                                                    <option value="0">Seleccione</option>
-                                                    <option value="1">POST</option>
+                                                <select id="cmbMetodo" class="form-control selected">
+                                                    <option value="GET" selected>GET</option>
+                                                    <option value="POST">POST</option>
+                                                    <option value="PUT">PUT</option>
+                                                    <option value="DELETE">DELETE</option>
+                                                    <option value="OPTIONS">OPTIONS</option>
                                                 </select>
                                             </div>
                                         </div>
                                             <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Prioridad</label>
-                                                <select id="cmbPrioridad" class="form-control selected" onchange="#">
-                                                    <option value="0">Seleccione</option>
-                                                    <option value="1">Alta</option>
-                                                    <option value="2">Media</option>
-                                                    <option value="3">Baja</option>
+                                                <select id="cmbPrioridad" class="form-control selected">
+                                                    <option value="0">BAJA</option>
+                                                    <option value="1">MEDIA</option>
+                                                    <option value="2">ALTA</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Módulo</label>
-                                                <select id="cmbModulo" class="form-control selected" onchange="#">
-                                                    <option value="0">Seleccione</option>
+                                                <select id="cmbModulo" class="form-control selected">
+                                                    <option value="0">SELECCIONE</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Tipo</label>
-                                                <select id="cmbTipo" class="form-control selected" onchange="#">
-                                                    <option value="0">Seleccione</option>
-                                                    <option value="1">INSERT</option>
+                                                <select id="cmbTipo" class="form-control selected">
+                                                    <option value="SELECT">SELECT</option>
+                                                    <option value="INSERT">INSERT</option>
+                                                    <option value="UPDATE">UPDATE</option>
+                                                    <option value="DELETE">DELETE</option>
                                                 </select>
                                             </div>
                                             
@@ -126,14 +133,23 @@ Titulo: Panel de Control: APICORE
                                             </div>
                                         </div>
                                             <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Concurrente</label>
-                                                <select id="cmbConcurrente" class="form-control selected" onchange="#">
-                                                    <option value="0">Verdadero</option>
-                                                    <option value="1">Falso</option>
-                                                </select>
+                                                <div class="form-group">
+                                                    <label>Concurrente</label>
+                                                    <select id="cmbConcurrente" class="form-control selected">
+                                                        <option value="TRUE">VERDADERO</option>
+                                                        <option value="FALSE">FALSO</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Retorno</label>
+                                                    <select id="cmbRetorno" class="form-control selected">
+                                                        <option value="TRUE">VERDADERO</option>
+                                                        <option value="FALSE">FALSO</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                         

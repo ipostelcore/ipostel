@@ -33,6 +33,7 @@ var (
 	HostUrlPace              string = ""
 	HostIPPension            string = ""
 	HostUrlPension           string = ""
+	ListadoConexiones        []string
 )
 
 //Constantes del sistema
@@ -78,6 +79,7 @@ func init() {
 	data, _ := a.LeerTodo()
 	e := json.Unmarshal(data, &Conexiones)
 	for _, valor := range Conexiones {
+		ListadoConexiones = append(ListadoConexiones, valor.Driver)
 		switch valor.Driver {
 		case "puntopostal":
 			cad := make(map[string]CadenaDeConexion)

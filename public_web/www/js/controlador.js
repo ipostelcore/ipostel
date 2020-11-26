@@ -9,6 +9,7 @@ let Util = new Utilidad();
 let conn = new Conexion();
 
 
+
 Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -20,17 +21,16 @@ Toast = Swal.mixin({
  $(function(){
   if (sessionStorage.getItem('ipostel') == undefined ){
     $(location).attr("href","index.html");
+
   }else{
     console.info('Iniciando carga del sistema');
 
     CargarUrl('modales', 'inc/modales');
-    //CargarUrl('cuerpo', 'inc/escritorio');
     Util.CargarJsonMenu();
     Util.DibujarEscritorio(JsonMenu);
     Util.DibujarMenuLateral(JsonMenu);
     Util.DibujarEscritorio(JsonMenu);
-
-    //Util.ProcesoExitoso('&nbsp;La página se ha cargado exitosamente');
+    ObtenerOficinas();
 
   }
 
@@ -149,14 +149,10 @@ function IniciarSesion(){
  }
 
  function CargarConsignacion(){
-   CargarUrl('cuerpo', 'inc/tracking/consignacion');
-   CargarUrl('cargamasiva', 'inc/tracking/consignacionmodal');
+   CargarUrl('cuerpo', 'inc/ventas/consignacion');
+   
  }
 
- function CargarConsignacionLote(){
-   CargarUrl('cuerpo', 'inc/tracking/consignacion');
-   CargarUrl('cargamasiva', 'inc/tracking/consignacionmodal');
- }
 
  function CargarSeguimiento(){
    CargarUrl('cuerpo', 'inc/tracking/seguimiento');
@@ -190,15 +186,6 @@ function IniciarSesion(){
    CargarUrl('cargamasiva', 'inc/tracking/def_incentivosmodal');
  }
 
-/**
- * Carga de Módulo PUNTO VENTAS
- */
-
- function CargarVentas(){
- // CargarUrl('cuerpo', 'inc/ventas/submenu');
-  Util.DibujarSubMenuEscritorio(JsonMenu, "Ventas");
-}
-
  function CargarServicios(){
     CargarUrl('cuerpo', 'inc/ventas/submenu_servicios');
     //Util.DibujarSubMenuEscritorio(JsonMenu, "Servicios");
@@ -210,8 +197,7 @@ function IniciarSesion(){
 }
 
  function CargarServiciosTelegraficos(){
-  CargarUrl('cuerpo', 'inc/ventas/telegramas');
-  //Util.DibujarSubMenuEscritorio(JsonMenu, "Telegraficos");
+     CargarUrl('cuerpo', 'inc/ventas/telegramas');
  }
 
  function CargarServiciosVarios(){

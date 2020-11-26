@@ -190,7 +190,7 @@ func ReemplazarGuionesPorSlah(cadena string) string {
 //Error Procesa errores del sistema
 func Error(e error) {
 	if e != nil {
-		fmt.Println("\n Utilidad Error: ", e.Error())
+		fmt.Println("\n ESB Utilidad  Error: ", e.Error())
 	}
 }
 

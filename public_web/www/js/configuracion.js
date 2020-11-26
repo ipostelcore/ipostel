@@ -36,13 +36,6 @@ function _mdlAgregarRoles(){
     $("#mdlGeneral").modal("show");
 }
 
-class Oficinas{
-    constructor(){}
-    Crear(req){
-        console.log(req);
-    }
-    Obtener(){}
-}
 
 function _mdlAgregarServicio(){
     $("#_mdlTitulo").html("Agregar Servicio");
@@ -62,20 +55,3 @@ function SalvarServicio(){
 
 }
 
-function ListarOficinas(){
-    var ofc = new Oficinas();
-    var promesa =  CargarAPI({
-        metodo : "GET",
-        sURL: conn.URL + "oficina/listar",
-        Objeto: ofc
-    });
-    promesa.then(function (xhRequest) {
-        json = JSON.parse(xhRequest.responseText);
-        json.forEach(e => {
-            $("#cmboficinas").append(`<option value="${e.id}">${e.descripcion}</option>`);
-        });
-    });
-
-    console.log("Imprimiendo");
-
-}

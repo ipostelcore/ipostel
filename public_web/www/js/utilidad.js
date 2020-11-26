@@ -1,7 +1,9 @@
 
 class Utilidad{
     constructor(){
+      
 
+     
     }
     /**
      * 
@@ -152,8 +154,16 @@ class Utilidad{
      * 
      * @param {*} cmb ComboBox para llenar automaticamente
      */
-    CargarOficinas(cmb){
-
+    CargarOficinas (idcmb){
+        var ofc = JSON.parse(localStorage.getItem("Oficinas"));
+        
+        var cnt = ofc.length;
+        $("#" + idcmb).html("");
+        for(var i=0; i < cnt; i++){
+            var ofi = ofc[i]
+            $("#" + idcmb).append(`<option value='${ofi.of_Codigo}'>${ ofi.of_Descripcion}</option>` );
+        }
+        console.log("Aqui vamos");
     }
 }
 
