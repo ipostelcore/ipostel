@@ -94,6 +94,11 @@ function CargarControl(){
   Util.DibujarSubMenuEscritorio(JsonMenu, "Control");
 }
 
+function CargarSemanas(){
+  CargarUrl('cuerpo', 'inc/control/semanas');
+}
+
+
 
 
 /**
@@ -186,6 +191,15 @@ function IniciarSesion(){
    CargarUrl('cargamasiva', 'inc/tracking/def_incentivosmodal');
  }
 
+
+/**
+ * Carga de Módulo VENTAS
+ * V 1.0
+ */
+function CargarVentas(){
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Ventas");
+}
+
  function CargarServicios(){
     CargarUrl('cuerpo', 'inc/ventas/submenu_servicios');
     //Util.DibujarSubMenuEscritorio(JsonMenu, "Servicios");
@@ -205,8 +219,8 @@ function IniciarSesion(){
  //Util.DibujarSubMenuEscritorio(JsonMenu, "Varios");
 }
 
-function CargarServiciosEbeEms(){
-  CargarUrl('cuerpo', 'inc/ventas/ebeems');
+function CargarServiciosConsignacion(){
+  CargarUrl('cuerpo', 'inc/ventas/consignacion');
  //Util.DibujarSubMenuEscritorio(JsonMenu, "EBS/EMS");
 }
 

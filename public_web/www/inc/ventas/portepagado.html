@@ -2,300 +2,66 @@
      Fecha: 24-11-2020
      Titulo: Maquetado de vista servicios postales
 -->
-<section class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="col-12 mb-3" style="text-align: right;">
-          <button type="button" id="AgregarTelegrama" class="btn btn-lg btn-primary" name="button"><i
-              class="fas fa-plus"></i></button>
-        </div>
-        <div class="card card-success" id="ListarTelegramas">
-          <div class="card-header">
-            <h3 class="card-title">Porte Pagado</h3>
-          </div>
-          <div class="card-body">
-            <div class="col-12">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Código</th>
-                    <th>Tipo</th>
-                    <th>Destino</th>
-                    <th>Grupo</th>
-                    <th>Peso</th>
-                    <th>Monto</th>
-                    <th>Acción</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td> Carta</td>
-                    <td> Lore Ipsum</td>
-                    <td> América</td>
-                    <td> 200 Gr</td>
-                    <td> 500.000 BsF</td>
-                    <td>
-                      <a href=""><i class="fas fa-lg fa-fw  fa-edit text-success"></i></a>
-                      <a href=""><i class="fas fa-lg fa-fw  fa-trash-alt text-danger"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td> Encomienda</td>
-                    <td> Lore Ipsum</td>
-                    <td> América</td>
-                    <td> 200 Gr</td>
-                    <td> 500.000 BsF</td>
-                    <td>
-                      <a href=""><i class="fas fa-lg fa-fw  fa-edit text-success"></i></a>
-                      <a href=""><i class="fas fa-lg fa-fw  fa-trash-alt text-danger"></i></a>
-                    </td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>Código</th>
-                    <th>Desde</th>
-                    <th>Hasta</th>
-                    <th>Oficina</th>
-                    <th>Zona</th>
-                    <th>Ruta</th>
-                    <th>Acción</th>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<section>
+  <form role="form">
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="card card-primary">
+                <div class="card-header ">
+                  <h3 class="card-title">Porte Pagado</h3>
+                </div>
+                  <div class="card-body">
+                      <form role="form">
+                          <div class="row">
+                              <div class="col-sm-4">
+                                  <div class="form-group">    
+                                              <label>Tipos de Porte</label>
+                                              <select class="form-control selected" id="cmbTipoPorte" onchange="">
+                                                  <option value="0">Seleccione</option>
+                                                  <option value="1">Porte Pagado</option>
+                                                  <option value="2">Porte a Pagar</option>
+                                              </select>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                  <div class="form-group">
+                                    <label>Cantidad</label>
+                                    <input type="text" id="txtCantidad" class="form-control" placeholder="Enter ...">
+                                </div>    
+                              </div>
+
+
+                          <div class="row">
+                                      <div class="col-md-4">
+                                          <div class="form-group">
+                                              <label>Tarifa</label>
+                                              <input type="text" id="txtTarifa" class="form-control" placeholder="Enter ...">
+                                          </div>
+                                      </div>
+                                    <div class="col-md-4">
+                                      <div class="form-group">
+                                          <label>Impuesto</label>
+                                          <input type="text" id="txtImpuesto" class="form-control" placeholder="Enter ...">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Monto</label>
+                                        <input type="text" id="txtMonto" class="form-control" placeholder="Enter ...">
+                                    </div>
+                                </div>
+                              </div>
+                                      
+                            </div>
+                          </div>
+                        </div> 
+                      </form>
+                  </div>
+              
+                  <div class="col-12 text-center mt-3">
+                    <button type="button" class="btn btn-primary" id="Guardar">Guardar</button>
+                  </div>
+          
+
+  </form>
 </section>
-
-
-<section class="content d-none" id="Formtelegrama">
-<div class="container-fluid">
-<div class="row">
-<div class="col-md-3">
-  <div class="card">
-
-    <div class="card-body">
-      <label>Tipo de Servicio Postal</label>
-      <div class="row">
-        <div class="col-12">
-          <div class="form-group">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Cartas</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Impresos</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Encomiendas</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Paq. Pequeño</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Tarjeta Postal</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Telegrama</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Sicas M</label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-<div class="col-md-9">
-  <div class="card">
-
-    <div class="card-body">
-      <div class="row">
-
-        <div class="col-4">
-          <label for="">Destino</label>
-          <div class="form-group">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Nacional</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Internacional</label>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-4">
-          <label for="">Grupo</label>
-          <div class="form-group">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">América</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Europa</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Asia</label>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-4">
-          <label for="">Vía</label>
-          <div class="form-group">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Aéreo</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Sup. Sal</label>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <hr>
-
-      <div class="row">
-
-        <div class="col-2">
-
-          <div class="form-group">
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Tarifa Reducida</label>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="col-2">
-          <div class="form-group">
-            <label>Cantidad</label>
-            <input type="text" class="form-control" placeholder="Enter ...">
-          </div>
-        </div>
-
-        <div class="col-2">
-          <div class="form-group">
-            <label>Peso</label>
-            <input type="text" class="form-control" placeholder="Gr ...">
-          </div>
-        </div>
-
-        <div class="col-2">
-          <div class="form-group">
-            <label>Tarifa</label>
-            <input type="text" class="form-control" placeholder="Enter ...">
-          </div>
-        </div>
-
-        <div class="col-2">
-          <div class="form-group">
-            <label>Impuesto</label>
-            <input type="text" class="form-control" placeholder="Enter ...">
-          </div>
-        </div>
-
-        <div class="col-2">
-          <div class="form-group">
-            <label>Monto</label>
-            <input type="text" class="form-control" placeholder="Enter ...">
-          </div>
-        </div>
-
-      </div>
-
-      <hr>
-
-      <div class="row">
-
-        <div class="col-4">
-
-          <div class="form-group">
-            <label>Modalidades Especiales</label>
-            <select class="form-control selected" id="" onchange="">
-              <option value="0">Seleccione</option>
-              <option value="1">Modalidad 1</option>
-              <option value="2">Modalidad 2</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-4">
-          <label for="">Franqueo</label>
-          <div class="form-group">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Estampilla</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="radio1">
-              <label class="form-check-label">Mecánico</label>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="col-12 text-center mt-3">
-  <button type="button" class="btn btn-primary" id="Guardar">Guardar</button>
-</div>
-</div>
-</div>
-</section>
-
-<script>
-$("#AgregarTelegrama").click(function () {
-$('#Formtelegrama').removeClass("d-none");
-$('#ListarTelegramas').addClass("d-none");
-$('#AgregarTelegrama').addClass("d-none")
-});
-
-$("#Guardar").click(function () {
-$('#Formtelegrama').addClass("d-none");
-$('#ListarTelegramas').removeClass("d-none");
-$('#AgregarTelegrama').removeClass("d-none")
-});
-</script>
-
-<script>
-$(function () {
-$("#example1").DataTable({
-  "responsive": true,
-  "autoWidth": false,
-});
-$('#example2').DataTable({
-  "paging": true,
-  "lengthChange": false,
-  "searching": false,
-  "ordering": true,
-  "info": true,
-  "autoWidth": false,
-  "responsive": true,
-});
-});
-</script>
