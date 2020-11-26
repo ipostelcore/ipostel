@@ -14,7 +14,7 @@
     "parametros": "",
     "campos": "",
     "retorna": "true",
-    "ruta": "ObtenerOficinas",
+    "ruta": "ObtenerOficinasPuntoPostal",
     "metodo": "POST"
 },{
     "modulo": "control",
@@ -61,7 +61,109 @@
     "retorna": "true",
     "ruta": "GuardarMaestroEnvio",
     "metodo": "POST"
-}  
+}  ,{
+    "modulo": "tracking",
+    "driver": "tracking",
+    "query": "SELECT Serial,Cuenta_Cliente,Lugar_Origen,Nombre_Remite,Oficina_Destino,Lugar_Destino,Nombre_Destinatario,Peso,Cod_Envio,Total_Pago,Cod_Tipo,Correo_E,Cedula,Cobrado,Fec_Factura,Fec_Ver,Servicio,Enviado,PaisDest,TelefonoR,TelefonoD,Respaldado FROM Consignacion",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerConsignaciones",
+    "metodo": "GET"
+}  ,{
+    "modulo": "tracking",
+    "driver": "tracking",
+    "query": "SELECT cl_Codigo,cl_Descripcion,cl_Rif,cl_Nit,cl_Direccion,cl_Tipo,cl_CodigoSector,cl_FechaPorte,cl_NumeroPorte,cl_TipoTarifa,cl_Parroquia,cl_Pais,cp_Codigo,cl_Telefono,cl_Email,cl_TipoCuenta,cl_Seniat,cl_OficDefault FROM ma_Cliente",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerCliente",
+    "metodo": "GET"
+} ,{
+    "modulo": "tracking",
+    "driver": "tracking",
+    "query": "SELECT id,Serial,Cod_Evento,Cod_Ubica,Fec_Evento,Operador,Observacion,Fecha,Motivo,Medida,Firmante,CedulaFirmante,EnviadoIPS,FechaCorta,Cod_Ubicareg,Nom_Maquina,Impreso,VehiMoto,AparNorm,Control,Ruta,Destinatario,Tipo,Repartidor,Modificado,Modifidate,Ayudante,Respaldado,ZonaPostal FROM Reg_Eventos",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerRegEventos",
+    "metodo": "GET"
+},{
+    "modulo": "tracking",
+    "driver": "tracking",
+    "query": "SELECT ev_Codigo,ev_Descripcion FROM ma_Evento",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerEvento",
+    "metodo": "GET"
+},{
+    "modulo": "tracking",
+    "driver": "tracking",
+    "query": "SELECT of_Id,of_Codigo,of_Descripcion,to_Codigo,en_Codigo,of_CentEdo,Renglon1,Renglon2,NumOfi1,NumOfi2,of_CentroPago,of_Programa,of_Categoria,of_Regimen,of_RegistroSSO,of_Direccion,of_Telefono,cp_Codigo,of_Git,of_Buzon,of_Reparto,of_CanalEntrante,of_CanalSaliente,of_Ido FROM ma_Oficina",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerOficinas",
+    "metodo": "GET"
+},{
+    "modulo": "tracking",
+    "driver": "tracking",
+    "query": "SELECT en_Codigo,en_Descripcion,re_Codigo FROM ma_Entidad",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerEntidades",
+    "metodo": "GET"
+},{
+    "modulo": "tracking",
+    "driver": "tracking",
+    "query": "SELECT re_Codigo,re_Descripcion FROM ma_Region",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerRegiones",
+    "metodo": "GET"
+},{
+    "modulo": "tracking",
+    "driver": "tracking",
+    "query": "SELECT se_Codigo,se_Descripcion,se_NacInt,se_CodSerial,se_Sticker FROM ma_Servicio",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerServicios",
+    "metodo": "GET"
+},{
+    "modulo": "tracking",
+    "driver": "tracking",
+    "query": "SELECT de_Codigo,de_Descripcion,Orden FROM ma_Destino",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerDestinos",
+    "metodo": "GET"
+},{
+    "modulo": "tracking",
+    "driver": "tracking",
+    "query": "SELECT Localidad,Ruta,ZonaPostal,Of_Codigo FROM Ma_Localidad",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerLocalidades",
+    "metodo": "GET"
+},{
+    "modulo": "tracking",
+    "driver": "tracking",
+    "query": "SELECT Cod_Envio,Descripcion FROM MaeEnvio",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerEnvios",
+    "metodo": "GET"
+}
+
 
 ]
+
+
 

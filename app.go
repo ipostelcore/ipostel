@@ -46,8 +46,8 @@ func init() {
 func main() {
 
 	// var procesar migracion.Migrar
-	// procesar.Ruta = "./public_web/www/tmp/migracion/tracking.csv"
-	// procesar.Leer(sys.PuntoPostalIpostel, "primertestcsv", procesar.Ruta)
+	// procesar.Ruta = "./public_web/www/tmp/migracion/new.tracking.csv"
+	// procesar.Leer(sys.PuntoPostalPostgres, "Tracking", procesar.Ruta)
 
 	fmt.Println("Inciando la carga del sistema")
 	web.Cargar()

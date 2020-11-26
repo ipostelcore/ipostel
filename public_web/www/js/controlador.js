@@ -43,17 +43,16 @@ Toast = Swal.mixin({
 
 
 /**
- * Carga inicial de Configuracion
+ * Carga de Módulo CONFIGURACIÓN
  * V 1.0
  */
  function CargarConfiguracion(){
-    //CargarUrl('cuerpo', 'inc/configuracion/submenu');
     Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
  }
 
  function CargarUsuarios(){
-  Util.DibujarSubMenuEscritorio(JsonMenu, "Usuarios");
-   //CargarUrl('cuerpo', 'inc/configuracion/usuarios');
+  //Util.DibujarSubMenuEscritorio(JsonMenu, "Usuarios");
+   CargarUrl('cuerpo', 'inc/configuracion/usuarios');
    CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
  }
 
@@ -88,7 +87,7 @@ Toast = Swal.mixin({
 
 
 /**
- * Carga inicial de Control
+ * Carga Módulo CONTROL
  * V 1.0
  */
 function CargarControl(){
@@ -96,11 +95,19 @@ function CargarControl(){
 }
 
 
+
+/**
+ * Función de Cierre de Sesión
+ */
 function CerrarSesion(){
 	sessionStorage.removeItem('ipostel');
 	$(location).attr("href","../index.html");
 }
 
+
+/**
+ * Funcion de Iniciar Sesión
+ */
 function IniciarSesion(){
   if (sessionStorage.getItem('ipostel') != undefined ){
 
@@ -133,11 +140,12 @@ function IniciarSesion(){
    alert("mundo")
  }
 
- // TRACKING
+ /**
+  * Carga de Módulo TRACKING
+  */
 
  function CargarTraking(){
-    CargarUrl('cuerpo', 'inc/tracking/submenu');
-    //Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
+    Util.DibujarSubMenuEscritorio(JsonMenu, "Tracking");
  }
 
  function CargarConsignacion(){
@@ -182,52 +190,68 @@ function IniciarSesion(){
    CargarUrl('cargamasiva', 'inc/tracking/def_incentivosmodal');
  }
 
-
- // PUNTO POSTAL VENTAS
+/**
+ * Carga de Módulo PUNTO VENTAS
+ */
 
  function CargarVentas(){
-  //CargarUrl('cuerpo', 'inc/configuracion/submenu');
+ // CargarUrl('cuerpo', 'inc/ventas/submenu');
   Util.DibujarSubMenuEscritorio(JsonMenu, "Ventas");
 }
 
  function CargarServicios(){
-    //CargarUrl('cuerpo', 'inc/ventas/submenu_servpostales');
-    Util.DibujarSubMenuEscritorio(JsonMenu, "Servicios");
+    CargarUrl('cuerpo', 'inc/ventas/submenu_servicios');
+    //Util.DibujarSubMenuEscritorio(JsonMenu, "Servicios");
  }
 
  function CargarServiciosPostales(){
-  //CargarUrl('cuerpo', 'inc/ventas/telegramas');
- Util.DibujarSubMenuEscritorio(JsonMenu, "Postales");
+  CargarUrl('cuerpo', 'inc/ventas/postales');
+  //Util.DibujarSubMenuEscritorio(JsonMenu, "Postales");
 }
 
  function CargarServiciosTelegraficos(){
-  //CargarUrl('cuerpo', 'inc/ventas/telegramas');
-  Util.DibujarSubMenuEscritorio(JsonMenu, "Telegraficos");
+  CargarUrl('cuerpo', 'inc/ventas/telegramas');
+  //Util.DibujarSubMenuEscritorio(JsonMenu, "Telegraficos");
  }
 
  function CargarServiciosVarios(){
-  //CargarUrl('cuerpo', 'inc/ventas/telegramas');
- Util.DibujarSubMenuEscritorio(JsonMenu, "Varios");
+  CargarUrl('cuerpo', 'inc/ventas/varios');
+ //Util.DibujarSubMenuEscritorio(JsonMenu, "Varios");
 }
 
-function CargarServiciosEbsEms(){
-  //CargarUrl('cuerpo', 'inc/ventas/telegramas');
- Util.DibujarSubMenuEscritorio(JsonMenu, "EBS/EMS");
+function CargarServiciosEbeEms(){
+  CargarUrl('cuerpo', 'inc/ventas/ebeems');
+ //Util.DibujarSubMenuEscritorio(JsonMenu, "EBS/EMS");
 }
+
+function CargarServiciosPortePagado(){
+  CargarUrl('cuerpo', 'inc/ventas/portepagado');
+ //Util.DibujarSubMenuEscritorio(JsonMenu, "Apartados");
+}
+
+function CargarServiciosOtros(){
+  CargarUrl('cuerpo', 'inc/ventas/serviciosotros');
+ //Util.DibujarSubMenuEscritorio(JsonMenu, "Apartados");
+}
+
 
 function CargarServiciosApartados(){
-  //CargarUrl('cuerpo', 'inc/ventas/telegramas');
- Util.DibujarSubMenuEscritorio(JsonMenu, "Apartados");
+  CargarUrl('cuerpo', 'inc/ventas/apartados');
+ //Util.DibujarSubMenuEscritorio(JsonMenu, "Apartados");
 }
 
 function CargarServiciosReportes(){
-  //CargarUrl('cuerpo', 'inc/ventas/telegramas');
- Util.DibujarSubMenuEscritorio(JsonMenu, "Reportes");
+  CargarUrl('cuerpo', 'inc/ventas/reportes');
+ //Util.DibujarSubMenuEscritorio(JsonMenu, "Reportes");
 }
 
+/**
+ * Carga de Módulo Panel
+ */
 
- //Configuracion
-
- function CargarConfiguracion(){
-  CargarUrl('cuerpo', 'inc/configuracion/submenu');
+function CargarPanel(){
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Panel");
+}
+function CargarApiCore(){
+  CargarUrl('cuerpo', 'inc/panel/apicore');
 }

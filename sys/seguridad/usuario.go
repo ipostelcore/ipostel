@@ -165,7 +165,7 @@ func CrearClaveTodos() {
 	// usuario = lst
 	for _, v := range usuario {
 		clave := util.GenerarHash256([]byte(v.Cedula))
-		fmt.Println(v.Cedula, " -> ", v.Clave, " -> ", clave)
+		// fmt.Println(v.Cedula, " -> ", v.Clave, " -> ", clave)
 		err = c.Update(bson.M{"cedula": v.Cedula}, bson.M{"$set": bson.M{"clave": clave}})
 		if err != nil {
 			fmt.Println("Err.", err.Error())
