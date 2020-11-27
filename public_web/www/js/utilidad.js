@@ -54,21 +54,20 @@ class Utilidad{
      * @param {*} Mnu  Json Menu
      */
     DibujarEscritorio(Mnu){
-      
         var cadena = `<div class="row">`;
         if (Mnu.Perfil.Menu != undefined){
           Mnu.Perfil.Menu.forEach(v => {
             if(v.url == undefined){
               cadena += `
-                <div class="col-lg-3 col-6">
-                    <div class="small-box ${v.color}">
-                    <div class="inner">
-                        <p><h2>${v.nombre}</h2> </p>
-                    </div>
-                    <div class="icon">
-                        <i class="${v.icono}"></i>
-                    </div>
-                    <a href="#" class="small-box-footer" onclick="${v.accion}"> <i class="fas fa-arrow-circle-right"></i></a>
+                <div class="col-lg-3 col-4">
+                    <div class="small-box ${v.color}" onclick="${v.accion}" >
+                      <div class="inner">
+                          <p><h2>${v.nombre}</h2> </p>
+                      </div>
+                      <div class="icon">
+                          <i class="${v.icono}"></i>
+                      </div>
+                      <a href="#" class="small-box-footer" >&nbsp; </a>
                     </div>
                 </div>`;
             }else{
@@ -83,6 +82,12 @@ class Utilidad{
         }
         verificarPrivilegioUsuario(Mnu);
     }
+
+    /**
+     * 
+     * @param {*} Mnu 
+     * @param {*} nombre 
+     */
     DibujarSubMenuEscritorio(Mnu, nombre){
       var cadena = `<div class="row">`;
       Mnu.Perfil.Menu.forEach(v => {
@@ -90,7 +95,6 @@ class Utilidad{
           if(v.SubMenu != undefined){
             v.SubMenu.forEach(valor => {
               cadena += `<div class="col-lg-3 col-6 ${valor.clase} ">
-                <!-- small box -->
                 <div class="info-box" onclick="${valor.accion}">
                   <span class="info-box-icon ${valor.color}"><i class="${valor.icono}"></i></span>
                   <div class="info-box-content">
@@ -98,11 +102,47 @@ class Utilidad{
                   </div>
                 </div>            
               </div>`;
-              
             })
           }
         }
+      });
+      cadena += `</row>`;
+      $('#cuerpo').html(cadena);
+    }
 
+    /**
+     * 
+     * @param {*} Mnu 
+     * @param {*} nombre 
+     * @param {*} submenu 
+     */
+    DibujarSubMenuSubMenuEscritorio(Mnu, nombre, submenu){
+      var cadena = `<div class="row">`;
+      Mnu.Perfil.Menu.forEach(v => {
+        
+        if(v.nombre == nombre){
+          if(v.SubMenu != undefined){
+            v.SubMenu.forEach(valor => {
+              
+              if(valor.nombre == submenu){
+                console.log(valor.nombre, submenu);
+                console.log(valor);
+                if( valor.SubMenu != undefined ){
+                  valor.SubMenu.forEach(e => {
+                    cadena += `<div class="col-lg-3 col-6 ${e.clase} ">
+                    <div class="info-box" onclick="${e.accion}">
+                      <span class="info-box-icon ${e.color}"><i class="${e.icono}"></i></span>
+                      <div class="info-box-content">
+                        <span class="info-box-text">${e.nombre}</span>
+                      </div>
+                    </div>            
+                  </div>`;
+                  });
+                }
+              }
+            })
+          }
+        }
       });
       cadena += `</row>`;
       $('#cuerpo').html(cadena);
@@ -163,7 +203,7 @@ class Utilidad{
             var ofi = ofc[i]
             $("#" + idcmb).append(`<option value='${ofi.of_Codigo}'>${ ofi.of_Descripcion}</option>` );
         }
-        console.log("Aqui vamos");
+       
     }
 }
 

@@ -218,3 +218,12 @@ func GitAll(paquete string, cmd string, origen string) (out []byte, err error) {
 	Error(err)
 	return
 }
+
+//Utf8_decode codificacion para utf
+func Utf8_decode(str string) string {
+	var result string
+	for i := range str {
+		result += string(str[i])
+	}
+	return result
+}

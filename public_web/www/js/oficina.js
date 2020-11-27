@@ -6,7 +6,6 @@ class Oficina{
 }
 
 function ObtenerOficinas(){
-
     if (localStorage.getItem("Oficinas") == undefined ){
         var ofc = new Oficina();
         var apic = new ApiCore();
@@ -20,11 +19,7 @@ function ObtenerOficinas(){
     
         promesa.then(function (xhRequest) {
             json = xhRequest.responseText;
-            
             localStorage.setItem("Oficinas", json);
-            
         });
     }
-   
-
 }

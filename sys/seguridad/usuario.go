@@ -76,6 +76,17 @@ type Menu struct {
 }
 
 type SubMenu struct {
+	Url     string       `json:"url,omitempty"`
+	Js      string       `json:"js,omitempty"`
+	Icono   string       `json:"icono,omitempty"`
+	Nombre  string       `json:"nombre,omitempty"`
+	Accion  string       `json:"accion,omitempty"`
+	Clase   string       `json:"clase,omitempty"`
+	Color   string       `json:"color,omitempty"`
+	SubMenu []SubSubMenu `json:"SubMenu,omitempty"`
+}
+
+type SubSubMenu struct {
 	Url    string `json:"url,omitempty"`
 	Js     string `json:"js,omitempty"`
 	Icono  string `json:"icono,omitempty"`
@@ -84,6 +95,7 @@ type SubMenu struct {
 	Clase  string `json:"clase,omitempty"`
 	Color  string `json:"color,omitempty"`
 }
+
 type Rol struct {
 	Descripcion string `json:"descripcion" bson:"descipcion"`
 }

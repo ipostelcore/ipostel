@@ -140,7 +140,7 @@ func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.D
 			switch evalreflect.Kind() {
 			case reflect.Slice:
 				valorstr := fmt.Sprintf("%s", contenido)
-				colassoc[col] = strings.Trim(valorstr, " ")
+				colassoc[col] = util.Utf8_decode(strings.Trim(valorstr, " "))
 				break
 			case reflect.Float32:
 				colassoc[col] = evalreflect.Float()
@@ -211,7 +211,7 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 			switch evalreflect.Kind() {
 			case reflect.String:
 				valorstr := fmt.Sprintf("%s", v)
-				valores += comax + "'" + strings.Trim(valorstr, " ") + "'"
+				valores += comax + "'" + util.Utf8_decode(strings.Trim(valorstr, " ")) + "'"
 				break
 			case reflect.Slice:
 				valorstr := fmt.Sprintf("%s", v)
@@ -270,7 +270,7 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 
 	ApiCoreAux := retornaValores(v)
 	c := sys.MGOSession.DB(sys.CBASE).C(sys.APICORE)
-	fmt.Println("Api ", ApiCoreAux.Ruta)
+	//fmt.Println("Api ", ApiCoreAux.Ruta)
 	err := c.Find(bson.M{"ruta": ApiCoreAux.Ruta}).One(&a)
 	if err != nil {
 		fmt.Println("Error creando Query en Mongodb ", err.Error())
