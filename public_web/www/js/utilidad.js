@@ -1,4 +1,10 @@
-
+/**
+ * Clase: Utilidades del sistema
+ * Referencia: General
+ * Autor: Carlos Peña
+ * Fecha: 27-11-2020
+ * @gesaodin
+ */
 class Utilidad{
     constructor(){
       
@@ -110,12 +116,12 @@ class Utilidad{
       $('#cuerpo').html(cadena);
     }
 
-    /**
-     * 
-     * @param {*} Mnu 
-     * @param {*} nombre 
-     * @param {*} submenu 
-     */
+  /**
+   * 
+   * @param {*} Mnu 
+   * @param {*} nombre 
+   * @param {*} submenu 
+   */
     DibujarSubMenuSubMenuEscritorio(Mnu, nombre, submenu){
       var cadena = `<div class="row">`;
       Mnu.Perfil.Menu.forEach(v => {
