@@ -8,23 +8,13 @@ Titulo: Maquetado de Consignacón de Paquetes
     <form role="form">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card card-pink">
+                    <div class="card-header ">
+                        <h3 class="card-title">Consignación EEB/EMS</h3>
+                      </div>
                     <div class="card-body">
                         <form role="form">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>Hora</label>
-                                        <input type="time" id="txtHora"class="form-control" placeholder="Enter ...">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>Fecha</label>
-                                        <input type="datetime" id="txtFecha" class="form-control" placeholder="Enter ...">
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <hr>
                             <div class="row">
                                 <div class="col-md-5 mr-3">
@@ -34,8 +24,33 @@ Titulo: Maquetado de Consignacón de Paquetes
                                                 <label>Tipo de Envio</label>
                                                 <select class="form-control selected" id="cmbTipoEnvio" onchange="ListarTipoEnvio()">
                                                     <option value="0">Seleccione</option>
-                                                    <option value="1">Envios Express Bolivarianos (CONTADO)</option>
-                                                    <option value="2">Envios Express Bolivarianos (CREDITO)</option>
+                                                    <option value="1">Envíos Expresos Bolivarianos "EEB"</option>
+                                                    <option value="2">Express Mail Service "EMS"</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Tarifa</label>
+                                                <select id="cmbTarifa" class="form-control selected" onchange="ListarTarifa()">
+                                                    <option value="0">Seleccione</option>
+                                                    <option value="1">Urbano</option>
+                                                    <option value="2">Interestatal</option>
+                                                    <option value="3">Interurbano</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Grupo</label>
+                                                <select id="cmbGrupo" class="form-control selected" onchange="ListarGrupo()">
+                                                    <option value="0">Seleccione</option>
+                                                    <option value="1">America</option>
+                                                    <option value="2">Europa</option>
+                                                    <option value="3">Asia</option>
                                                 </select>
                                             </div>
                                         </div>

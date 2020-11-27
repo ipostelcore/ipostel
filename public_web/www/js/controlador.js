@@ -43,15 +43,15 @@ Toast = Swal.mixin({
 
 
 /**
- * Carga inicial de Configuracion
+ * Carga de Módulo CONFIGURACIÓN
  * V 1.0
  */
  function CargarConfiguracion(){
-    
     Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
  }
 
  function CargarUsuarios(){
+  //Util.DibujarSubMenuEscritorio(JsonMenu, "Usuarios");
    CargarUrl('cuerpo', 'inc/configuracion/usuarios');
    CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
  }
@@ -87,31 +87,32 @@ Toast = Swal.mixin({
 
 
 /**
- * Carga inicial de Control
+ * Carga Módulo CONTROL
  * V 1.0
  */
 function CargarControl(){
   Util.DibujarSubMenuEscritorio(JsonMenu, "Control");
 }
 
-
-
-/**
- * Carga inicial de Ventas
- * V 1.0
- */
-function CargarVentas(){
-  //CargarUrl('cuerpo', 'inc/configuracion/submenu');
-  Util.DibujarSubMenuEscritorio(JsonMenu, "Ventas");
+function CargarSemanas(){
+  CargarUrl('cuerpo', 'inc/control/semanas');
 }
 
 
 
+
+/**
+ * Función de Cierre de Sesión
+ */
 function CerrarSesion(){
 	sessionStorage.removeItem('ipostel');
 	$(location).attr("href","../index.html");
 }
 
+
+/**
+ * Funcion de Iniciar Sesión
+ */
 function IniciarSesion(){
   if (sessionStorage.getItem('ipostel') != undefined ){
 
@@ -144,7 +145,9 @@ function IniciarSesion(){
    alert("mundo")
  }
 
- // TRACKING
+ /**
+  * Carga de Módulo TRACKING
+  */
 
  function CargarTraking(){
     Util.DibujarSubMenuEscritorio(JsonMenu, "Tracking");
@@ -188,16 +191,63 @@ function IniciarSesion(){
    CargarUrl('cargamasiva', 'inc/tracking/def_incentivosmodal');
  }
 
+
+/**
+ * Carga de Módulo VENTAS
+ * V 1.0
+ */
+function CargarVentas(){
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Ventas");
+}
+
  function CargarServicios(){
-    CargarUrl('cuerpo', 'inc/ventas/submenu_servpostales');
-    //Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
+    CargarUrl('cuerpo', 'inc/ventas/submenu_servicios');
+    //Util.DibujarSubMenuEscritorio(JsonMenu, "Servicios");
  }
+
+ function CargarServiciosPostales(){
+  CargarUrl('cuerpo', 'inc/ventas/postales');
+  //Util.DibujarSubMenuEscritorio(JsonMenu, "Postales");
+}
 
  function CargarServiciosTelegraficos(){
      CargarUrl('cuerpo', 'inc/ventas/telegramas');
  }
 
-// TRACKING
+ function CargarServiciosVarios(){
+  CargarUrl('cuerpo', 'inc/ventas/varios');
+ //Util.DibujarSubMenuEscritorio(JsonMenu, "Varios");
+}
+
+function CargarServiciosConsignacion(){
+  CargarUrl('cuerpo', 'inc/ventas/consignacion');
+ //Util.DibujarSubMenuEscritorio(JsonMenu, "EBS/EMS");
+}
+
+function CargarServiciosPortePagado(){
+  CargarUrl('cuerpo', 'inc/ventas/portepagado');
+ //Util.DibujarSubMenuEscritorio(JsonMenu, "Apartados");
+}
+
+function CargarServiciosOtros(){
+  CargarUrl('cuerpo', 'inc/ventas/serviciosotros');
+ //Util.DibujarSubMenuEscritorio(JsonMenu, "Apartados");
+}
+
+
+function CargarServiciosApartados(){
+  CargarUrl('cuerpo', 'inc/ventas/apartados');
+ //Util.DibujarSubMenuEscritorio(JsonMenu, "Apartados");
+}
+
+function CargarServiciosReportes(){
+  CargarUrl('cuerpo', 'inc/ventas/reportes');
+ //Util.DibujarSubMenuEscritorio(JsonMenu, "Reportes");
+}
+
+/**
+ * Carga de Módulo Panel
+ */
 
 function CargarPanel(){
   Util.DibujarSubMenuEscritorio(JsonMenu, "Panel");
