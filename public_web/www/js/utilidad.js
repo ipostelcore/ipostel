@@ -204,13 +204,28 @@ class Utilidad{
         var ofc = JSON.parse(localStorage.getItem("Oficinas"));
         
         var cnt = ofc.length;
-        $("#" + idcmb).html("");
+        $("#" + idcmb).html("<option value='-'>SELECCIONE</option>");
         for(var i=0; i < cnt; i++){
             var ofi = ofc[i]
             $("#" + idcmb).append(`<option value='${ofi.of_Codigo}'>${ ofi.of_Descripcion}</option>` );
         }
        
     }
+    /**
+     * 
+     * @param {*} cmb ComboBox para llenar automaticamente
+     */
+    CargarTiposServicios (idcmb){
+      var srv = JSON.parse(localStorage.getItem("TipoServicios"));
+      
+      var cnt = srv.length;
+      $("#" + idcmb).html("<option value='-'>SELECCIONE</option>");
+      for(var i=0; i < cnt; i++){
+          var serv = srv[i]
+          $("#" + idcmb).append(`<option value='${serv.se_Codigo}'>${ serv.se_Descripcion}</option>` );
+      }
+     
+  }
 }
 
 function verificarPrivilegioUsuario(Usuario){

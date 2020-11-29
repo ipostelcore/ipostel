@@ -8,6 +8,33 @@
     "ruta": "ObtenerClientes",
     "metodo": "POST"
 },{
+    "modulo": "maestros",
+    "driver": "maestros",
+    "query": "SELECT ma_Tarifa.se_Codigo, ma_Servicio.se_Descripcion FROM ma_Servicio INNER JOIN ma_Tarifa ON ma_Tarifa.se_Codigo=ma_Servicio.se_Codigo INNER JOIN ma_Destino ON ma_Tarifa.de_Codigo=ma_Destino.de_Codigo GROUP BY ma_Tarifa.se_Codigo, ma_Servicio.se_Descripcion",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ListarTiposServicios",
+    "metodo": "POST"
+},{
+    "modulo": "maestros",
+    "driver": "maestros",
+    "query": "SELECT ma_Destino.de_Codigo, ma_Destino.de_Descripcion, ma_Destino.Orden FROM ma_Servicio INNER JOIN ma_Tarifa ON ma_Tarifa.se_Codigo=ma_Servicio.se_Codigo INNER JOIN ma_Destino ON ma_Tarifa.de_Codigo=ma_Destino.de_Codigo WHERE ma_Tarifa.se_Codigo='$0' GROUP BY ma_Destino.de_Codigo, ma_Destino.de_Descripcion,  ma_Destino.Orden ORDER BY ma_Destino.Orden ASC",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerTiposServicios",
+    "metodo": "POST"
+},{
+    "modulo": "maestros",
+    "driver": "maestros",
+    "query": "SELECT ta_Desde, ta_Hasta, ta_Tarifa FROM  ma_Tarifa WHERE se_Codigo='$0' AND de_Codigo='$1'",
+    "parametros": "",
+    "campos": "",
+    "retorna": "true",
+    "ruta": "ObtenerTarifasDestino",
+    "metodo": "POST"
+},{
     "modulo": "control",
     "driver": "puntopostal",
     "query": "SELECT CODOFIC, DESCRIPCION, DIRECCION, CODPOSTAL, TELEFONO, FAX, JEFE FROM OFICINAS",
@@ -161,8 +188,6 @@
     "ruta": "ObtenerEnvios",
     "metodo": "GET"
 }
-
-
 ]
 
 

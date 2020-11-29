@@ -78,6 +78,27 @@ func ConexionTracking(mapa map[string]CadenaDeConexion) (err error) {
 	return
 }
 
+//ConexionMaestros Funcion de Conexion a SQL SERVER
+func ConexionMaestros(mapa map[string]CadenaDeConexion) (err error) {
+	c := mapa["maestros"]
+
+	SqlServerMaestros, err = sql.Open("odbc", "server="+c.Host+";database="+c.Basedatos+";DSN=maestros;Uid="+c.Usuario+";Pwd="+c.Clave)
+	if err != nil {
+		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + "  Error...] ")
+	} else {
+		_, err := SqlServerMaestros.Query("SELECT TOP 1 * FROM MA_Servicio")
+
+		if err != nil {
+			fmt.Println("[Host: "+c.Host+" Base De Datos: "+c.Basedatos+"  Error...] ", err.Error())
+			return err
+		} else {
+			fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + " OK...]")
+
+		}
+	}
+	return
+}
+
 //ConexionPuntoPostalPostgres Funcion de Conexion a Postgres
 func ConexionPuntoPostalPostgres(mapa map[string]CadenaDeConexion) (err error) {
 	c := mapa["postgres"]

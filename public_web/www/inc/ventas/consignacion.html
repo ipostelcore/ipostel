@@ -22,27 +22,14 @@ Titulo: Maquetado de Consignacón de Paquetes
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Tipo de Envio</label>
-                                                <select class="form-control selected" id="cmbTipoEnvio" onchange="ListarTipoEnvio()">
-                                                    <option value="0">Seleccione</option>
-                                                    <option value="1">ENVÍOS EXPRESOS BOLIVARIANOS "EEB"</option>
-                                                    <option value="2">EXPRESS MAIL SERVICE "EMS"</option>
+                                                <select class="form-control selected" id="cmbTipoEnvio" onchange="seleccionarTarifasDestino()">
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Tarifa</label>
-                                                <select id="cmbTarifa" class="form-control selected" onchange="ListarTarifa()">
-                                                    <option value="0">SELECCIONE</option>
-                                                    <option value="1">URBANO</option>
-                                                    <option value="2">INTERESTATAL</option>
-                                                    <option value="3">INTERURBANO</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Grupo</label>
@@ -97,20 +84,20 @@ Titulo: Maquetado de Consignacón de Paquetes
                                             <div class="form-group">
                                                 <label>Tipo</label>
                                                 <select id="cmbTipo" class="form-control selected" >
-                                                    <option value="0">Seleccione</option>
+                                                    <option value="0">SELECCIONE</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                                 <div class="form-group">    
-                                                        <label>Exonerar / Tarifas</label>                                              
+                                                        <label>Exonerar / Tarifas</label>
                                                         <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
                                                             <input type="checkbox" id="chkExonerar">
                                                             </span>
                                                         </div>
-                                                            <select class="form-control selected" id="cmbTarifa">
+                                                        <select class="form-control selected" id="cmbTarifa" onchange="ObtenerServiciosTipo()">
                                                                 <option value="0">SELECCIONE</option>
                                                             </select>
                                                         </div>
@@ -236,6 +223,7 @@ Titulo: Maquetado de Consignacón de Paquetes
 
         Util.CargarOficinas('cmbOficinaOrigen');
         Util.CargarOficinas('cmbOficinaDestino');
+        Util.CargarTiposServicios('cmbTipoEnvio');
         ListarTiposEnvio();
     })
    

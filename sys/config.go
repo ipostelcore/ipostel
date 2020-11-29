@@ -28,6 +28,7 @@ var (
 	MysqlFullText            *sql.DB
 	SqlServerPuntoPostal     *sql.DB
 	SqlServerTracking        *sql.DB
+	SqlServerMaestros        *sql.DB
 	Error                    error
 	HostIPPace               string = ""
 	HostUrlPace              string = ""
@@ -103,6 +104,17 @@ func init() {
 				Puerto:    valor.Puerto,
 			}
 			ConexionTracking(cad)
+		case "maestros":
+			cad := make(map[string]CadenaDeConexion)
+			cad["maestros"] = CadenaDeConexion{
+				Driver:    valor.Driver,
+				Usuario:   valor.Usuario,
+				Basedatos: valor.Basedatos,
+				Clave:     valor.Clave,
+				Host:      valor.Host,
+				Puerto:    valor.Puerto,
+			}
+			ConexionMaestros(cad)
 		case "postgres":
 			cad := make(map[string]CadenaDeConexion)
 			cad["postgres"] = CadenaDeConexion{
