@@ -78,6 +78,7 @@ func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 	valores := strings.Split(C.ApiCore.Parametros, ",")
 
 	consulta := C.ApiCore.Query
+	fmt.Println("consulta ", consulta)
 	cantidad := len(valores)
 	for i := 0; i < cantidad; i++ {
 
@@ -118,7 +119,6 @@ func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.DB) (jSon []byte, err error) {
 
 	lista := make([]map[string]interface{}, 0)
-	//fmt.Println("VIDA ", consulta)
 	rs, _ := conexion.Query(consulta)
 	cols, err := rs.Columns()
 	if err != nil {
@@ -285,13 +285,16 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 	case "tracking":
 		db = sys.SqlServerTracking
 		break
+	case "maestros":
+		db = sys.SqlServerMaestros
+		break
 	}
 	a.Parametros = ApiCoreAux.Parametros
 	a.Migrar = ApiCoreAux.Migrar
 	a.Metodo = ApiCoreAux.Metodo
 	a.Destino = ApiCoreAux.Destino
 	a.Retorna = ApiCoreAux.Retorna
-	fmt.Println("Driver seleccionado: ", a.Driver)
+	//fmt.Println("Driver seleccionado: ", a.Driver)
 	return
 }
 

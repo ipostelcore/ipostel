@@ -33,6 +33,28 @@ class Consignacion{
     }
     
     Obtener(){
+        this.hora = $("#txtHora").val();
+        this.fecha = $("#txtFecha").val();
+        this.tipoenvio = $("#cmbTipoEnvio option:selected").val();
+        this.serial = $("#txtSticker").val();
+        this.oficinaorigen = $("#cmbOficinaOrigen option:selected").val();
+        this.peso = $("#txtPeso").val();
+        this.tarifa = $("#cmbTarifa option:selected").val();
+        this.exonerado = $("#radExonerado").val();
+        this.monto = $("#txtMonto").val();
+        this.total = $("#txtTotal").val();
+        this.cobrado = $("#txtCobrado").val();
+        this.contado = $("#txtContado").val();
+        this.credito = $("#txtCredito").val();
+        this.cedula = $("#txtCedula").val();
+        this.nombreremitente = $("#txtNombre").val();
+        this.direccion = $("#txtDireccion").val();
+        this.correo = $("#txtCorreo").val();
+        this.nombredestinatario = $("#txtNombreDestinatario").val();
+        this.pais = $("#txtPais").val();
+        this.oficnadestino = $("#cmbOficinaDestino option:selected").val();
+        this.direcciondestino = $("#txtDireccionDestino").val();
+        this.telefonodestino = $("#txtTelefonoDestino").val();
         return this;
     }
 
@@ -40,4 +62,60 @@ class Consignacion{
 
     }
 }
+
+
+function ListarServiciosTipo(){
+    if (localStorage.getItem("TipoServicios") == undefined ){
+        var apic = new ApiCore();
+        apic.ruta = "ListarTiposServicios";
+        var promesa =  CargarAPI({
+            metodo : "POST",
+            sURL: conn.URL + "crud",
+            valores :  apic.Obtener()
+        });
+        promesa.then(function (xhRequest) {
+            json = xhRequest.responseText;
+            localStorage.setItem("TipoServicios", json);
+        });
+    }
+}
+
+function seleccionarTarifasDestino(){
+    var apic = new ApiCore();
+    apic.ruta = "ObtenerTiposServicios";
+    apic.parametros = $("#cmbTipoEnvio").val();
+    var promesa =  CargarAPI({
+        metodo : "POST",
+        sURL: conn.URL + "crud",
+        valores :  apic.Obtener()
+    });
+    promesa.then(function (xhRequest) {
+        json = JSON.parse(xhRequest.responseText);
+        var cnt = json.length;
+        $("#cmbTarifa").html("<option value='-'>SELECCIONE</option>");
+        for(var i=0; i < cnt; i++){
+            var tari = json[i]
+            $("#cmbTarifa").append(`<option value='${tari.de_Codigo}'>${tari.de_Descripcion}</option>` );
+        }
+
+    });
+}
+
+function ObtenerServiciosTipo(){
+
+    var apic = new ApiCore();
+    apic.ruta = "ObtenerTarifasDestino";
+    apic.parametros =  $("#cmbTipoEnvio").val() + "," +  $("#cmbTarifa").val();
+    var promesa =  CargarAPI({
+        metodo : "POST",
+        sURL: conn.URL + "crud",
+        valores :  apic.Obtener()
+    });
+
+    promesa.then(function (xhRequest) {
+        json = xhRequest.responseText;
+        console.log(json);
+    });
+}
+
 

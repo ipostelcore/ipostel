@@ -31,6 +31,7 @@ Toast = Swal.mixin({
     Util.DibujarMenuLateral(JsonMenu);
     Util.DibujarEscritorio(JsonMenu);
     ObtenerOficinas();
+    ListarServiciosTipo();
 
   }
  }
