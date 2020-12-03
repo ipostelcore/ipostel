@@ -33,71 +33,10 @@ Toast = Swal.mixin({
     ObtenerOficinas();
 
   }
-
-
-
  }
 
 
  ); //Fin de la funcion
-
-
-/**
- * Carga de Módulo CONFIGURACIÓN
- * V 1.0
- */
- function CargarConfiguracion(){
-    Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
- }
-
- function CargarUsuarios(){
-  //Util.DibujarSubMenuEscritorio(JsonMenu, "Usuarios");
-   CargarUrl('cuerpo', 'inc/configuracion/usuarios');
-   CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
- }
-
- function CargarServicios(){
-   CargarUrl('cuerpo', 'inc/configuracion/servicios');
-   CargarUrl('_mdlCuerpo', 'inc/configuracion/serviciosmodal');
- }
-
- function CargarRoles(){
-   CargarUrl('cuerpo', 'inc/configuracion/roles');
-   CargarUrl('_mdlCuerpo', 'inc/configuracion/rolesmodal');
-   //CargarUrl('cargamasiva', 'inc/configuracion/serviciosmodal');
- }
-
- function CargarOficinas(){
-   CargarUrl('cuerpo', 'inc/configuracion/oficinas');
-   CargarUrl('_mdlCuerpo', 'inc/configuracion/rolesmodal');
- }
-
- function CargarReportes(){
-   CargarUrl('cuerpo', 'inc/configuracion/submenu_reportes');
-  // CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
- }
-
- function CargarVentaporsermana(){
-   CargarUrl('cuerpo', 'inc/configuracion/ventaporsemana');
-  // CargarUrl('cargamasiva', 'inc/configuracion/usuariosmodal');
- }
-
-
-
-
-
-/**
- * Carga Módulo CONTROL
- * V 1.0
- */
-function CargarControl(){
-  Util.DibujarSubMenuEscritorio(JsonMenu, "Control");
-}
-
-function CargarSemanas(){
-  CargarUrl('cuerpo', 'inc/control/semanas');
-}
-
 
 
 
@@ -141,56 +80,14 @@ function IniciarSesion(){
  }
 
 
- function ListarVentasPorSemanas(){
-   alert("mundo")
- }
 
- /**
-  * Carga de Módulo TRACKING
-  */
-
- function CargarTraking(){
-    Util.DibujarSubMenuEscritorio(JsonMenu, "Tracking");
- }
-
- function CargarConsignacion(){
-   CargarUrl('cuerpo', 'inc/ventas/consignacion');
-   
- }
-
-
- function CargarSeguimiento(){
-   CargarUrl('cuerpo', 'inc/tracking/seguimiento');
- }
-
- function CargarDistribucion(){
-   CargarUrl('cuerpo', 'inc/tracking/manejodistribucion');
- }
-
- function CargarConfiguracionTracking(){
-   CargarUrl('cuerpo', 'inc/tracking/submenu_distribucion');
- }
-
- function CargarDefRuta(){
-   CargarUrl('cuerpo', 'inc/tracking/def_ruta');
-   CargarUrl('cargamasiva', 'inc/tracking/def_rutamodal');
- }
-
- function CargarApartados(){
-   CargarUrl('cuerpo', 'inc/tracking/def_apartados');
-   CargarUrl('cargamasiva', 'inc/tracking/def_apartadosmodal');
- }
-
- function CargarRepartidores(){
-   CargarUrl('cuerpo', 'inc/tracking/def_repartidores');
-   CargarUrl('cargamasiva', 'inc/tracking/def_repartidoresmodal');
- }
-
- function CargarIncentivos(){
-   CargarUrl('cuerpo', 'inc/tracking/def_incentivos');
-   CargarUrl('cargamasiva', 'inc/tracking/def_incentivosmodal');
- }
-
+/**
+ * Carga Módulo CONTROL
+ * V 1.0
+ */
+function CargarControl(){
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Control");
+}
 
 /**
  * Carga de Módulo VENTAS
@@ -200,49 +97,25 @@ function CargarVentas(){
   Util.DibujarSubMenuEscritorio(JsonMenu, "Ventas");
 }
 
- function CargarServicios(){
-    CargarUrl('cuerpo', 'inc/ventas/submenu_servicios');
-    //Util.DibujarSubMenuEscritorio(JsonMenu, "Servicios");
- }
-
- function CargarServiciosPostales(){
-  CargarUrl('cuerpo', 'inc/ventas/postales');
-  //Util.DibujarSubMenuEscritorio(JsonMenu, "Postales");
-}
-
- function CargarServiciosTelegraficos(){
-     CargarUrl('cuerpo', 'inc/ventas/telegramas');
- }
-
- function CargarServiciosVarios(){
-  CargarUrl('cuerpo', 'inc/ventas/varios');
- //Util.DibujarSubMenuEscritorio(JsonMenu, "Varios");
-}
-
-function CargarServiciosConsignacion(){
-  CargarUrl('cuerpo', 'inc/ventas/consignacion');
- //Util.DibujarSubMenuEscritorio(JsonMenu, "EBS/EMS");
-}
-
-function CargarServiciosPortePagado(){
-  CargarUrl('cuerpo', 'inc/ventas/portepagado');
- //Util.DibujarSubMenuEscritorio(JsonMenu, "Apartados");
-}
-
-function CargarServiciosOtros(){
-  CargarUrl('cuerpo', 'inc/ventas/serviciosotros');
- //Util.DibujarSubMenuEscritorio(JsonMenu, "Apartados");
+function CargarServicios(){
+  Util.DibujarSubmenuSubMenuEscritorio(JsonMenu, "Servicios");
 }
 
 
-function CargarServiciosApartados(){
-  CargarUrl('cuerpo', 'inc/ventas/apartados');
- //Util.DibujarSubMenuEscritorio(JsonMenu, "Apartados");
+ /**
+  * Carga de Módulo TRACKING
+  */
+
+ function CargarTracking(){
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Tracking");
 }
 
-function CargarServiciosReportes(){
-  CargarUrl('cuerpo', 'inc/ventas/reportes');
- //Util.DibujarSubMenuEscritorio(JsonMenu, "Reportes");
+/**
+ * Carga de Módulo CONFIGURACIÓN
+ * V 1.0
+ */
+function CargarConfiguracion(){
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
 }
 
 /**
@@ -252,6 +125,8 @@ function CargarServiciosReportes(){
 function CargarPanel(){
   Util.DibujarSubMenuEscritorio(JsonMenu, "Panel");
 }
+
+
 function CargarApiCore(){
   CargarUrl('cuerpo', 'inc/panel/apicore');
 }
