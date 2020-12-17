@@ -14,20 +14,13 @@
                       <form role="form">
                           <div class="row justify-content-lg-center">
                             <div class="col-lg-4">
-                              <button type="button" class="btn btn-warning btn-lg" id="btnAperturaSemana">Aperturar Semana</button>
+                              <button type="button" class="btn btn-outline-warning btn-lg" id="btnAperturaSemana">Aperturar Semana</button>
                             </div>
-                                  <div class="col-md-2">
-                                    <div class="form-group">    
-                                            <label>Desde</label>
-                                            <input type="date" id="txtDesde" class="form-control" placeholder="Enter ...">
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                            <input type="text" id="date_range" name="date_range" class="form-control">
                                     </div>
-                                  </div>
-                                  <div class="col-md-2">
-                                    <div class="form-group">    
-                                            <label>Hasta</label>
-                                            <input type="date" id="txtHasta" class="form-control" placeholder="Enter ...">
-                                    </div>
-                                  </div>   
+                                  </div> 
                               </div>
                           </div>
                       </form>
@@ -90,3 +83,49 @@
     </div>
   </div>
 </section>
+
+
+
+
+<script>
+$(function () {
+  $('#date_range').daterangepicker({
+      "locale": {
+          "format": "YYYY-MM-DD",
+          "separator": " - ",
+          "applyLabel": "Guardar",
+          "cancelLabel": "Cancelar",
+          "fromLabel": "Desde",
+          "toLabel": "Hasta",
+          "customRangeLabel": "Personalizar",
+          "daysOfWeek": [
+              "Do",
+              "Lu",
+              "Ma",
+              "Mi",
+              "Ju",
+              "Vi",
+              "Sa"
+          ],
+          "monthNames": [
+              "Enero",
+              "Febrero",
+              "Marzo",
+              "Abril",
+              "Mayo",
+              "Junio",
+              "Julio",
+              "Agosto",
+              "Setiembre",
+              "Octubre",
+              "Noviembre",
+              "Diciembre"
+          ],
+          "firstDay": 1
+      },
+      "startDate": "2016-01-01",
+      "endDate": "2016-01-07",
+      "opens": "center"
+  });
+});
+</script>
