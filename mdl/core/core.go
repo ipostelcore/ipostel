@@ -63,6 +63,8 @@ func (C *Core) Oficinas() (jSon []byte, err error) {
 	return
 }
 
-func (C *Core) OperarConsulta() (jSon []byte, err error) {
+//OperarConsulta
+func (C *Core) OperarConsulta(v map[string]interface{}) (jSon []byte, err error) {
+
 	return
 }

@@ -174,10 +174,6 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 				n := evalreflect.Int()
 				valores += comax + strconv.FormatInt(n, 10)
 				break
-				// default:
-				// 	valores += comax + "''"
-				// 	fmt.Println(c+" TIPO ", " ESPACIO ")
-				// 	break
 			}
 
 			j++
@@ -201,7 +197,6 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 			M.Tipo = 1
 			jSon, err = json.Marshal(M)
 		}
-		//fmt.Println(insert)
 	}
 	return
 
@@ -210,7 +205,6 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 	ApiCoreAux := retornaValores(v)
 	c := sys.MGOSession.DB(sys.CBASE).C(sys.APICORE)
-	//fmt.Println("Api ", ApiCoreAux.Ruta)
 	err := c.Find(bson.M{"ruta": ApiCoreAux.Ruta}).One(&a)
 	if err != nil {
 		fmt.Println("Error creando Query en Mongodb ", err.Error())
