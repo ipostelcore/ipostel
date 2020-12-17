@@ -51,7 +51,7 @@ func (a *API) Crud(w http.ResponseWriter, r *http.Request) {
 	e := json.NewDecoder(r.Body).Decode(&v)
 	util.Error(e)
 
-	j, _ := c.CrearQuery(v)
+	j, _ := c.OperarConsulta(v)
 
 	w.WriteHeader(http.StatusOK)
 	w.Write(j)
