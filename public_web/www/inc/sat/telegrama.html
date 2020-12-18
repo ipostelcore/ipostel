@@ -36,7 +36,7 @@ Titulo: Maquetado de Telegramas
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Otros</label>
-                                                <select id="cmbGrupo" class="form-control selected" onchange="">
+                                                <select id="cmbOtros" class="form-control selected" onchange="">
                                                     <option value="0">SELECCIONE</option>
                                                     <option value="1">SVH</option>
                                                     <option value="2">ADG</option>
@@ -67,7 +67,7 @@ Titulo: Maquetado de Telegramas
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Tipo Telegrama</label>
-                                                <select class="form-control selected" id="cmbServicio" onchange="">
+                                                <select class="form-control selected" id="cmbTipoTelegrama" onchange="">
                                                     <option value="0">SELECCIONE</option>
                                                     <option value="1">CRÉDITO</option>
                                                     <option value="2">CONTADO</option>
@@ -111,7 +111,7 @@ Titulo: Maquetado de Telegramas
                                             <div class="form-group">
                                                 <label>Oficina Destino</label>
                                                 <select id="cmbOficinaDestino" class="form-control selected" onchange="ListarOficinas()">
-                                                    <option value="0">Seleccione</option>
+                                                    <option value="0">SELECCIONE</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -124,8 +124,8 @@ Titulo: Maquetado de Telegramas
                                 </div>
                                     <div class="row">
                                         <div class="col-12 text-center mt-3">
-                                            <button type="reset" class="btn btn-outline-warning">Limpiar</button>
-                                            <button type="button" class="btn btn-outline-warning">Guardar</button>
+                                            <button type="reset" class="btn btn-outline-warning" id="btnLimpiar">Limpiar</button>
+                                            <button type="button" class="btn btn-outline-warning" id="btnGuardar">Guardar</button>
                                         </div>
                                     </div>
                                 

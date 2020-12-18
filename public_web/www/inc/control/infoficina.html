@@ -20,19 +20,19 @@ Titulo: Maquetado de INformación de la Oficina
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Código</label>
-                                                <input type="text" id="txtPais"class="form-control" placeholder="080601190000" disabled>
+                                                <input type="text" id="txtCodigo"class="form-control" placeholder="080601190000" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nombre de la Oficina</label>
-                                                <input type="text" id="txtNombreDestinatario" class="form-control" placeholder="OPT SAN JUAN DE LOS MORROS" disabled>
+                                                <input type="text" id="txtNombreOficina" class="form-control" placeholder="OPT SAN JUAN DE LOS MORROS" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Telefono</label>
-                                                <input type="text" id="txtPais"class="form-control" placeholder="0212-6020202" disabled>
+                                                <input type="text" id="txtTelefono"class="form-control" placeholder="0212-6020202" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -40,25 +40,25 @@ Titulo: Maquetado de INformación de la Oficina
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Código Postal</label>
-                                                <input type="text" id="txtPais"class="form-control" placeholder="1160" disabled>
+                                                <input type="text" id="txtCodigoPostal"class="form-control" placeholder="1160" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Jefe de Oficina</label>
-                                                <input type="text" id="txtNombreDestinatario" class="form-control" placeholder="PEDRO PEREZ DELGADO" disabled>
+                                                <input type="text" id="txtJefeOficina" class="form-control" placeholder="PEDRO PEREZ DELGADO" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Fax</label>
-                                                <input type="text" id="txtPais"class="form-control" placeholder="0212-6020202" disabled>
+                                                <input type="text" id="txtFax"class="form-control" placeholder="0212-6020202" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Tipo de Impuesto</label>
-                                                <select id="cmbOficinaOrigen" class="form-control selected" onchange="">
+                                                <select id="cmbTipoImpuesto" class="form-control selected" onchange="">
                                                     <option value="0">SELECCIONE</option>
                                                     <option value="1">PUERTO LIBRE</option>
                                                     <option value="2">ESPECIAL</option>
@@ -78,8 +78,8 @@ Titulo: Maquetado de INformación de la Oficina
                                     </div>
                                     <div class="row">
                                         <div class="col-12 text-center mt-3">
-                                            <button type="reset" class="btn btn-outline-warning">Limpiar</button>
-                                            <button type="button" class="btn btn-outline-warning">Guardar</button>
+                                            <button type="reset" class="btn btn-outline-warning" id="btnLimpiar">Limpiar</button>
+                                            <button type="button" class="btn btn-outline-warning" id="btnGuardar">Guardar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -101,10 +101,8 @@ Titulo: Maquetado de INformación de la Oficina
 
     $(function() {
 
-        Util.CargarOficinas('cmbOficinaOrigen');
-        Util.CargarOficinas('cmbOficinaDestino');
-        Util.CargarTiposServicios('cmbTipoEnvio');
-        ListarTiposEnvio();
+        Util.CargarImpuesto('cmbTipoImpuesto');
+        ListarTipoImpuesto();
     })
    
 </script>

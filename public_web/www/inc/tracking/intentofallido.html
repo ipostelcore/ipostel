@@ -16,28 +16,28 @@
                               <div class="col-sm-2">
                                   <div class="form-group">    
                                               <label>Fecha de Reparto</label>
-                                              <input type="date" id="txtCantidad" class="form-control" placeholder="Enter ...">
+                                              <input type="date" id="txtFechaReparto" class="form-control" placeholder="Enter ...">
                                       </div>
                                   </div>
 
                                   <div class="col-sm-2">
                                     <div class="form-group">    
                                                 <label>Hora</label>
-                                                <input type="time" id="txtCantidad" class="form-control" placeholder="Enter ...">
+                                                <input type="time" id="txtHora" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">    
                                                     <label>N° Sticker</label>
-                                                    <input type="text" id="txtCantidad" class="form-control" placeholder="Enter ...">
+                                                    <input type="text" id="txtSticker" class="form-control" placeholder="Enter ...">
                                             </div>
                                         </div>
 
                                     <div class="col-sm-6">
                                       <div class="form-group">    
                                         <label>Oficina</label>
-                                        <select class="form-control selected" id="cmbvia" onchange="">
-                                            <option value="0">Seleccione</option>
+                                        <select class="form-control selected" id="cmbOficina" onchange="">
+                                            <option value="0">SELECCIONE</option>
                                             <option value="1">OPT 1</option>
                                             <option value="2">OPT 2</option>
                                         </select>
@@ -48,14 +48,14 @@
                                     <div class="col-md-2">
                                       <div class="form-group">
                                           <label>Peso</label>
-                                          <input type="text" id="txtTarifa" class="form-control" placeholder="Enter ...">
+                                          <input type="text" id="txtPeso" class="form-control" placeholder="Enter ...">
                                       </div>
                                     </div>
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label>Motivo</label>
-                                        <select class="form-control selected" id="cmbvia" onchange="">
-                                            <option value="0">Seleccione</option>
+                                        <select class="form-control selected" id="cmbMotivo" onchange="">
+                                            <option value="0">SELECCIONE</option>
                                             <option value="1">DIRECCIÓN INCORRECTA</option>
                                             <option value="2">DESTINATARIO NO PUDO SER LOCALIZADO</option>
                                             <option value="3">DESTINATARIO NO SE ENCUENTRA EN LA DIRECCION</option>
@@ -72,8 +72,8 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label>Medida</label>
-                                        <select class="form-control selected" id="cmbvia" onchange="">
-                                            <option value="0">Seleccione</option>
+                                        <select class="form-control selected" id="cmbMedida" onchange="">
+                                            <option value="0">SELECCIONE</option>
                                             <option value="1">SE INTENTO LA ENTREGA HOY</option>
                                             <option value="2">SE INTENTARA LA ENTREGA EN EL PROXIMO HORARIO LABORAL</option>
                                             <option value="3">ENVIO RETENIDO NO SE ENCUENTRA EN LA DIRECCION</option>
@@ -92,15 +92,15 @@
                                           <div class="col-md-12">
                                           <div class="form-group">
                                               <label>Observación</label>
-                                              <textarea id="txt" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                              <textarea id="txtObservacion" class="form-control" rows="3" placeholder="Enter ..."></textarea>
                                           </div>
                                           </div>
                                                                                    
                                   </div>
                                 <div class="row">
                                     <div class="col-12 text-center mt-3">
-                                        <button type="reset" class="btn btn-outline-danger">Limpiar</button>
-                                        <button type="button" class="btn btn-outline-danger">Guardar</button>
+                                        <button type="reset" class="btn btn-outline-danger" id="btnLimpiar">Limpiar</button>
+                                        <button type="button" class="btn btn-outline-danger" id="btnGuardar">Guardar</button>
                                     </div>
                                 </div> 
                               </div>

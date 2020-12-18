@@ -16,27 +16,27 @@
                               <div class="col-sm-2">
                                   <div class="form-group">    
                                               <label>Fecha de Reparto</label>
-                                              <input type="date" id="txtCantidad" class="form-control" placeholder="Enter ...">
+                                              <input type="date" id="txtFechaRepartos" class="form-control" placeholder="Enter ...">
                                       </div>
                                   </div>
 
                                   <div class="col-sm-2">
                                     <div class="form-group">    
                                                 <label>Hora</label>
-                                                <input type="time" id="txtCantidad" class="form-control" placeholder="Enter ...">
+                                                <input type="time" id="txtHora" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">    
                                                     <label>N° Sticker</label>
-                                                    <input type="text" id="txtCantidad" class="form-control" placeholder="Enter ...">
+                                                    <input type="text" id="txtSticker" class="form-control" placeholder="Enter ...">
                                             </div>
                                         </div>
 
                                     <div class="col-sm-6">
                                       <div class="form-group">    
                                             <label>Remitente</label>                                              
-                                            <input type="text" id="txtCantidad" class="form-control" placeholder="Enter ...">
+                                            <input type="text" id="txtRemitente" class="form-control" placeholder="Enter ...">
                                           </div>
                                       </div>
                               </div>
@@ -44,14 +44,14 @@
                                       <div class="col-md-6">
                                           <div class="form-group">
                                               <label>Recibido por</label>
-                                              <input type="text" id="txtCantidad" class="form-control" placeholder="Enter ...">
+                                              <input type="text" id="txtRecibido" class="form-control" placeholder="Enter ...">
                                           </div>
                                       </div>
                                       <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Oficina Repartidora</label>
-                                            <select class="form-control selected" id="cmbvia" onchange="">
-                                                <option value="0">Seleccione</option>
+                                            <select class="form-control selected" id="cmbOficinaRepartidora" onchange="">
+                                                <option value="0">SELECCIONE</option>
                                                 <option value="1">OPT 1</option>
                                                 <option value="2">OPT 2</option>
                                             </select>
@@ -60,14 +60,14 @@
                                     <div class="col-md-4">
                                       <div class="form-group">
                                           <label>Identificacion</label>
-                                          <input type="text" id="txtTarifa" class="form-control" placeholder="Enter ...">
+                                          <input type="text" id="txtIdentificacion" class="form-control" placeholder="Enter ...">
                                       </div>
                                     </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Repartidor</label>
-                                        <select class="form-control selected" id="cmbvia" onchange="">
-                                            <option value="0">Seleccione</option>
+                                        <select class="form-control selected" id="cmbRepartidor" onchange="">
+                                            <option value="0">SELECCIONE</option>
                                             <option value="1">REPARTIDOR 1</option>
                                             <option value="2">REPARTIDOR 2</option>
                                         </select>
@@ -76,8 +76,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Ayudante</label>
-                                        <select class="form-control selected" id="cmbvia" onchange="">
-                                            <option value="0">Seleccione</option>
+                                        <select class="form-control selected" id="cmbAyudante" onchange="">
+                                            <option value="0">SELECCIONE</option>
                                             <option value="1">AYUDANTE 1</option>
                                             <option value="2">AYUDANTE 2</option>
                                         </select>
@@ -88,15 +88,15 @@
                                           <div class="col-md-12">
                                           <div class="form-group">
                                               <label>Observación</label>
-                                              <textarea id="txt" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                              <textarea id="txtObservacion" class="form-control" rows="3" placeholder="Enter ..."></textarea>
                                           </div>
                                           </div>
                                                                                    
                                   </div>
                                 <div class="row">
                                     <div class="col-12 text-center mt-3">
-                                        <button type="reset" class="btn btn-outline-primary">Limpiar</button>
-                                        <button type="button" class="btn btn-outline-primary">Guardar</button>
+                                        <button type="reset" class="btn btn-outline-primary" id="btnLimpiar">Limpiar</button>
+                                        <button type="button" class="btn btn-outline-primary" id="btnGuardar">Guardar</button>
                                     </div>
                                 </div> 
                               </div>

@@ -16,24 +16,24 @@
                               <div class="col-sm-3">
                                   <div class="form-group">    
                                               <label>Fecha de Reparto</label>
-                                              <input type="date" id="txtCantidad" class="form-control" placeholder="Enter ...">
+                                              <input type="date" id="txtFechaReparto" class="form-control" placeholder="Enter ...">
                                       </div>
                                   </div>
 
                                   <div class="col-sm-3">
                                     <div class="form-group">    
                                                 <label>Hora</label>
-                                                <input type="time" id="txtCantidad" class="form-control" placeholder="Enter ...">
+                                                <input type="time" id="txtHora" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-3">
                                       <div class="form-group">    
                                             <label>Tipo de Reparto</label>                                              
-                                            <select class="form-control selected" id="cmbGrupo" onchange="">
-                                                <option value="0">Seleccione</option>
-                                                <option value="1">Domiciliario</option>
-                                                <option value="2">Apartado</option>
+                                            <select class="form-control selected" id="cmbTipoReparto" onchange="">
+                                                <option value="0">SELECCIONE</option>
+                                                <option value="1">DOMICILIARIO</option>
+                                                <option value="2">APARTADO</option>
                                             </select>
                                           </div>
                                       </div>
@@ -42,9 +42,9 @@
                                       <div class="form-group">    
                                               <label>Transporte</label>                                              
                                                 <select class="form-control selected" id="cmbvia" onchange="">
-                                                  <option value="0">Seleccione</option>
-                                                  <option value="1">Moto</option>
-                                                  <option value="2">Vehiculo</option>
+                                                  <option value="0">SELECCIONE</option>
+                                                  <option value="1">MOTO</option>
+                                                  <option value="2">VEHICULO</option>
                                                 </select>
                                       </div>
                                   </div>         
@@ -53,14 +53,14 @@
                                       <div class="col-md-2">
                                           <div class="form-group">
                                               <label>N° Sticker</label>
-                                              <input type="text" id="txtCantidad" class="form-control" placeholder="Enter ...">
+                                              <input type="text" id="txtSticker" class="form-control" placeholder="Enter ...">
                                           </div>
                                       </div>
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Oficina Repartidora</label>
-                                            <select class="form-control selected" id="cmbvia" onchange="">
-                                                <option value="0">Seleccione</option>
+                                            <select class="form-control selected" id="cmbOficinaRepartidora" onchange="">
+                                                <option value="0">SELECCIONE</option>
                                                 <option value="1">OPT 1</option>
                                                 <option value="2">OPT 2</option>
                                             </select>
@@ -69,14 +69,14 @@
                                     <div class="col-md-2">
                                       <div class="form-group">
                                           <label>Cantidad de Repartos</label>
-                                          <input type="text" id="txtTarifa" class="form-control" placeholder="Enter ...">
+                                          <input type="text" id="txtCantidadRepartos" class="form-control" placeholder="Enter ...">
                                       </div>
                                   </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label>Zona Postal</label>
-                                        <select class="form-control selected" id="cmbvia" onchange="">
-                                            <option value="0">Seleccione</option>
+                                        <select class="form-control selected" id="cmbZonaPostal" onchange="">
+                                            <option value="0">SELECCIONE</option>
                                             <option value="1">0012</option>
                                             <option value="2">1150</option>
                                         </select>
@@ -85,8 +85,8 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label>Ruta</label>
-                                        <select class="form-control selected" id="cmbvia" onchange="">
-                                            <option value="0">Seleccione</option>
+                                        <select class="form-control selected" id="cmbRuta" onchange="">
+                                            <option value="0">SELECCIONE</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                         </select>
@@ -97,15 +97,15 @@
                                           <div class="col-md-12">
                                           <div class="form-group">
                                               <label>Observación</label>
-                                              <textarea id="txt" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                              <textarea id="txtObservacion" class="form-control" rows="3" placeholder="Enter ..."></textarea>
                                           </div>
                                           </div>
                                                                                    
                                   </div>
                                 <div class="row">
                                     <div class="col-12 text-center mt-3">
-                                        <button type="reset" class="btn btn-outline-warning">Limpiar</button>
-                                        <button type="button" class="btn btn-outline-warning">Guardar</button>
+                                        <button type="reset" class="btn btn-outline-warning" id="btnLimpiar">Limpiar</button>
+                                        <button type="button" class="btn btn-outline-warning" id="btnGuardar">Guardar</button>
                                     </div>
                                 </div> 
                               </div>
