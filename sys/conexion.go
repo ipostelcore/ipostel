@@ -31,19 +31,22 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + "  Error...] ")
 	} else {
 		//"SELECT TOP 2 codofic, descripcion FROM oficinas"
-		_, err := SqlServerPuntoPostal.Query("SELECT TOP 1 CODOFIC, DESCRIPCION, DIRECCION, CODPOSTAL, TELEFONO, FAX, JEFE FROM OFICINAS")
+		sq, err := SqlServerPuntoPostal.Query("SELECT DESCRIPCION FROM CLIENTES")
 
 		if err != nil {
 			fmt.Println("[Host: "+c.Host+" Base De Datos: "+c.Basedatos+"  Error...] ", err.Error())
 			return err
 		} else {
 			fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + " OK...]")
-			// for sq.Next() {
-			// 	var a, b string
-			// 	sq.Scan(&a, &b)
-			// 	fmt.Println(a, b)
-			// }
-			// fmt.Println("Controlando la situación")
+			for sq.Next() {
+				var a string
+				errx := sq.Scan(&a)
+				if errx != nil {
+					fmt.Println("Error cargando fila ", errx.Error())
+				}
+				fmt.Println(a)
+			}
+			fmt.Println("Controlando la situación")
 		}
 
 	}

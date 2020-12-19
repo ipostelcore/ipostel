@@ -2,11 +2,12 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/ipostelcore/ipostel/mdl/core"
+	"github.com/ipostelcore/ipostel/sys"
 	"github.com/ipostelcore/ipostel/sys/seguridad"
-	"github.com/ipostelcore/ipostel/util"
 )
 
 //UsuarioConectado Seguridad Informatica
@@ -49,10 +50,25 @@ func (a *API) Crud(w http.ResponseWriter, r *http.Request) {
 	Cabecera(w, r)
 	var v map[string]interface{}
 	e := json.NewDecoder(r.Body).Decode(&v)
-	util.Error(e)
+	if e == nil {
+		j, _ := c.OperarConsulta(v)
 
-	j, _ := c.OperarConsulta(v)
+		w.WriteHeader(http.StatusOK)
+		w.Write(j)
+	} else {
+		w.WriteHeader(http.StatusForbidden)
+		fmt.Println("error de objeto")
+		fmt.Fprintln(w, "Error en el objeto de carga")
+	}
 
+}
+
+//Listar conexion para solicitud de token
+func (a *API) Listar(w http.ResponseWriter, r *http.Request) {
+	var xcore core.Core
+	Cabecera(w, r)
+	j, _ := xcore.Listar(sys.MGOSession)
 	w.WriteHeader(http.StatusOK)
 	w.Write(j)
+
 }

@@ -6,6 +6,7 @@ import (
 
 	"github.com/ipostelcore/ipostel/sys"
 	"github.com/ipostelcore/ipostel/util"
+	"gopkg.in/mgo.v2/bson"
 )
 
 //Core Ejecucion
@@ -26,17 +27,22 @@ type Oficina struct {
 
 //ApiCore Estructura de conexion
 type ApiCore struct {
-	Modulo       string `json:"modula"`
-	Driver       string `json:"driver"`
-	Query        string `json:"query"`
-	Campos       string `json:"campos"`
-	Parametros   string `json:"parametros"`
-	Ruta         string `json:"ruta"`
-	Retorna      string `json:"retorna"`
-	Concurrencia string `json:"concurrencia"`
-	Migrar       string `json:"migrar"`
-	Metodo       string `json:"metodo"`
-	Destino      string `json:"destino"`
+	Id           bson.ObjectId `json:"id" bson:"_id,omitempty"`
+	Modulo       string        `json:"modulo"`
+	Driver       string        `json:"driver"`
+	Query        string        `json:"query"`
+	Parametros   string        `json:"parametros"`
+	Ruta         string        `json:"ruta"`
+	Funcion      string        `json:"funcion"`
+	Retorna      bool          `json:"retorna"`
+	Concurrencia bool          `json:"concurrencia"`
+	Migrar       bool          `json:"migrar"`
+	Metodo       string        `json:"metodo"`
+	Destino      string        `json:"destino"`
+	Puerto       int           `json:"puerto"`
+	Protocolo    string        `json:"protocolo"`
+	Entorno      string        `json:"entorno"`
+	Estatus      bool          `json:"estatus" bson:"estatus,omitempty"`
 }
 
 //Object Objeto para reflexiones
@@ -65,6 +71,6 @@ func (C *Core) Oficinas() (jSon []byte, err error) {
 
 //OperarConsulta
 func (C *Core) OperarConsulta(v map[string]interface{}) (jSon []byte, err error) {
-
+	jSon, err = C.CrearQuery(v)
 	return
 }

@@ -33,7 +33,7 @@ func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 		if vf == true {
 			switch cf {
 			case "select":
-				if C.ApiCore.Retorna == "false" && C.ApiCore.Migrar == "true" {
+				if C.ApiCore.Retorna == false && C.ApiCore.Migrar == true {
 					var M util.Mensajes
 					M.Msj = "Proceso finalizado"
 					M.Tipo = 1
@@ -61,6 +61,7 @@ func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.D
 
 	lista := make([]map[string]interface{}, 0)
 	rs, _ := conexion.Query(consulta)
+	fmt.Println(consulta)
 	cols, err := rs.Columns()
 	if err != nil {
 		panic(err)
@@ -101,7 +102,7 @@ func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.D
 		lista = append(lista, colassoc)
 
 	}
-	if C.ApiCore.Migrar == "true" {
+	if C.ApiCore.Migrar == true {
 		go C.IUDQueryBash(C.ApiCore.Destino, lista, "", conexion)
 	}
 	jSon, err = json.Marshal(lista)
@@ -205,10 +206,12 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 	ApiCoreAux := retornaValores(v)
 	c := sys.MGOSession.DB(sys.CBASE).C(sys.APICORE)
-	err := c.Find(bson.M{"ruta": ApiCoreAux.Ruta}).One(&a)
+
+	err := c.Find(bson.M{"funcion": ApiCoreAux.Funcion}).One(&a)
 	if err != nil {
-		fmt.Println("Error creando Query en Mongodb ", err.Error())
+		fmt.Println("Error creando Query en Mongodb "+"funcion: "+ApiCoreAux.Funcion, err.Error())
 	}
+
 	switch a.Driver {
 	case "puntopostal":
 		db = sys.SqlServerPuntoPostal
@@ -234,9 +237,10 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 
 func retornaValores(v map[string]interface{}) (a ApiCore) {
 	for k, vs := range v {
+		fmt.Println(k)
 		switch k {
-		case "ruta":
-			a.Ruta = vs.(string)
+		case "funcion":
+			a.Funcion = vs.(string)
 			break
 		case "parametros":
 			a.Parametros = vs.(string)
@@ -245,13 +249,13 @@ func retornaValores(v map[string]interface{}) (a ApiCore) {
 			a.Metodo = vs.(string)
 			break
 		case "migrar":
-			a.Migrar = vs.(string)
+			a.Migrar = vs.(bool)
 			break
 		case "destino":
 			a.Destino = vs.(string)
 			break
 		case "retorna":
-			a.Retorna = vs.(string)
+			a.Retorna = vs.(bool)
 			break
 		}
 	}

@@ -35,8 +35,21 @@ func CargarModulosWeb() {
 	Enrutador.HandleFunc("/ipostel/api/crud/{id}", wUsuario.ValidarToken(ap.Consultar)).Methods("GET")
 	Enrutador.HandleFunc("/ipostel/api/oficina/listar", wUsuario.ValidarToken(ap.Oficinas)).Methods("GET")
 
+	Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("GET")
 	Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("POST")
+	Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("PUT")
+	Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("DELETE")
+	Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("OPTIONS")
+
+	Enrutador.HandleFunc("/devel/api/crud", ap.Crud).Methods("GET")
 	Enrutador.HandleFunc("/devel/api/crud", ap.Crud).Methods("POST")
+	Enrutador.HandleFunc("/devel/api/crud", ap.Crud).Methods("PUT")
+	Enrutador.HandleFunc("/devel/api/crud", ap.Crud).Methods("DELETE")
+	Enrutador.HandleFunc("/devel/api/crud", ap.Crud).Methods("OPTIONS")
+
+	Enrutador.HandleFunc("/ipostel/api/listar", wUsuario.ValidarToken(ap.Listar)).Methods("GET")
+	Enrutador.HandleFunc("/devel/api/listar", ap.Listar).Methods("GET")
+
 }
 
 //CargarModulosPanel Panel de Contencion

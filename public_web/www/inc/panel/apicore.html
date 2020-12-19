@@ -5,187 +5,210 @@ Titulo: Panel de Control: APICORE
  -->
 
 <section>
-    <form role="form">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <form role="form">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">    
-                                            <label>HTTP / Puerto</label>                                              
-                                            <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                <input type="checkbox" id="http">
-                                                </span>
-                                            </div>
-                                                <select class="form-control selected" id="cmbpuertohttp">
-                                                    <option value="0">SELECCIONE</option>
-                                                    <option value="1">8012</option>
-                                                    <option value="2">8013</option>
-                                                </select>
-                                            </div>
-                                            <!-- /input-group -->
-                                    </div>
-                                </div>
-                                    <div class="col-sm-6">
-                                    <div class="form-group">    
-                                                <label>HTTPS / Puerto</label>                                              
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                    <input type="checkbox" id="https">
-                                                    </span>
-                                                </div>
-                                                <select class="form-control selected" id="cmbpuertohttps">
-                                                    <option value="0">SELECCIONE</option>
-                                                    <option value="1">2286</option>
-                                                    <option value="2">2385</option>
-                                                </select>
-                                                <div class="input-group-append">
-                                                 <span class="input-group-text"><i class="fas fa-eye"></i></span>
-                                                </div>
-                                            </div>
-                                            <!-- /input-group -->
-                                        </div>
-                                    </div>
-                                    
-                                </div>
 
-
-                            <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Función</label>
-                                                <input type="text" id="txtFuncion" class="form-control" placeholder="Enter ...">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Driver</label>
-                                                <select id="cmbDriver" class="form-control selected" onchange="">
-                                                    <option value="0">SELECCIONE</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Consulta / SQL / URL</label>
-                                                <textarea class="form-control" rows="3" id="txtConsulta" placeholder="Enter ..."></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Descripción</label>
-                                                <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Enter ..."></textarea>
-                                            </div>
-                                    </div>
-                                        <div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Metodo</label>
-                                                <select id="cmbMetodo" class="form-control selected">
-                                                    <option value="GET" selected>GET</option>
-                                                    <option value="POST">POST</option>
-                                                    <option value="PUT">PUT</option>
-                                                    <option value="DELETE">DELETE</option>
-                                                    <option value="OPTIONS">OPTIONS</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                            <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Prioridad</label>
-                                                <select id="cmbPrioridad" class="form-control selected">
-                                                    <option value="0">BAJA</option>
-                                                    <option value="1">MEDIA</option>
-                                                    <option value="2">ALTA</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Módulo</label>
-                                                <select id="cmbModulo" class="form-control selected">
-                                                    <option value="0">SELECCIONE</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Tipo</label>
-                                                <select id="cmbTipo" class="form-control selected">
-                                                    <option value="SELECT">SELECT</option>
-                                                    <option value="INSERT">INSERT</option>
-                                                    <option value="UPDATE">UPDATE</option>
-                                                    <option value="DELETE">DELETE</option>
-                                                </select>
-                                            </div>
-                                            
-                                        </div>
-                                            <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>URL Acción</label>
-                                                    <textarea class="form-control" rows="3" id="txturl" placeholder="Enter ..."></textarea>
-                                            </div>
-                                        </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Concurrente</label>
-                                                    <select id="cmbConcurrente" class="form-control selected">
-                                                        <option value="TRUE">VERDADERO</option>
-                                                        <option value="FALSE">FALSO</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Retorno</label>
-                                                    <select id="cmbRetorno" class="form-control selected">
-                                                        <option value="TRUE">VERDADERO</option>
-                                                        <option value="FALSE">FALSO</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                    </div>
-                                </div>
-                        
-                        
-                        
-                            </div>
-                            
-                        </form>
-                    </div>
-                
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <label>APIs</label>
-                        <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
-                            <thead>
-                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Fecha: activate to sort column ascending">Función</th>
-                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Remitente: activate to sort column ascending">Tipo</th>
-
-                            </thead>
-                            <tbody>   
-                                <tr role="row" class="odd">
-                                        <td>Create</td>
-                                        <td>Insert</td>
-                                    </tr>
-                                <tr role="row" class="even">
-                                        <td>Insert</td>
-                                        <td>Insert</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+    <div class="card card-primary card-outline card-outline-tabs">
+        <div class="card-header p-0 border-bottom-0">
+          <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="pill" href="#home" role="tab" aria-controls="home" aria-selected="true">Listado de Api</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="pill" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Crear Api</a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <div class="tab-content" id="custom-tabs-three-tabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div id="jsGridApi" class="jsgrid">
 
                 </div>
+                
+                
             </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                
+                <form role="form">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form role="form">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">    
+                                                        <label>HTTP / Puerto</label>                                              
+                                                        <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                            <input type="checkbox" id="http">
+                                                            </span>
+                                                        </div>
+                                                            <select class="form-control selected" id="cmbpuertohttp">
+                                                                <option value="0">SELECCIONE</option>
+                                                                <option value="1">8012</option>
+                                                                <option value="2">8013</option>
+                                                            </select>
+                                                        </div>
+                                                        <!-- /input-group -->
+                                                </div>
+                                            </div>
+                                                <div class="col-sm-6">
+                                                <div class="form-group">    
+                                                            <label>HTTPS / Puerto</label>                                              
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                <input type="checkbox" id="https">
+                                                                </span>
+                                                            </div>
+                                                            <select class="form-control selected" id="cmbpuertohttps">
+                                                                <option value="0">SELECCIONE</option>
+                                                                <option value="1">2286</option>
+                                                                <option value="2">2385</option>
+                                                            </select>
+                                                            <div class="input-group-append">
+                                                             <span class="input-group-text"><i class="fas fa-eye"></i></span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /input-group -->
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+            
+            
+                                        <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Función</label>
+                                                            <input type="text" id="txtFuncion" class="form-control" placeholder="Enter ...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Driver</label>
+                                                            <select id="cmbDriver" class="form-control selected" onchange="">
+                                                                <option value="0">SELECCIONE</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Consulta / SQL / URL</label>
+                                                            <textarea class="form-control" rows="3" id="txtConsulta" placeholder="Enter ..."></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Descripción</label>
+                                                            <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Enter ..."></textarea>
+                                                        </div>
+                                                </div>
+                                                    <div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label>Metodo</label>
+                                                            <select id="cmbMetodo" class="form-control selected">
+                                                                <option value="GET" selected>GET</option>
+                                                                <option value="POST">POST</option>
+                                                                <option value="PUT">PUT</option>
+                                                                <option value="DELETE">DELETE</option>
+                                                                <option value="OPTIONS">OPTIONS</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                        <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label>Prioridad</label>
+                                                            <select id="cmbPrioridad" class="form-control selected">
+                                                                <option value="0">BAJA</option>
+                                                                <option value="1">MEDIA</option>
+                                                                <option value="2">ALTA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label>Módulo</label>
+                                                            <select id="cmbModulo" class="form-control selected">
+                                                                <option value="0">SELECCIONE</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label>Tipo</label>
+                                                            <select id="cmbTipo" class="form-control selected">
+                                                                <option value="SELECT">SELECT</option>
+                                                                <option value="INSERT">INSERT</option>
+                                                                <option value="UPDATE">UPDATE</option>
+                                                                <option value="DELETE">DELETE</option>
+                                                            </select>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                        <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>URL Acción</label>
+                                                                <textarea class="form-control" rows="3" id="txturl" placeholder="Enter ..."></textarea>
+                                                        </div>
+                                                    </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Concurrente</label>
+                                                                <select id="cmbConcurrente" class="form-control selected">
+                                                                    <option value="TRUE">VERDADERO</option>
+                                                                    <option value="FALSE">FALSO</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Retorno</label>
+                                                                <select id="cmbRetorno" class="form-control selected">
+                                                                    <option value="TRUE">VERDADERO</option>
+                                                                    <option value="FALSE">FALSO</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                    
+                                    
+                                    
+                            </div>
+                        </div>
+                            
+            
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            
+            </div>
+          </div>
+        </div>
+        <!-- /.card -->
+      </div>
 
-    </form>
+
+
+
+
+
+   
+
+
 </section>
+
+<script>
+    var XAP = new ApiCore();
+    XAP.GenerarListado();
+</script>
