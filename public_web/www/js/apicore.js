@@ -1,4 +1,5 @@
 
+let _itemApi = {};
 
 class ApiCore{
     constructor(){
@@ -21,7 +22,6 @@ class ApiCore{
         });
         promesa.then(function (xhRequest) {
             var json = JSON.parse( xhRequest.responseText);
-            console.log(json);
             CrearGrid(json)
         });
     }
@@ -62,7 +62,12 @@ function CrearGrid(db){
                 itemTemplate: function(_, item) {
                     return $("<i style='color:#1D9D36' class='fas fa-play'>")
                     	.on("click", function() {
-                        	EjecutarAPI(item);
+                            var api = item.entorno=="produccion"?"/ipostel/api/crud":"/devel/api/crud"
+                            var ruta = item.protocolo.toLowerCase() + "://" + conn.IP + ":" + item.puerto + api;
+                            $("#txtPath").val(ruta);
+                            $("#txtQuery").val(item.query);
+                            $('#mdlApiEjecucion').modal('show');      
+                            _itemApi = item;
                     	});
               	}
             }
@@ -70,27 +75,24 @@ function CrearGrid(db){
     });
 }
 
-function EjecutarAPI(item){
-    console.log(item);
-    var xAPI = new ApiCore();
-    var api = item.entorno=="produccion"?"/ipostel/api/crud":"/devel/api/crud"
-    var ruta = item.protocolo.toLowerCase() + "://" + conn.IP + ":" + item.puerto + api;
-
-    xAPI.funcion = item.funcion;
-    xAPI.modulo = item.modulo;
-    xAPI.metodo = item.metodo;
+function EjecutarAPI(){
     
-    console.log(ruta);
-    console.log(xAPI.Obtener());
+    var xAPI = new ApiCore();
+    var api = _itemApi.entorno=="produccion"?"/ipostel/api/crud":"/devel/api/crud"
+    var ruta = _itemApi.protocolo.toLowerCase() + "://" + conn.IP + ":" + _itemApi.puerto + api;
+
+    xAPI.funcion = _itemApi.funcion;
+    xAPI.modulo = _itemApi.modulo;
+    xAPI.metodo = _itemApi.metodo;
+    
 
     var promesa =  CargarAPI({
-        metodo : item.metodo,
+        metodo : 'POST',
         valores: xAPI.Obtener(),
         sURL: ruta
     });
     promesa.then(function (xhRequest) {
         var json =  xhRequest.responseText;
-        console.log(json);
-       
+        $("#txtDatail").val(json);
     });
 }

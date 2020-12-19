@@ -57,7 +57,7 @@ func (a *API) Crud(w http.ResponseWriter, r *http.Request) {
 		w.Write(j)
 	} else {
 		w.WriteHeader(http.StatusForbidden)
-		fmt.Println("error de objeto")
+		fmt.Println("Error en el objeto JSON")
 		fmt.Fprintln(w, "Error en el objeto de carga")
 	}
 
