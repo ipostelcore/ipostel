@@ -208,6 +208,120 @@ Titulo: Panel de Control: APICORE
 
 </section>
 
+
+
+  <!-- Modal para la elaboración de formularios-->
+  <div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog"
+  aria-labelledby="myLargeModalLabel" id="mdlApiEjecucion" aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <!-- Modal contenido-->
+    <div class="modal-content" >
+        
+
+        <div class="modal-header">
+            <span id="_mdlTitulo">Probar API de conexión</span>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+            </button>
+
+        </div>
+        <div class="modal-body" id="_mdlCuerpo">
+       
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Consulta / SQL / URL</label>
+                        <textarea class="form-control" rows="3" id="txtQuery" placeholder="Enter ..."></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control"  id="txtPath" readonly>
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-success" onclick="EjecutarAPI()"><i class="fas fa-play"></i></button>
+                    </div>
+                    <!-- /btn-group -->
+                    
+                    </div>
+              
+                </div>
+           
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea class="form-control" rows="3" id="txtDatail" placeholder="Enter ..."></textarea>
+                </div>
+            </div>
+
+
+        </div>
+      <div class="modal-footer" id="_mdlPie">
+        
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+      <div class="modal fade" id="modal-overlay" >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="overlay d-flex justify-content-center align-items-center">
+                <i class="fas fa-2x fa-sync fa-spin"></i>
+            </div>
+            <div class="modal-header">
+              <h4 class="modal-title">Default Modal</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
+
+
+
+<!--
+<div class="card card-info">
+    <div class="card-header">
+    <h3 class="card-title">Horizontal Form</h3>
+    </div>
+    
+ 
+    <form class="form-horizontal">
+    <div class="card-body">
+        
+        
+        
+    </div>
+   
+    <div class="card-footer">
+        <button type="submit" class="btn btn-info">Sign in</button>
+        <button type="submit" class="btn btn-default float-right">Cancel</button>
+    </div>
+   
+    </form>
+</div>
+
+-->
+
+
+
+
+
+
 <script>
     var XAP = new ApiCore();
     XAP.GenerarListado();

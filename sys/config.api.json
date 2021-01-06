@@ -170,7 +170,7 @@
     } ,{
         "modulo": "tracking",
         "driver": "tracking",
-        "query": "SELECT id,Serial,Cod_Evento,Cod_Ubica,Fec_Evento,Operador,Observacion,Fecha,Motivo,Medida,Firmante,CedulaFirmante,EnviadoIPS,FechaCorta,Cod_Ubicareg,Nom_Maquina,Impreso,VehiMoto,AparNorm,Control,funcion,Destinatario,Tipo,Repartidor,Modificado,Modifidate,Ayudante,Respaldado,ZonaPostal FROM Reg_Eventos",
+        "query": "SELECT id,Serial,Cod_Evento,Cod_Ubica,Fec_Evento,Operador,Observacion,Fecha,Motivo,Medida,Firmante,CedulaFirmante,EnviadoIPS,FechaCorta,Cod_Ubicareg,Nom_Maquina,Impreso,VehiMoto,AparNorm,Control,Ruta,Destinatario,Tipo,Repartidor,Modificado,Modifidate,Ayudante,Respaldado,ZonaPostal FROM Reg_Eventos",
         "parametros": "",
         "concurrencia": false,
         "retorna": true,
@@ -267,7 +267,7 @@
     },{
         "modulo": "tracking",
         "driver": "tracking",
-        "query": "SELECT Localidad,funcion,ZonaPostal,Of_Codigo FROM Ma_Localidad",
+        "query": "SELECT Localidad,Ruta,ZonaPostal,Of_Codigo FROM Ma_Localidad",
         "parametros": "",
         "concurrencia": false,
         "retorna": true,

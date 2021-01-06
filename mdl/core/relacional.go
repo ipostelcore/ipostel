@@ -58,12 +58,16 @@ func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 
 //Select Crear Consultas Sql
 func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.DB) (jSon []byte, err error) {
+	var estatus bool
+	c := sys.MGOSession.DB(sys.CBASE).C(sys.APICORE)
 
 	lista := make([]map[string]interface{}, 0)
 	rs, _ := conexion.Query(consulta)
-	fmt.Println(consulta)
+
 	cols, err := rs.Columns()
 	if err != nil {
+		estatus = false
+		err = c.Update(bson.M{"_id": C.ApiCore.Id}, bson.M{"$set": bson.M{"estatus": estatus}})
 		panic(err)
 	}
 	colvals := make([]interface{}, len(cols))
@@ -74,6 +78,8 @@ func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.D
 			colvals[i] = new(interface{})
 		}
 		if err := rs.Scan(colvals...); err != nil {
+			estatus = false
+			err = c.Update(bson.M{"_id": C.ApiCore.Id}, bson.M{"$set": bson.M{"estatus": estatus}})
 			panic(err)
 		}
 		for i, col := range cols {
@@ -100,12 +106,18 @@ func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.D
 
 		}
 		lista = append(lista, colassoc)
+		estatus = true
 
 	}
 	if C.ApiCore.Migrar == true {
 		go C.IUDQueryBash(C.ApiCore.Destino, lista, "", conexion)
 	}
+
 	jSon, err = json.Marshal(lista)
+
+	fmt.Println("Finalizando _ID ", C.ApiCore.Id, estatus)
+	err = c.Update(bson.M{"_id": C.ApiCore.Id}, bson.M{"$set": bson.M{"estatus": estatus}})
+
 	return
 }
 
@@ -238,7 +250,6 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 
 func retornaValores(v map[string]interface{}) (a ApiCore) {
 	for k, vs := range v {
-		fmt.Println("lll ", k, vs)
 		switch k {
 		case "funcion":
 			a.Funcion = vs.(string)
