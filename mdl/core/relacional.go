@@ -11,7 +11,7 @@ import (
 
 	"github.com/ipostelcore/ipostel/sys"
 	"github.com/ipostelcore/ipostel/util"
-	"gopkg.in/mgo.v2/bson"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 //CrearQuery Creación dinamica de Consultas
@@ -205,11 +205,12 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 
 func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 	ApiCoreAux := retornaValores(v)
-	c := sys.MGOSession.DB(sys.CBASE).C(sys.APICORE)
-
-	err := c.Find(bson.M{"funcion": ApiCoreAux.Funcion}).One(&a)
+	c := sys.MongoDB.Collection(sys.APICORE)
+	fmt.Println("hola  ", ApiCoreAux.Funcion)
+	err := c.FindOne(sys.Contexto, bson.M{"funcion": ApiCoreAux.Funcion}).Decode(&a)
 	if err != nil {
 		fmt.Println("Error creando Query en Mongodb "+"funcion: "+ApiCoreAux.Funcion, err.Error())
+
 	}
 
 	switch a.Driver {
@@ -237,7 +238,7 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 
 func retornaValores(v map[string]interface{}) (a ApiCore) {
 	for k, vs := range v {
-		fmt.Println(k)
+		fmt.Println("lll ", k, vs)
 		switch k {
 		case "funcion":
 			a.Funcion = vs.(string)

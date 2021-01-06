@@ -1,25 +1,28 @@
 package sys
 
 import (
+	"context"
 	"database/sql"
 	"encoding/json"
+	"fmt"
 
-	mgo "gopkg.in/mgo.v2"
-
+	"github.com/fatih/color"
 	util "github.com/ipostelcore/ipostel/util"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type config struct{}
 
 //Variables del modelo
 var (
-	Version                  string = "V.1.0.2"
+	Version                  string = "V.2.1.2"
 	MySQL                    bool   = false
-	MongoDB                  bool   = false
 	SQLServer                bool   = false
 	Oracle                   bool   = false
 	BaseDeDatos              BaseDatos
-	MGOSession               *mgo.Session
+	MGConexion               *Mongo
+	Contexto                 context.Context
+	MongoDB                  *mongo.Database
 	PostgreSQLSAMAN          *sql.DB
 	PuntoPostalPostgres      *sql.DB
 	PostgreSQLPENSION        *sql.DB
@@ -61,13 +64,14 @@ type BaseDatos struct {
 
 //CadenaDeConexion Conexion de datos
 type CadenaDeConexion struct {
-	Driver    string
-	Usuario   string
-	Basedatos string
-	Clave     string
-	Host      string
-	Puerto    string
-	StrUrl    string
+	Driver      string
+	Usuario     string
+	Basedatos   string
+	Clave       string
+	Host        string
+	Puerto      string
+	StrUrl      string
+	Descripcion string
 }
 
 //Conexiones 0: PostgreSQL, 1: MySQL, 2: MongoDB
@@ -75,81 +79,49 @@ var Conexiones []CadenaDeConexion
 
 //init Inicio y control
 func init() {
+
+	Magenta := color.New(color.FgMagenta)
+	BoldMagenta := Magenta.Add(color.Bold)
+
+	fmt.Println("")
+	BoldMagenta.Println("..........................................................")
+	BoldMagenta.Println("...                                                       ")
+	BoldMagenta.Println("...           Versión del Panel ", Version, "             ")
+	BoldMagenta.Println("...      Iniciando Carga de Conexiones a Drivers          ")
+	BoldMagenta.Println("..........................................................")
+	BoldMagenta.Println("")
 	var a util.Archivo
 	a.NombreDelArchivo = "sys/config_dev.json"
 	data, _ := a.LeerTodo()
 	e := json.Unmarshal(data, &Conexiones)
 	for _, valor := range Conexiones {
 		ListadoConexiones = append(ListadoConexiones, valor.Driver)
+		cad := make(map[string]CadenaDeConexion)
+		cad[valor.Driver] = CadenaDeConexion{
+			Driver:      valor.Driver,
+			Usuario:     valor.Usuario,
+			Basedatos:   valor.Basedatos,
+			Clave:       valor.Clave,
+			Host:        valor.Host,
+			Puerto:      valor.Puerto,
+			Descripcion: valor.Descripcion,
+		}
+		fmt.Println("")
+		fmt.Println("Conectando: ", valor.Descripcion)
 		switch valor.Driver {
+		case "mongodb":
+			MongoDBConexion(cad)
 		case "puntopostal":
-			cad := make(map[string]CadenaDeConexion)
-			cad["puntopostal"] = CadenaDeConexion{
-				Driver:    valor.Driver,
-				Usuario:   valor.Usuario,
-				Basedatos: valor.Basedatos,
-				Clave:     valor.Clave,
-				Host:      valor.Host,
-				Puerto:    valor.Puerto,
-			}
 			ConexionPuntoPostal(cad)
 		case "tracking":
-			cad := make(map[string]CadenaDeConexion)
-			cad["tracking"] = CadenaDeConexion{
-				Driver:    valor.Driver,
-				Usuario:   valor.Usuario,
-				Basedatos: valor.Basedatos,
-				Clave:     valor.Clave,
-				Host:      valor.Host,
-				Puerto:    valor.Puerto,
-			}
 			ConexionTracking(cad)
 		case "maestros":
-			cad := make(map[string]CadenaDeConexion)
-			cad["maestros"] = CadenaDeConexion{
-				Driver:    valor.Driver,
-				Usuario:   valor.Usuario,
-				Basedatos: valor.Basedatos,
-				Clave:     valor.Clave,
-				Host:      valor.Host,
-				Puerto:    valor.Puerto,
-			}
 			ConexionMaestros(cad)
 		case "postgres":
-			cad := make(map[string]CadenaDeConexion)
-			cad["postgres"] = CadenaDeConexion{
-				Driver:    valor.Driver,
-				Usuario:   valor.Usuario,
-				Basedatos: valor.Basedatos,
-				Clave:     valor.Clave,
-				Host:      valor.Host,
-				Puerto:    valor.Puerto,
-			}
 			ConexionPuntoPostalPostgres(cad)
 		case "mysql":
 			MySQL = true
-			cad := make(map[string]CadenaDeConexion)
-			cad["mysql"] = CadenaDeConexion{
-				Driver:    valor.Driver,
-				Usuario:   valor.Usuario,
-				Basedatos: valor.Basedatos,
-				Clave:     valor.Clave,
-				Host:      valor.Host,
-				Puerto:    valor.Puerto,
-			}
 			ConexionMYSQL(cad)
-		case "mongodb":
-			MongoDB = true
-			cad := make(map[string]CadenaDeConexion)
-			cad["mongodb"] = CadenaDeConexion{
-				Driver:    valor.Driver,
-				Usuario:   valor.Usuario,
-				Basedatos: valor.Basedatos,
-				Clave:     valor.Clave,
-				Host:      valor.Host,
-				Puerto:    valor.Puerto,
-			}
-			MongoDBConexion(cad)
 		}
 	}
 	util.Error(e)

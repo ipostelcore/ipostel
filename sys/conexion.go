@@ -2,24 +2,22 @@
 package sys
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
-
-	mgo "gopkg.in/mgo.v2"
+	"time"
 
 	_ "github.com/alexbrainman/odbc"
 	_ "github.com/denisenkom/go-mssqldb"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/ipostelcore/ipostel/util"
 	_ "github.com/lib/pq"
 )
 
 //MongoDBConexion Conexion a Mongo DB
 func MongoDBConexion(mapa map[string]CadenaDeConexion) {
-	c := mapa["mongodb"]
-	MGOSession, Error = mgo.Dial(c.Host + ":27017")
-	fmt.Println("Cargando Conexión Con MongoDB...")
-	util.Error(Error)
+	Contexto, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	MongoDB = MGConexion.Conectar(Contexto, mapa)
 }
 
 //ConexionPuntoPostal Funcion de Conexion a SQL SERVER
@@ -31,7 +29,7 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + "  Error...] ")
 	} else {
 		//"SELECT TOP 2 codofic, descripcion FROM oficinas"
-		sq, err := SqlServerPuntoPostal.Query("SELECT DESCRIPCION FROM CLIENTES")
+		sq, err := SqlServerPuntoPostal.Query("SELECT CLIENTE, DESCRIPCION FROM CLIENTES")
 
 		if err != nil {
 			fmt.Println("[Host: "+c.Host+" Base De Datos: "+c.Basedatos+"  Error...] ", err.Error())
@@ -39,12 +37,12 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 		} else {
 			fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + " OK...]")
 			for sq.Next() {
-				var a string
-				errx := sq.Scan(&a)
+				var a, b string
+				errx := sq.Scan(&a, &b)
 				if errx != nil {
 					fmt.Println("Error cargando fila ", errx.Error())
 				}
-				fmt.Println(a)
+				fmt.Println(a, b)
 			}
 			fmt.Println("Controlando la situación")
 		}

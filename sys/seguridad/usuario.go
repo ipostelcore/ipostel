@@ -12,7 +12,7 @@ import (
 	"fmt"
 	"time"
 
-	"gopkg.in/mgo.v2/bson"
+	"go.mongodb.org/mongo-driver/bson"
 
 	"github.com/ipostelcore/ipostel/sys"
 	"github.com/ipostelcore/ipostel/util"
@@ -100,28 +100,28 @@ type Rol struct {
 	Descripcion string `json:"descripcion" bson:"descipcion"`
 }
 
-// Usuarios del Sistema
+//Usuario del Sistema
 type Usuario struct {
-	ID            bson.ObjectId `json:"id" bson:"_id"`
-	Cedula        string        `json:"cedula" bson:"cedula"`
-	Nombre        string        `json:"nombre" bson:"nombre"`
-	Login         string        `json:"usuario" bson:"login"`
-	Correo        string        `json:"correo" bson:"correo"`
-	FechaCreacion time.Time     `json:"fechacreacion,omitempty" bson:"fechacreacion"`
-	Estatus       int           `json:"estatus" bson:"estatus"`
-	Clave         string        `json:"clave,omitempty" bson:"clave"`
-	Situacion     string        `json:"situacion,omitempty" bson:"situacion"` //PM - PC
-	Sucursal      string        `json:"sucursal,omitempty" bson:"sucursal" bson:"sucursal"`
-	Departamento  string        `json:"departamento,omitempty" bson:"departamento"`
-	Sistema       string        `json:"sistema,omitempty" bson:"sistema"`
-	Rol           Rol           `json:"Roles,omitempty" bson:"roles"`
-	Token         string        `json:"token,omitempty" bson:"token"`
-	Perfil        Perfil        `json:"Perfil,omitempty" bson:"perfil"`
-	FirmaDigital  FirmaDigital  `json:"FirmaDigital,omitempty" bson:"firmadigital"`
-	Direccion     string        `json:"direccion,omitempty" bson:"direccion"`
-	Telefono      string        `json:"telefono,omitempty" bson:"telefono"`
-	Cargo         string        `json:"cargo,omitempty" bson:"cargo"`
-	Modulo        []string      `json:"modulo,omitempty" bson:"modulo"`
+	ID            string       `json:"id" bson:"_id"`
+	Cedula        string       `json:"cedula" bson:"cedula"`
+	Nombre        string       `json:"nombre" bson:"nombre"`
+	Login         string       `json:"usuario" bson:"login"`
+	Correo        string       `json:"correo" bson:"correo"`
+	FechaCreacion time.Time    `json:"fechacreacion,omitempty" bson:"fechacreacion"`
+	Estatus       int          `json:"estatus" bson:"estatus"`
+	Clave         string       `json:"clave,omitempty" bson:"clave"`
+	Situacion     string       `json:"situacion,omitempty" bson:"situacion"` //PM - PC
+	Sucursal      string       `json:"sucursal,omitempty" bson:"sucursal" bson:"sucursal"`
+	Departamento  string       `json:"departamento,omitempty" bson:"departamento"`
+	Sistema       string       `json:"sistema,omitempty" bson:"sistema"`
+	Rol           Rol          `json:"Roles,omitempty" bson:"roles"`
+	Token         string       `json:"token,omitempty" bson:"token"`
+	Perfil        Perfil       `json:"Perfil,omitempty" bson:"perfil"`
+	FirmaDigital  FirmaDigital `json:"FirmaDigital,omitempty" bson:"firmadigital"`
+	Direccion     string       `json:"direccion,omitempty" bson:"direccion"`
+	Telefono      string       `json:"telefono,omitempty" bson:"telefono"`
+	Cargo         string       `json:"cargo,omitempty" bson:"cargo"`
+	Modulo        []string     `json:"modulo,omitempty" bson:"modulo"`
 }
 
 //FirmaDigital La firma permite identificar una maquina y persona autorizada por el sistema
@@ -141,68 +141,51 @@ func (f *FirmaDigital) Registrar() bool {
 }
 
 //Salvar Metodo para crear usuarios del sistema
-func (usr *Usuario) Salvar() error {
-	usr.ID = bson.NewObjectId()
+func (usr *Usuario) Salvar() (err error) {
+	//usr.ID = bson .NewObjectId()
 	usr.Clave = util.GenerarHash256([]byte(usr.Clave))
 	usr.FechaCreacion = time.Now()
 	fmt.Println("Creando Usuario")
 
-	c := sys.MGOSession.DB(sys.CBASE).C(sys.CUSUARIO)
-	return c.Insert(usr)
+	c := sys.MongoDB.Collection(sys.CUSUARIO)
+	_, err = c.InsertOne(sys.Contexto, usr)
+	return
 
 }
 
 //Validar Usuarios
 func (usr *Usuario) Validar(login string, clave string) (err error) {
 	usr.Nombre = ""
-	c := sys.MGOSession.DB(sys.CBASE).C(sys.CUSUARIO)
-
-	err = c.Find(bson.M{"login": login, "clave": clave}).Select(bson.M{"clave": false}).One(&usr)
+	c := sys.MongoDB.Collection(sys.CUSUARIO)
+	//.Select(bson.M{"clave": false})
+	err = c.FindOne(sys.Contexto, bson.M{"login": login, "clave": clave}).Decode(&usr)
 	if err != nil {
 		fmt.Println("Error: Validar usuario # ", err.Error())
-		return err
-	}
-	fmt.Println("Conectando a la base de datos...", sys.CBASE)
-	return err
-}
 
-func CrearClaveTodos() {
-	var usuario []Usuario
-	// var lst []interface{}
-	c := sys.MGOSession.DB(sys.CBASE).C("usuario")
-	err := c.Find(nil).All(&usuario)
-	if err != nil {
-		return
 	}
-	// usuario = lst
-	for _, v := range usuario {
-		clave := util.GenerarHash256([]byte(v.Cedula))
-		// fmt.Println(v.Cedula, " -> ", v.Clave, " -> ", clave)
-		err = c.Update(bson.M{"cedula": v.Cedula}, bson.M{"$set": bson.M{"clave": clave}})
-		if err != nil {
-			fmt.Println("Err.", err.Error())
-			return
-		}
-	}
-	return
+
+	return err
 }
 
 //CambiarClave Usuarios
 func (usr *Usuario) CambiarClave(login string, clave string, nueva string) (err error) {
 	usr.Nombre = ""
-	c := sys.MGOSession.DB(sys.CBASE).C("usuario")
+	c := sys.MongoDB.Collection("usuario")
 	actualizar := make(map[string]interface{})
 	actualizar["clave"] = util.GenerarHash256([]byte(nueva))
 	antigua := util.GenerarHash256([]byte(clave))
-	err = c.Update(bson.M{"login": login, "clave": antigua}, bson.M{"$set": actualizar})
+
+	_, err = c.UpdateOne(sys.Contexto, bson.M{"login": login, "clave": antigua}, bson.M{"$set": actualizar})
+
 	return
 }
 
 //Consultar el sistema de usuarios
 func (usr *Usuario) Consultar(cedula string) (j []byte, err error) {
 	usr.Nombre = ""
-	c := sys.MGOSession.DB(sys.CBASE).C("usuario")
-	err = c.Find(bson.M{"cedula": cedula}).Select(bson.M{"clave": false}).One(&usr)
+	c := sys.MongoDB.Collection("usuario")
+	//.Select(bson.M{"clave": false})
+	err = c.FindOne(sys.Contexto, bson.M{"cedula": cedula}).Decode(&usr)
 	j, _ = json.Marshal(usr)
 	return
 }
@@ -210,18 +193,19 @@ func (usr *Usuario) Consultar(cedula string) (j []byte, err error) {
 //Listar el sistema de usuarios
 func (usr *Usuario) Listar() (j []byte, err error) {
 	var lstUsuario []Usuario
-	c := sys.MGOSession.DB(sys.CBASE).C("usuario")
-	err = c.Find(bson.M{}).Select(bson.M{"clave": false}).All(&lstUsuario)
+	c := sys.MongoDB.Collection("usuario")
+	//Select(bson.M{"clave": false}).All
+	err = c.FindOne(sys.Contexto, bson.M{}).Decode(&lstUsuario)
 	j, _ = json.Marshal(lstUsuario)
 	return
 }
 
 //Generico Consulta General
-func (usr *Usuario) Generico() error {
+func (usr *Usuario) Generico() {
 	var privilegio Privilegio
 	var lst []Privilegio
 	var usuario Usuario
-	usuario.ID = bson.NewObjectId()
+	//usuario.ID = bson.NewObjectId()
 	usuario.Nombre = "Informatica - Consulta"
 	usuario.Login = "usuario"
 	usuario.Sucursal = "Principal"
@@ -243,7 +227,6 @@ func (usr *Usuario) Generico() error {
 	lst = append(lst, privilegio)
 	usuario.Perfil.Privilegios = lst
 
-	var mongo sys.Mongo
+	//var MongoDB sys.Mongo
 
-	return mongo.Salvar(usuario, "usuario")
 }

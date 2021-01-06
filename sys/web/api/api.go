@@ -6,7 +6,6 @@ import (
 	"net/http"
 
 	"github.com/ipostelcore/ipostel/mdl/core"
-	"github.com/ipostelcore/ipostel/sys"
 	"github.com/ipostelcore/ipostel/sys/seguridad"
 )
 
@@ -33,17 +32,6 @@ func (a *API) Consultar(w http.ResponseWriter, r *http.Request) {
 
 }
 
-//Oficinas Listar todas las oficinas
-func (a *API) Oficinas(w http.ResponseWriter, r *http.Request) {
-
-	var c core.Core
-	Cabecera(w, r)
-	w.WriteHeader(http.StatusOK)
-	j, _ := c.Oficinas()
-	w.Write(j)
-	return
-}
-
 //Crud conexion para solicitud de token
 func (a *API) Crud(w http.ResponseWriter, r *http.Request) {
 	var c core.Core
@@ -67,7 +55,7 @@ func (a *API) Crud(w http.ResponseWriter, r *http.Request) {
 func (a *API) Listar(w http.ResponseWriter, r *http.Request) {
 	var xcore core.Core
 	Cabecera(w, r)
-	j, _ := xcore.Listar(sys.MGOSession)
+	j, _ := xcore.Listar()
 	w.WriteHeader(http.StatusOK)
 	w.Write(j)
 

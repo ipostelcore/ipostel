@@ -89,7 +89,7 @@ func (u *WUsuario) Login(w http.ResponseWriter, r *http.Request) {
 	Cabecera(w, r)
 	e := json.NewDecoder(r.Body).Decode(&usuario)
 	util.Error(e)
-	fmt.Println(usuario.Nombre, util.GenerarHash256([]byte(usuario.Clave)))
+
 	usuario.Validar(usuario.Nombre, util.GenerarHash256([]byte(usuario.Clave)))
 
 	if usuario.Login != "" {
@@ -98,14 +98,19 @@ func (u *WUsuario) Login(w http.ResponseWriter, r *http.Request) {
 		token := seguridad.GenerarJWT(usuario)
 		result := seguridad.RespuestaToken{Token: token}
 		j, e := json.Marshal(result)
-		util.Error(e)
+
+		if e != nil {
+
+			fmt.Println("Control ", e.Error())
+		}
+
 		ip := strings.Split(r.RemoteAddr, ":")
 		traza.Usuario = usuario.Login
 		traza.Time = time.Now()
 		traza.Log = "Inicio de sesión"
 		traza.IP = ip[0]
 		traza.Documento = "Usuario"
-		fmt.Println("control de login")
+
 		w.WriteHeader(http.StatusOK)
 		w.Write(j)
 	} else {
@@ -118,15 +123,13 @@ func (u *WUsuario) Login(w http.ResponseWriter, r *http.Request) {
 //ValidarToken Validacion de usuario
 func (u *WUsuario) ValidarToken(fn http.HandlerFunc) http.HandlerFunc {
 	var mensaje util.Mensajes
-	// fmt.Println("Entrando... ")
+
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		//fmt.Println(r.Header)
+
 		Cabecera(w, r)
 		token, e := request.ParseFromRequestWithClaims(r, request.OAuth2Extractor, &seguridad.Reclamaciones{}, func(token *jwt.Token) (interface{}, error) {
-			//var claims jwt.Claims
 			reclamacion := token.Claims.(*seguridad.Reclamaciones)
 			UsuarioConectado = reclamacion.Usuario
-			//fmt.Println("Se esta conectando: ", reclamacion.Usuario.Nombre, " Desde: ", reclamacion.Usuario.FirmaDigital.DireccionIP)
 			return seguridad.LlavePublica, nil
 		})
 

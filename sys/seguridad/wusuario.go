@@ -4,8 +4,7 @@ import (
 	"time"
 
 	"github.com/ipostelcore/ipostel/sys"
-	"github.com/ipostelcore/ipostel/util"
-	"gopkg.in/mgo.v2/bson"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 //WFamiliar Control de familiares para asignaciones
@@ -44,31 +43,31 @@ type WUsuario struct {
 	Empleado      bool         `json:"empleado,omitempty" bson:"empleado"`
 }
 
-//WVwalidar Validacion de Usuarios
+//Validar Validacion de Usuarios
 func (u *WUsuario) Validar(login string, clave string) (err error) {
 	u.Nombre = ""
-	c := sys.MGOSession.DB(sys.CBASE).C(sys.WUSUARIO)
-	err = c.Find(bson.M{"cedula": login, "clave": clave}).Select(bson.M{"clave": false}).One(&u)
+	c := sys.MongoDB.Collection(sys.WUSUARIO)
+	err = c.FindOne(sys.Contexto, bson.M{"cedula": login, "clave": clave}).Decode(&u)
 
 	return
 }
 
-//WVwalidar Validacion de Usuarios
+//Existe Validacion de Usuarios
 func (u *WUsuario) Existe(login string) (err error) {
 	u.Nombre = ""
-	c := sys.MGOSession.DB(sys.CBASE).C(sys.WUSUARIO)
-	err = c.Find(bson.M{"cedula": login}).Select(bson.M{"clave": false}).One(&u)
+	c := sys.MongoDB.Collection(sys.WUSUARIO)
+	err = c.FindOne(sys.Contexto, bson.M{"cedula": login}).Decode(&u)
 
 	return
 }
 
 //CambiarClave Usuarios
 func (u *WUsuario) CambiarClave(login string, clave string, nueva string) (err error) {
-	u.Nombre = ""
-	c := sys.MGOSession.DB(sys.CBASE).C(sys.WUSUARIO)
-	actualizar := make(map[string]interface{})
-	actualizar["clave"] = util.GenerarHash256([]byte(nueva))
-	antigua := util.GenerarHash256([]byte(clave))
-	err = c.Update(bson.M{"login": login, "clave": antigua}, bson.M{"$set": actualizar})
+	// u.Nombre = ""
+	// c := sys.MongoDB.Collection(sys.WUSUARIO)
+	// actualizar := make(map[string]interface{})
+	// actualizar["clave"] = util.GenerarHash256([]byte(nueva))
+	// antigua := util.GenerarHash256([]byte(clave))
+	// err = c.Update(bson.M{"login": login, "clave": antigua}, bson.M{"$set": actualizar})
 	return
 }

@@ -17,39 +17,20 @@ armoniosamente según la demanda.
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"time"
 
+	"github.com/fatih/color"
 	"github.com/gorilla/context"
 	"github.com/ipostelcore/ipostel/sys"
 	"github.com/ipostelcore/ipostel/sys/web"
 )
 
-func init() {
-	fmt.Println("")
-	fmt.Println("Versión del Panel ", sys.Version)
-	fmt.Println("")
-	if sys.MongoDB {
-		//fmt.Println("Metodo de Encriptamiento ", seguridad.Encriptamiento, "...")
-		// sys.MongoDBConexion()
-		fmt.Println("")
-		fmt.Println("..........................................................")
-		fmt.Println("... Iniciando Carga de Elemento Para el servidor WEB   ...")
-		fmt.Println("..........................................................")
-		fmt.Println("")
-
-	}
-}
-
 func main() {
+	Cyan := color.New(color.FgHiCyan)
+	BoldCyan := Cyan.Add(color.Bold)
 
-	// var procesar migracion.Migrar
-	// procesar.Ruta = "./public_web/www/tmp/migracion/new.tracking.csv"
-	// procesar.Leer(sys.PuntoPostalPostgres, "Tracking", procesar.Ruta)
-
-	fmt.Println("Inciando la carga del sistema")
 	web.Cargar()
 
 	srv := &http.Server{
@@ -58,7 +39,7 @@ func main() {
 		WriteTimeout: 280 * time.Second,
 		ReadTimeout:  280 * time.Second,
 	}
-	fmt.Println("Servidor Escuchando en el puerto: ", sys.PUERTO)
+	BoldCyan.Println("Servidor Escuchando en el puerto: ", sys.PUERTO)
 	go srv.ListenAndServe()
 	//
 	//https://dominio.com/* Protocolo de capa de seguridad
@@ -68,6 +49,6 @@ func main() {
 		WriteTimeout: 280 * time.Second,
 		ReadTimeout:  280 * time.Second,
 	}
-	fmt.Println("Servidor Escuchando en el puerto: ", sys.PUERTO_SSL)
+	BoldCyan.Println("Servidor Escuchando en el puerto: ", sys.PUERTO_SSL)
 	log.Fatal(server.ListenAndServeTLS("sys/seguridad/https/app.ipsfa.gob.ve.crt", "sys/seguridad/https/sucre.key"))
 }

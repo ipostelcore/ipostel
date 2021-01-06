@@ -5,30 +5,35 @@ import (
 	"fmt"
 
 	"github.com/ipostelcore/ipostel/sys"
-	"gopkg.in/mgo.v2"
-	"gopkg.in/mgo.v2/bson"
+	"github.com/ipostelcore/ipostel/util"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 //InsertNOSQL Insert, Generador de Consultas
-func (C *Core) InsertNOSQL(v map[string]interface{}, conexion *mgo.Session) (jSon []byte, err error) {
+func (C *Core) InsertNOSQL(v map[string]interface{}) (jSon []byte, err error) {
 
-	c := conexion.DB(sys.CBASE).C(sys.APICORE)
-	err = c.Insert(v)
+	c := sys.MongoDB.Collection(sys.APICORE)
+	rs, err := c.InsertOne(sys.Contexto, v)
 	if err != nil {
 		fmt.Println("Error creando Query en Mongodb ", err.Error())
 	}
+	jSon, _ = json.Marshal(rs)
 	return
 
 }
 
 //Listar Insert, Generador de Consultas
-func (C *Core) Listar(conexion *mgo.Session) (jSon []byte, err error) {
-
-	c := conexion.DB(sys.CBASE).C(sys.APICORE)
-	var lstApi []ApiCore
-
-	err = c.Find(bson.M{}).All(&lstApi)
-	jSon, _ = json.Marshal(lstApi)
+func (C *Core) Listar() (jSon []byte, err error) {
+	c := sys.MongoDB.Collection(sys.APICORE)
+	var lst []ApiCore
+	rs, err := c.Find(sys.Contexto, bson.M{})
+	for rs.Next(sys.Contexto) {
+		var api ApiCore
+		e := rs.Decode(&api)
+		util.Error(e)
+		lst = append(lst, api)
+	}
+	jSon, _ = json.Marshal(lst)
 	return
 
 }

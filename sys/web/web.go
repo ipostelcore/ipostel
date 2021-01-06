@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/fatih/color"
 	"github.com/gorilla/mux"
 	"github.com/ipostelcore/ipostel/sys/web/api"
 )
@@ -33,7 +34,6 @@ func CargarModulosWeb() {
 
 	Enrutador.HandleFunc("/", Principal)
 	Enrutador.HandleFunc("/ipostel/api/crud/{id}", wUsuario.ValidarToken(ap.Consultar)).Methods("GET")
-	Enrutador.HandleFunc("/ipostel/api/oficina/listar", wUsuario.ValidarToken(ap.Oficinas)).Methods("GET")
 
 	Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("GET")
 	Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("POST")
@@ -84,7 +84,18 @@ func Principal(w http.ResponseWriter, r *http.Request) {
 
 //WMAdminLTE OpenSource tema de panel de control Tecnología Bootstrap3
 func WMAdminLTE() {
-	fmt.Println("Módulos de AdminLTE V 3.5")
+	Cyan := color.New(color.FgHiCyan)
+	BoldCyan := Cyan.Add(color.Bold)
+	BoldCyan.Println("")
+	BoldCyan.Println("")
+
+	BoldCyan.Println("..........................................................")
+	BoldCyan.Println("...                                                       ")
+	BoldCyan.Println("... Iniciando Carga de Elementos Para el Servidor WEB     ")
+	BoldCyan.Println("...              Módulos de AdminLTE V 3.5                ")
+	BoldCyan.Println("..........................................................")
+	BoldCyan.Println("")
+
 	prefix := http.StripPrefix("/ipostel", http.FileServer(http.Dir("public_web/www")))
 	Enrutador.PathPrefix("/ipostel/").Handler(prefix)
 }
