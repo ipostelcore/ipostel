@@ -33,13 +33,13 @@ func CargarModulosWeb() {
 	var ap api.API
 
 	Enrutador.HandleFunc("/", Principal)
-	Enrutador.HandleFunc("/ipostel/api/crud/{id}", wUsuario.ValidarToken(ap.Consultar)).Methods("GET")
+	Enrutador.HandleFunc("/v1/api/crud/{id}", wUsuario.ValidarToken(ap.Consultar)).Methods("GET")
 
-	Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("GET")
-	Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("POST")
-	Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("PUT")
-	Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("DELETE")
-	Enrutador.HandleFunc("/ipostel/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("OPTIONS")
+	Enrutador.HandleFunc("/v1/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("GET")
+	Enrutador.HandleFunc("/v1/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("POST")
+	Enrutador.HandleFunc("/v1/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("PUT")
+	Enrutador.HandleFunc("/v1/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("DELETE")
+	Enrutador.HandleFunc("/v1/api/crud", wUsuario.ValidarToken(ap.Crud)).Methods("OPTIONS")
 
 	Enrutador.HandleFunc("/devel/api/crud", ap.Crud).Methods("GET")
 	Enrutador.HandleFunc("/devel/api/crud", ap.Crud).Methods("POST")
@@ -47,7 +47,7 @@ func CargarModulosWeb() {
 	Enrutador.HandleFunc("/devel/api/crud", ap.Crud).Methods("DELETE")
 	Enrutador.HandleFunc("/devel/api/crud", ap.Crud).Methods("OPTIONS")
 
-	Enrutador.HandleFunc("/ipostel/api/listar", wUsuario.ValidarToken(ap.Listar)).Methods("GET")
+	Enrutador.HandleFunc("/v1/api/listar", wUsuario.ValidarToken(ap.Listar)).Methods("GET")
 	Enrutador.HandleFunc("/devel/api/listar", ap.Listar).Methods("GET")
 
 }
@@ -60,20 +60,20 @@ func CargarModulosPanel() {
 //CargarModulosSeguridad Y cifrado
 func CargarModulosSeguridad() {
 	var wUsuario api.WUsuario
-	Enrutador.HandleFunc("/ipostel/app/api/wusuario/login", wUsuario.Login).Methods("POST")
-	Enrutador.HandleFunc("/ipostel/app/api/wusuario/login", wUsuario.Opciones).Methods("OPTIONS")
+	Enrutador.HandleFunc("/v1/app/api/wusuario/login", wUsuario.Login).Methods("POST")
+	Enrutador.HandleFunc("/v1/app/api/wusuario/login", wUsuario.Opciones).Methods("OPTIONS")
 
-	Enrutador.HandleFunc("/ipostel/api/wusuario/validar", wUsuario.ValidarToken(wUsuario.Autorizado)).Methods("POST")
-	Enrutador.HandleFunc("/ipostel/api/wusuario/listar", wUsuario.ValidarToken(wUsuario.Listar)).Methods("GET")
+	Enrutador.HandleFunc("/v1/api/wusuario/validar", wUsuario.ValidarToken(wUsuario.Autorizado)).Methods("POST")
+	Enrutador.HandleFunc("/v1/api/wusuario/listar", wUsuario.ValidarToken(wUsuario.Listar)).Methods("GET")
 
-	Enrutador.HandleFunc("/ipostel/api/wusuario", wUsuario.Crear).Methods("POST")
-	Enrutador.HandleFunc("/ipostel/api/wusuario", wUsuario.ValidarToken(wUsuario.CambiarClave)).Methods("PUT")
-	Enrutador.HandleFunc("/ipostel/api/wusuario", wUsuario.ValidarToken(wUsuario.Opciones)).Methods("OPTIONS")
+	Enrutador.HandleFunc("/v1/api/wusuario", wUsuario.Crear).Methods("POST")
+	Enrutador.HandleFunc("/v1/api/wusuario", wUsuario.ValidarToken(wUsuario.CambiarClave)).Methods("PUT")
+	Enrutador.HandleFunc("/v1/api/wusuario", wUsuario.ValidarToken(wUsuario.Opciones)).Methods("OPTIONS")
 
-	Enrutador.HandleFunc("/ipostel/api/wusuario", wUsuario.ValidarToken(wUsuario.Crear)).Methods("POST")
-	Enrutador.HandleFunc("/ipostel/api/wusuario", wUsuario.ValidarToken(wUsuario.CambiarClave)).Methods("PUT")
-	Enrutador.HandleFunc("/ipostel/api/wusuario", wUsuario.ValidarToken(wUsuario.Opciones)).Methods("OPTIONS")
-	Enrutador.HandleFunc("/ipostel/api/wusuario/listar", wUsuario.ValidarToken(wUsuario.Listar)).Methods("GET")
+	Enrutador.HandleFunc("/v1/api/wusuario", wUsuario.ValidarToken(wUsuario.Crear)).Methods("POST")
+	Enrutador.HandleFunc("/v1/api/wusuario", wUsuario.ValidarToken(wUsuario.CambiarClave)).Methods("PUT")
+	Enrutador.HandleFunc("/v1/api/wusuario", wUsuario.ValidarToken(wUsuario.Opciones)).Methods("OPTIONS")
+	Enrutador.HandleFunc("/v1/api/wusuario/listar", wUsuario.ValidarToken(wUsuario.Listar)).Methods("GET")
 
 }
 

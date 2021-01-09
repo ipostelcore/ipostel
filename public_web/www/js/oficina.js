@@ -9,7 +9,7 @@ function ObtenerOficinas(){
     if (localStorage.getItem("Oficinas") == undefined ){
         var ofc = new Oficina();
         var apic = new ApiCore();
-        apic.ruta = "ObtenerOficinas";
+        apic.funcion = "ObtenerOficinas";
         var promesa =  CargarAPI({
             metodo : "POST",
             sURL: conn.URL + "crud",

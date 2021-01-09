@@ -11,13 +11,25 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type config struct{}
+//Config Generacion de conexiones
+type Config struct{}
+
+//DriverSQL Establecer Driver's de conexion
+type DriverSQL struct {
+	Nombre   string
+	Contexto context.Context
+	DB       *sql.DB
+	Estatus  bool
+	Error    error
+}
 
 //Variables del modelo
 var (
 	Version                  string = "V.2.1.2"
 	MySQL                    bool   = false
-	SQLServer                bool   = false
+	SQLServerPuntoPostal     bool   = false
+	SQLServerTracking        bool   = false
+	SQLServerMaestros        bool   = false
 	Oracle                   bool   = false
 	BaseDeDatos              BaseDatos
 	MGConexion               *Mongo
@@ -38,6 +50,7 @@ var (
 	HostIPPension            string = ""
 	HostUrlPension           string = ""
 	ListadoConexiones        []string
+	SQLTODO                  = make(map[string]DriverSQL)
 )
 
 //Constantes del sistema
@@ -64,20 +77,21 @@ type BaseDatos struct {
 
 //CadenaDeConexion Conexion de datos
 type CadenaDeConexion struct {
+	ID          string
 	Driver      string
 	Usuario     string
 	Basedatos   string
 	Clave       string
 	Host        string
 	Puerto      string
-	StrUrl      string
+	SUrl        string
 	Descripcion string
+	Estatus     bool
 }
 
 //Conexiones 0: PostgreSQL, 1: MySQL, 2: MongoDB
 var Conexiones []CadenaDeConexion
 
-//init Inicio y control
 func init() {
 
 	Magenta := color.New(color.FgMagenta)
@@ -98,6 +112,7 @@ func init() {
 		ListadoConexiones = append(ListadoConexiones, valor.Driver)
 		cad := make(map[string]CadenaDeConexion)
 		cad[valor.Driver] = CadenaDeConexion{
+			ID:          valor.ID,
 			Driver:      valor.Driver,
 			Usuario:     valor.Usuario,
 			Basedatos:   valor.Basedatos,
@@ -105,24 +120,46 @@ func init() {
 			Host:        valor.Host,
 			Puerto:      valor.Puerto,
 			Descripcion: valor.Descripcion,
+			Estatus:     valor.Estatus,
 		}
 		fmt.Println("")
 		fmt.Println("Conectando: ", valor.Descripcion)
 		switch valor.Driver {
 		case "mongodb":
 			MongoDBConexion(cad)
-		case "puntopostal":
-			ConexionPuntoPostal(cad)
-		case "tracking":
-			ConexionTracking(cad)
-		case "maestros":
-			ConexionMaestros(cad)
-		case "postgres":
-			ConexionPuntoPostalPostgres(cad)
-		case "mysql":
-			MySQL = true
-			ConexionMYSQL(cad)
 		}
 	}
 	util.Error(e)
+}
+
+//ConexionesDinamicas Permite establecer multiples conexiones
+func (C *Config) ConexionesDinamicas(c CadenaDeConexion) bool {
+
+	fmt.Println("Conectando: ", c.Descripcion)
+	switch c.Driver {
+	case "sqlserver17":
+		db, er := CSQLServer(c)
+		SQLTODO[c.ID] = DriverSQL{
+			Nombre:   c.Driver,
+			DB:       db,
+			Estatus:  true,
+			Contexto: Contexto,
+			Error:    er,
+		}
+	case "postgres13":
+		db, er := CPostgres(c)
+		SQLTODO[c.ID] = DriverSQL{
+			Nombre:   c.Driver,
+			DB:       db,
+			Estatus:  true,
+			Contexto: Contexto,
+			Error:    er,
+		}
+
+	case "mysql":
+		MySQL = true
+	default:
+		fmt.Println("Driver: no funciona para ", c.Driver)
+	}
+	return true
 }

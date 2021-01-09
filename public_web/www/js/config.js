@@ -10,10 +10,10 @@ class Conexion{
         this.IP = _url.hostname;
         this.Puerto = ":8012";
         this.PuertoSSL = ":2286";
-        this.API = "/ipostel/api/";
+        this.API = "/v1/api/";
         this.URL = "https://" + this.IP + this.PuertoSSL + this.API;
         this.URLIMG = "/imagenes/";
-        this.URLTEMP = _url.hostname + "/ipostel/temp/";
+        this.URLTEMP = _url.hostname + "/v1/temp/";
         this.URLSEC = "http://" + this.IP + this.Puerto;
     }
 }
@@ -25,11 +25,13 @@ class Conexion{
 function CargarAPI(options){
     var xhttp = new XMLHttpRequest();
     xhttp.open(options.metodo, options.sURL);
+    console.log(options.sURL, options.valores);
     xhttp.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem('ipostel'));
     var promise = new Promise(function(resolve, reject) {
         xhttp.addEventListener('readystatechange', function() {
             if ( xhttp.readyState === 4 && xhttp.status === 200) {
                 if(options.Objeto != undefined){
+                    console.info(xhttp.responseText);
                     options.Objeto = JSON.parse(xhttp.responseText);
                 }
                 resolve(xhttp);

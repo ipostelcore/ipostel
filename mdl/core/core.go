@@ -1,5 +1,9 @@
 package core
 
+import (
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
+
 //Core Ejecucion
 type Core struct {
 	Sistema  string
@@ -18,22 +22,22 @@ type Oficina struct {
 
 //ApiCore Estructura de conexion
 type ApiCore struct {
-	Id           string `json:"id" bson:"_id,omitempty"`
-	Modulo       string `json:"modulo"`
-	Driver       string `json:"driver"`
-	Query        string `json:"query"`
-	Parametros   string `json:"parametros"`
-	Ruta         string `json:"ruta"`
-	Funcion      string `json:"funcion"`
-	Retorna      bool   `json:"retorna"`
-	Concurrencia bool   `json:"concurrencia"`
-	Migrar       bool   `json:"migrar"`
-	Metodo       string `json:"metodo"`
-	Destino      string `json:"destino"`
-	Puerto       int    `json:"puerto"`
-	Protocolo    string `json:"protocolo"`
-	Entorno      string `json:"entorno"`
-	Estatus      bool   `json:"estatus" bson:"estatus,omitempty"`
+	ID           primitive.ObjectID `json:"id" bson:"_id"`
+	Modulo       string             `json:"modulo"`
+	Driver       string             `json:"driver"`
+	Query        string             `json:"query"`
+	Parametros   string             `json:"parametros"`
+	Ruta         string             `json:"ruta"`
+	Funcion      string             `json:"funcion"`
+	Retorna      bool               `json:"retorna"`
+	Concurrencia bool               `json:"concurrencia"`
+	Migrar       bool               `json:"migrar"`
+	Metodo       string             `json:"metodo"`
+	Destino      string             `json:"destino"`
+	Puerto       int                `json:"puerto"`
+	Protocolo    string             `json:"protocolo"`
+	Entorno      string             `json:"entorno"`
+	Estatus      bool               `json:"estatus" bson:"estatus,omitempty"`
 }
 
 //Object Objeto para reflexiones

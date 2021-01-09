@@ -9,15 +9,52 @@ import (
 
 	_ "github.com/alexbrainman/odbc"
 	_ "github.com/denisenkom/go-mssqldb"
+	"github.com/fatih/color"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
 )
 
 //MongoDBConexion Conexion a Mongo DB
 func MongoDBConexion(mapa map[string]CadenaDeConexion) {
-	Contexto, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	Contexto, cancel := context.WithTimeout(context.Background(), 25*time.Second)
 	defer cancel()
 	MongoDB = MGConexion.Conectar(Contexto, mapa)
+}
+
+//CPostgres Funcion para conectarnos al driver de postgresSQL
+func CPostgres(c CadenaDeConexion) (DB *sql.DB, err error) {
+	cadena := "user=" + c.Usuario + " dbname=" + c.Basedatos + " password=" + c.Clave + " host=" + c.Host + " sslmode=disable"
+	DB, err = sql.Open("postgres", cadena)
+	if err != nil {
+		color.Red("... Host: "+c.Host+" Base De Datos: ( "+c.Basedatos+" ) Error... ", err.Error())
+	} else {
+		err = DB.Ping()
+		if err != nil {
+			color.Red("... Host: "+c.Host+" Base De Datos: ( "+c.Basedatos+" ) Error...", err.Error())
+			color.Red(err.Error())
+			return
+		}
+
+		color.Green("... Host: " + c.Host + " Base De Datos: ( " + c.Basedatos + " )  OK... ")
+	}
+	return
+}
+
+//CSQLServer Funcion de Conexion a SQL SERVER
+func CSQLServer(c CadenaDeConexion) (DB *sql.DB, err error) {
+	DB, err = sql.Open("odbc", "server="+c.Host+";database="+c.Basedatos+";DSN=tracking;Uid="+c.Usuario+";Pwd="+c.Clave)
+	if err != nil {
+		color.Red("... Host: "+c.Host+" Base De Datos: ( "+c.Basedatos+" ) Error...", err.Error())
+	} else {
+		err = DB.Ping()
+		if err != nil {
+			color.Red("... Host: "+c.Host+" Base De Datos: ( "+c.Basedatos+" ) Error...", err.Error())
+			color.Red(err.Error())
+			return
+		}
+		color.Green("... Host: " + c.Host + " Base De Datos: ( " + c.Basedatos + " )  OK...")
+	}
+	return
 }
 
 //ConexionPuntoPostal Funcion de Conexion a SQL SERVER
@@ -29,28 +66,13 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 		fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + "  Error...] ")
 	} else {
 		//"SELECT TOP 2 codofic, descripcion FROM oficinas"
-<<<<<<< HEAD
-		sq, err := SqlServerPuntoPostal.Query("SELECT CLIENTE, DESCRIPCION FROM CLIENTES")
-=======
-		_, err := SqlServerPuntoPostal.Query("SELECT TOP 2 DESCRIPCION FROM CLIENTES")
->>>>>>> 1c3baf81b219e80754b1066fb7f2ebc9ea60c5e9
+		_, err := SqlServerPuntoPostal.Query("SELECT TOP 2 CLIENTE, DESCRIPCION FROM CLIENTES")
 
 		if err != nil {
 			fmt.Println("[Host: "+c.Host+" Base De Datos: "+c.Basedatos+"  Error...] ", err.Error())
 			return err
 		} else {
 			fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + " OK...]")
-<<<<<<< HEAD
-			for sq.Next() {
-				var a, b string
-				errx := sq.Scan(&a, &b)
-				if errx != nil {
-					fmt.Println("Error cargando fila ", errx.Error())
-				}
-				fmt.Println(a, b)
-			}
-			fmt.Println("Controlando la situación")
-=======
 			// for sq.Next() {
 			// 	var a string
 			// 	errx := sq.Scan(&a)
@@ -60,7 +82,6 @@ func ConexionPuntoPostal(mapa map[string]CadenaDeConexion) (err error) {
 			// 	fmt.Println(a)
 			// }
 			// fmt.Println("Controlando la situación")
->>>>>>> 1c3baf81b219e80754b1066fb7f2ebc9ea60c5e9
 		}
 
 	}

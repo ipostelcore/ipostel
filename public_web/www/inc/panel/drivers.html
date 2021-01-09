@@ -1,26 +1,28 @@
 <!--
-Realizado por: Yasmin Vicuña Rondon
-Fecha: 23-11-2020
-Titulo: Panel de Control: APICORE
+Realizado por: Carlos Peña
+Fecha: 08-01-2021
+Titulo: Panel de Control: Drivers
  -->
 
-<section>
+ <section>
 
     <div class="card card-primary card-outline card-outline-tabs">
         <div class="card-header p-0 border-bottom-0">
           <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" id="home-tab" data-toggle="pill" href="#home" role="tab" aria-controls="home" aria-selected="true">Listado de Api</a>
+              <a class="nav-link active" id="home-tab" data-toggle="pill" href="#home" role="tab" a
+              ria-controls="home" aria-selected="true">Listado de Drivers</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="pill" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Crear Api</a>
+              <a class="nav-link" id="profile-tab" data-toggle="pill" href="#profile" 
+              role="tab" aria-controls="profile" aria-selected="false">Crear Driver</a>
             </li>
           </ul>
         </div>
         <div class="card-body">
           <div class="tab-content" id="custom-tabs-three-tabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div id="jsGridApi" class="jsgrid">
+                <div id="jsGridDrivers" class="jsgrid">
 
                 </div>
                 
@@ -54,7 +56,7 @@ Titulo: Panel de Control: APICORE
                                                 </div>
                                             </div>
                                                 <div class="col-sm-6">
-                                                <div class="form-group">    
+                                                    <div class="form-group">    
                                                             <label>HTTPS / Puerto</label>                                              
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
@@ -81,16 +83,14 @@ Titulo: Panel de Control: APICORE
                                         <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Función</label>
+                                                            <label>Usuario</label>
                                                             <input type="text" id="txtFuncion" class="form-control" placeholder="Enter ...">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Driver</label>
-                                                            <select id="cmbDriver" class="form-control selected" onchange="">
-                                                                <option value="0">SELECCIONE</option>
-                                                            </select>
+                                                            <label>Clave</label>
+                                                            <input type="text" id="txtFuncion" class="form-control" placeholder="Enter ...">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
@@ -207,139 +207,3 @@ Titulo: Panel de Control: APICORE
 
 
 </section>
-
-
-
-  <!-- Modal para la elaboración de formularios-->
-  <div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog"
-  aria-labelledby="myLargeModalLabel" id="mdlApiEjecucion" aria-hidden="false">
-  <div class="modal-dialog modal-lg" role="document">
-    <!-- Modal contenido-->
-    <div class="modal-content" >
-        
-
-        <div class="modal-header">
-            <span id="_mdlTitulo">Probar API de conexión</span>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-            </button>
-
-        </div>
-        <div class="modal-body" id="_mdlCuerpo">
-       
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Consulta / SQL / URL</label>
-                        <div style="width:100%; height:80px; overflow: scroll;">
-                            <code id="codex" style="font-size:11px; width: 100%; height:80px;"></code>
-                        </div>
-                        <textarea 
-                            style="display: none;"
-                            class="form-control"
-                            style="font-family: 'Lucida Console', Monaco, monospace;font-size: 0.7rem;line-height: 1.1;" 
-                            rows="5" 
-                            id="txtQuery" 
-                            placeholder="Enter ..."></textarea>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="input-group mb-3">
-                        <input style="font-size:14px;" type="text" class="form-control"  id="txtPath" readonly>
-                    <div class="input-group-prepend">
-                        <button type="button" class="btn btn-success" onclick="EjecutarAPI()"><i class="fas fa-play"></i></button>
-                    </div>
-                    <!-- /btn-group -->
-                    
-                    </div>
-              
-                </div>
-           
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Resultado</label>
-                        <div style="width:100%; height:250px; overflow: scroll;">
-                            <span id="result" style="font-size:11px; width: 100%; height: 250px;"></span>
-                        </div>
-                </div>
-            </div>
-
-
-        </div>
-      <div class="modal-footer" id="_mdlPie">
-            <textarea 
-            
-            class="form-control"
-            style="display:none; font-family: 'Lucida Console', Monaco, monospace;font-size: 0.7rem;line-height: 1.1;" 
-            rows="10" 
-            id="txtDatail" 
-            placeholder="Enter ..."></textarea>
-      </div>
-    </div>
-  </div>
-  </div>
-
-
-
-
-      <div class="modal fade" id="modal-overlay" >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="overlay d-flex justify-content-center align-items-center">
-                <i class="fas fa-2x fa-sync fa-spin"></i>
-            </div>
-            <div class="modal-header">
-              <h4 class="modal-title">Default Modal</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>One fine body&hellip;</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-
-
-
-
-<!--
-<div class="card card-info">
-    <div class="card-header">
-    <h3 class="card-title">Horizontal Form</h3>
-    </div>
-    
- 
-    <form class="form-horizontal">
-    <div class="card-body">
-        
-        
-        
-    </div>
-   
-    <div class="card-footer">
-        <button type="submit" class="btn btn-info">Sign in</button>
-        <button type="submit" class="btn btn-default float-right">Cancel</button>
-    </div>
-   
-    </form>
-</div>
-
--->
-
-
-
-
-
-
-<script>
-    var XAP = new ApiCore();
-    XAP.GenerarListado();
-</script>

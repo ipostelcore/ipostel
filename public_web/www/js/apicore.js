@@ -54,7 +54,7 @@ function CrearGrid(db){
             { name: "funcion", type: "text", title: "Funcion" },
             { name: "entorno", type: "text", title: "Ruta",
                 itemTemplate: function(_, item) {
-                    return item.entorno=="produccion"?"/ipostel/api/crud":"/devel/api/crud"
+                    return item.entorno=="produccion"?"/v1/api/crud":"/devel/api/crud"
                 }
             },
             { name: "driver", type: "text", title: "Driver" },
@@ -62,10 +62,13 @@ function CrearGrid(db){
                 itemTemplate: function(_, item) {
                     return $("<i style='color:#1D9D36' class='fas fa-play'>")
                     	.on("click", function() {
-                            var api = item.entorno=="produccion"?"/ipostel/api/crud":"/devel/api/crud"
+                            var api = item.entorno=="produccion"?"/v1/api/crud":"/devel/api/crud"
                             var ruta = item.protocolo.toLowerCase() + "://" + conn.IP + ":" + item.puerto + api;
                             $("#txtPath").val(ruta);
                             $("#txtQuery").val(item.query);
+                            $("#codex").html(item.query);
+                            $("#txtDatail").val("");
+                            $('#result').html("");
                             $('#mdlApiEjecucion').modal('show');      
                             _itemApi = item;
                     	});
@@ -78,7 +81,7 @@ function CrearGrid(db){
 function EjecutarAPI(){
     
     var xAPI = new ApiCore();
-    var api = _itemApi.entorno=="produccion"?"/ipostel/api/crud":"/devel/api/crud"
+    var api = _itemApi.entorno=="produccion"?"/v1/api/crud":"/devel/api/crud"
     var ruta = _itemApi.protocolo.toLowerCase() + "://" + conn.IP + ":" + _itemApi.puerto + api;
 
     xAPI.funcion = _itemApi.funcion;
@@ -92,7 +95,13 @@ function EjecutarAPI(){
         sURL: ruta
     });
     promesa.then(function (xhRequest) {
-        var json =  xhRequest.responseText;
-        $("#txtDatail").val(json);
+        var json =  JSON.parse(xhRequest.responseText);
+        var valor = JSON.stringify(json, undefined, 2);
+        //$("#txtDatail").val(valor);
+        var node = new PrettyJSON.view.Node({
+            el: $('#result'),
+            data: json
+          });
+        node.expandAll();
     });
 }

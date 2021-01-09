@@ -17,10 +17,10 @@ class Conexion{
         this.IP = _url.hostname;
         this.Puerto = ":8012";
         this.PuertoSSL = ":2286";
-        this.API = "/ipostel/api/";
+        this.API = "/v1/api/";
         this.URL = "https://" + this.IP + this.PuertoSSL + this.API;
         this.URLIMG = "/imagenes/";
-        this.URLTEMP = _url.hostname + "/ipostel/temp/";
+        this.URLTEMP = _url.hostname + "/v1/temp/";
         this.URLSEC = "https://" + this.IP + this.PuertoSSL;
     }
 }
@@ -78,7 +78,7 @@ function Ingresar(){
   var xhttp = new XMLHttpRequest();
   $("#_cargando").show();
 
-  xhttp.open("POST", Conn.URLSEC + "/ipostel/app/api/wusuario/login");
+  xhttp.open("POST", Conn.URLSEC + "/v1/app/api/wusuario/login");
   xhttp.onreadystatechange = function() {
 
     if (this.readyState === 4 && this.status === 200) {

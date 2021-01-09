@@ -115,13 +115,12 @@ class Utilidad{
       cadena += `</row>`;
       $('#cuerpo').html(cadena);
     }
-
-  /**
-   * 
-   * @param {*} Mnu 
-   * @param {*} nombre 
-   * @param {*} submenu 
-   */
+    /**
+     * 
+     * @param {*} Mnu 
+     * @param {*} nombre 
+     * @param {*} submenu 
+     */
     DibujarSubMenuSubMenuEscritorio(Mnu, nombre, submenu){
       var cadena = `<div class="row">`;
       Mnu.Perfil.Menu.forEach(v => {
@@ -195,7 +194,6 @@ class Utilidad{
         }
         //verificarPrivilegioUsuario(Mnu);
     }
-
     /**
      * 
      * @param {*} cmb ComboBox para llenar automaticamente

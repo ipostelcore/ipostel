@@ -16,10 +16,30 @@ import (
 
 //CrearQuery Creación dinamica de Consultas
 func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
-
+	var M util.Mensajes
+	c := sys.MongoDB.Collection(sys.APICORE)
 	conexion, a := leerValores(v)
-	C.ApiCore = a
 
+	if a.Estatus != true {
+		M.Msj = "Driver de conexión falló"
+		M.Tipo = 1
+		M.Fecha = time.Now()
+		jSon, err = json.Marshal(M)
+
+		estatus := false
+
+		result, err := c.UpdateOne(
+			sys.Contexto,
+			bson.M{"funcion": a.Funcion},
+			bson.D{
+				{"$set", bson.D{{"estatus", estatus}}},
+			},
+		)
+
+		fmt.Printf("Documento Actualizado %v\n", result.ModifiedCount)
+		return jSon, err
+	}
+	C.ApiCore = a
 	valores := strings.Split(C.ApiCore.Parametros, ",")
 	consulta := C.ApiCore.Query
 	cantidad := len(valores)
@@ -59,17 +79,31 @@ func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 //Select Crear Consultas Sql
 func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.DB) (jSon []byte, err error) {
 	var estatus bool
-	c := sys.MGOSession.DB(sys.CBASE).C(sys.APICORE)
+	var M util.Mensajes
+
+	c := sys.MongoDB.Collection(sys.APICORE)
 
 	lista := make([]map[string]interface{}, 0)
-	rs, _ := conexion.Query(consulta)
+	//fmt.Println(consulta)
+	rs, e := conexion.Query(consulta)
+	if e != nil {
+		M.Msj = "Select fallo"
+		M.Tipo = 1
+		M.Fecha = time.Now()
+		jSon, err = json.Marshal(M)
+		return
+	}
 
 	cols, err := rs.Columns()
 	if err != nil {
 		estatus = false
-		err = c.Update(bson.M{"_id": C.ApiCore.Id}, bson.M{"$set": bson.M{"estatus": estatus}})
-		panic(err)
+		_, err = c.UpdateOne(
+			sys.Contexto,
+			bson.M{"funcion": C.ApiCore.Funcion},
+			bson.M{"$set": bson.M{"estatus": estatus}})
+		return
 	}
+	fmt.Println(cols)
 	colvals := make([]interface{}, len(cols))
 
 	for rs.Next() {
@@ -78,17 +112,29 @@ func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.D
 			colvals[i] = new(interface{})
 		}
 		if err := rs.Scan(colvals...); err != nil {
-			estatus = false
-			err = c.Update(bson.M{"_id": C.ApiCore.Id}, bson.M{"$set": bson.M{"estatus": estatus}})
-			panic(err)
+			estatus := false
+
+			result, _ := c.UpdateOne(
+				sys.Contexto,
+				bson.M{"funcion": C.ApiCore.Funcion},
+				bson.D{
+					{"$set", bson.D{{"estatus", estatus}}},
+				},
+			)
+
+			fmt.Printf("Documento Actualizado %v\n", result.ModifiedCount)
 		}
 		for i, col := range cols {
 			contenido := *colvals[i].(*interface{})
 			evalreflect := reflect.ValueOf(contenido)
+			//fmt.Println("Evaluacion Reflect ", evalreflect.Kind())
 			switch evalreflect.Kind() {
 			case reflect.Slice:
 				valorstr := fmt.Sprintf("%s", contenido)
 				colassoc[col] = util.Utf8_decode(strings.Trim(valorstr, " "))
+				break
+			case reflect.String:
+				colassoc[col] = evalreflect.String()
 				break
 			case reflect.Float32:
 				colassoc[col] = evalreflect.Float()
@@ -115,8 +161,14 @@ func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.D
 
 	jSon, err = json.Marshal(lista)
 
-	fmt.Println("Finalizando _ID ", C.ApiCore.Id, estatus)
-	err = c.Update(bson.M{"_id": C.ApiCore.Id}, bson.M{"$set": bson.M{"estatus": estatus}})
+	fmt.Println("Finalizando _ID ", C.ApiCore.ID, estatus)
+	_, err = c.UpdateOne(
+		sys.Contexto,
+		bson.M{"funcion": C.ApiCore.Funcion},
+		bson.D{
+			{"$set", bson.D{{"estatus", estatus}}},
+		},
+	)
 
 	return
 }
@@ -216,35 +268,29 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 }
 
 func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
+
 	ApiCoreAux := retornaValores(v)
 	c := sys.MongoDB.Collection(sys.APICORE)
-	fmt.Println("hola  ", ApiCoreAux.Funcion)
+	estatus := false
 	err := c.FindOne(sys.Contexto, bson.M{"funcion": ApiCoreAux.Funcion}).Decode(&a)
 	if err != nil {
 		fmt.Println("Error creando Query en Mongodb "+"funcion: "+ApiCoreAux.Funcion, err.Error())
 
 	}
-
-	switch a.Driver {
-	case "puntopostal":
-		db = sys.SqlServerPuntoPostal
-		break
-	case "ipostel":
-		db = sys.PuntoPostalPostgres
-		break
-	case "tracking":
-		db = sys.SqlServerTracking
-		break
-	case "maestros":
-		db = sys.SqlServerMaestros
-		break
+	if sys.SQLTODO[a.Driver].Estatus != false {
+		drv := sys.SQLTODO[a.Driver]
+		db = drv.DB
+		estatus = true
 	}
+
 	a.Parametros = ApiCoreAux.Parametros
 	a.Migrar = ApiCoreAux.Migrar
 	a.Metodo = ApiCoreAux.Metodo
 	a.Destino = ApiCoreAux.Destino
 	a.Retorna = ApiCoreAux.Retorna
-	//fmt.Println("Driver seleccionado: ", a.Driver)
+	a.Estatus = estatus
+	a.Funcion = ApiCoreAux.Funcion
+	fmt.Println("Driver seleccionado: ", a.Funcion)
 	return
 }
 

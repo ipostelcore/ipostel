@@ -3,8 +3,8 @@ package sys
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
+	"github.com/fatih/color"
 	"github.com/ipostelcore/ipostel/util"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -20,6 +20,7 @@ type Mongo struct {
 
 //Conectar Establecer conexión
 func (m *Mongo) Conectar(Ctx context.Context, mapa map[string]CadenaDeConexion) (DB *mongo.Database) {
+	var cnf Config
 	c := mapa["mongodb"]
 	uri := "mongodb://" + c.Host + ":" + c.Puerto
 	Client, err := mongo.Connect(Ctx, options.Client().ApplyURI(uri))
@@ -31,7 +32,19 @@ func (m *Mongo) Conectar(Ctx context.Context, mapa map[string]CadenaDeConexion) 
 	}
 	DB = Client.Database(c.Basedatos)
 	util.Error(err)
-	fmt.Println("[Host: " + c.Host + " Base De Datos: " + c.Basedatos + "  OK...] ")
+	color.Green("... Host: " + c.Host + " Base De Datos: ( " + c.Basedatos + " )  OK...")
+	rs, e := DB.Collection("drivers").Find(Ctx, bson.D{{}})
+	for rs.Next(Ctx) {
+		var cadena CadenaDeConexion
+		e = rs.Decode(&cadena)
+		if e != nil {
+			color.Red("No se logro establecer la definición del driver, por favor verifique")
+			return
+		}
+		if cadena.Estatus {
+			cnf.ConexionesDinamicas(cadena)
+		}
+	}
 	return
 }
 
