@@ -113,7 +113,6 @@ func (C *Core) Select(v map[string]interface{}, consulta string, conexion *sql.D
 		}
 		if err := rs.Scan(colvals...); err != nil {
 			estatus := false
-
 			result, _ := c.UpdateOne(
 				sys.Contexto,
 				bson.M{"funcion": C.ApiCore.Funcion},

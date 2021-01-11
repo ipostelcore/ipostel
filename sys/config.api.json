@@ -12,7 +12,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "maestros",
         "driver": "SQLDBA",
@@ -26,7 +28,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "maestros",
         "driver": "SQLDBA",
@@ -40,7 +44,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": false,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "maestros",
         "driver": "SQLDBA",
@@ -54,7 +60,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": false,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "control",
         "driver": "SQLDBC",
@@ -68,7 +76,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "control",
         "driver": "SQLDBC",
@@ -82,7 +92,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "control",
         "driver": "SQLDBC",
@@ -96,7 +108,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "control",
         "driver": "SQLDBC",
@@ -110,7 +124,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     } ,{
         "modulo": "control",
         "driver": "SQLDBC",
@@ -124,7 +140,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     } ,{
         "modulo": "ipostel",
         "driver": "ipostel",
@@ -138,7 +156,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     }  ,{
         "modulo": "tracking",
         "driver": "SQLDBB",
@@ -152,7 +172,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     }  ,{
         "modulo": "tracking",
         "driver": "SQLDBB",
@@ -166,7 +188,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     } ,{
         "modulo": "tracking",
         "driver": "SQLDBB",
@@ -180,7 +204,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
@@ -194,7 +220,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
@@ -207,7 +235,9 @@
         "puerto": 2286,
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
@@ -221,7 +251,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
@@ -235,7 +267,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
@@ -249,7 +283,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
@@ -263,7 +299,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
@@ -277,7 +315,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
@@ -291,7 +331,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     },{
         "modulo": "ipostel",
         "driver": "PGDBA",
@@ -305,7 +347,9 @@
         "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
-        "entorno": "produccion"
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
     }
 ]
 

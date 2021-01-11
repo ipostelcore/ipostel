@@ -14,6 +14,13 @@ import (
 //Config Generacion de conexiones
 type Config struct{}
 
+//ManejadorDeConexiones Multiples conexiones a base de datos
+type ManejadorDeConexiones struct {
+	ID          string `json:"id"`
+	Nombre      string `json:"nombre"`
+	Descripcion string `json:"descripcion"`
+}
+
 //DriverSQL Establecer Driver's de conexion
 type DriverSQL struct {
 	Nombre   string
@@ -51,6 +58,7 @@ var (
 	HostUrlPension           string = ""
 	ListadoConexiones        []string
 	SQLTODO                  = make(map[string]DriverSQL)
+	DRIVERS                  []ManejadorDeConexiones
 )
 
 //Constantes del sistema
@@ -96,7 +104,6 @@ func init() {
 
 	Magenta := color.New(color.FgMagenta)
 	BoldMagenta := Magenta.Add(color.Bold)
-
 	fmt.Println("")
 	BoldMagenta.Println("..........................................................")
 	BoldMagenta.Println("...                                                       ")
@@ -162,4 +169,15 @@ func (C *Config) ConexionesDinamicas(c CadenaDeConexion) bool {
 		fmt.Println("Driver: no funciona para ", c.Driver)
 	}
 	return true
+}
+
+//CargarConexiones
+func (C *Config) CargarConexiones() {
+	var a util.Archivo
+	a.NombreDelArchivo = "sys/drivers.json"
+	data, _ := a.LeerTodo()
+	e := json.Unmarshal(data, &DRIVERS)
+
+	util.Error(e)
+
 }
