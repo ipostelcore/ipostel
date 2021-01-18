@@ -25,16 +25,17 @@ class Conexion{
 function CargarAPI(options){
     var xhttp = new XMLHttpRequest();
     xhttp.open(options.metodo, options.sURL);
-    console.log(options.sURL, options.valores);
+    console.log(options.sURL);
     xhttp.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem('ipostel'));
     var promise = new Promise(function(resolve, reject) {
         xhttp.addEventListener('readystatechange', function() {
             if ( xhttp.readyState === 4 && xhttp.status === 200) {
                 if(options.Objeto != undefined){
-                    console.info(xhttp.responseText);
                     options.Objeto = JSON.parse(xhttp.responseText);
                 }
-                resolve(xhttp);
+                
+                    resolve(xhttp);  
+               
             }
             if( xhttp.status === 401){
                 if ( xhttp.responseText != "" ) {

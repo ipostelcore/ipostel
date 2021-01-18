@@ -9,6 +9,8 @@ import (
 	"strings"
 	"time"
 
+	"go.mongodb.org/mongo-driver/mongo"
+
 	"github.com/ipostelcore/ipostel/sys"
 	"github.com/ipostelcore/ipostel/util"
 	"go.mongodb.org/mongo-driver/bson"
@@ -18,8 +20,8 @@ import (
 func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 	var M util.Mensajes
 	c := sys.MongoDB.Collection(sys.APICORE)
-	conexion, a := leerValores(v)
-
+	conexion, a, xmongo := leerValores(v)
+	C.ApiCore = a
 	if a.Estatus != true {
 		M.Msj = "Driver de conexión falló"
 		M.Tipo = 1
@@ -39,7 +41,12 @@ func (C *Core) CrearQuery(v map[string]interface{}) (jSon []byte, err error) {
 		fmt.Printf("Documento Actualizado %v\n", result.ModifiedCount)
 		return jSon, err
 	}
-	C.ApiCore = a
+	if a.Coleccion != "" {
+
+		jSon, err = C.CrearNOSQL(C.ApiCore.Coleccion, C.ApiCore.Query, xmongo)
+		return
+	}
+
 	valores := strings.Split(C.ApiCore.Parametros, ",")
 	consulta := C.ApiCore.Query
 	cantidad := len(valores)
@@ -248,8 +255,8 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 		insert += campos + " VALUES " + valores + ";"
 		campos = ""
 		valores = ""
-
-		_, err = sys.PuntoPostalPostgres.Exec(insert)
+		db := sys.SQLTODO["PGODB"].DB
+		_, err = db.Exec(insert)
 		M.Fecha = time.Now()
 		if err != nil {
 			fmt.Println("----> ", err.Error())
@@ -266,7 +273,7 @@ func (C *Core) IUDQueryBash(tabla string, lista []map[string]interface{}, consul
 
 }
 
-func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
+func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore, mgo *mongo.Database) {
 
 	ApiCoreAux := retornaValores(v)
 	c := sys.MongoDB.Collection(sys.APICORE)
@@ -281,7 +288,11 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 		db = drv.DB
 		estatus = true
 	}
-
+	if a.Coleccion != "" {
+		drv := sys.NOSQLTODO[a.Driver]
+		mgo = drv.DB
+		estatus = true
+	}
 	a.Parametros = ApiCoreAux.Parametros
 	a.Migrar = ApiCoreAux.Migrar
 	a.Metodo = ApiCoreAux.Metodo
@@ -289,13 +300,16 @@ func leerValores(v map[string]interface{}) (db *sql.DB, a ApiCore) {
 	a.Retorna = ApiCoreAux.Retorna
 	a.Estatus = estatus
 	a.Funcion = ApiCoreAux.Funcion
-	fmt.Println("Driver seleccionado: ", a.Funcion)
+	fmt.Println("Driver seleccionado: ", a.Funcion, a.Coleccion)
 	return
 }
 
 func retornaValores(v map[string]interface{}) (a ApiCore) {
 	for k, vs := range v {
 		switch k {
+		case "coleccion":
+			a.Coleccion = vs.(string)
+			break
 		case "funcion":
 			a.Funcion = vs.(string)
 			break

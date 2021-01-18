@@ -30,35 +30,28 @@ type DriverSQL struct {
 	Error    error
 }
 
+//DriverSQL Establecer Driver's de conexion
+type DriverNOSQL struct {
+	Nombre   string
+	Contexto context.Context
+	DB       *mongo.Database
+	Estatus  bool
+	Error    error
+}
+
 //Variables del modelo
 var (
-	Version                  string = "V.2.1.2"
-	MySQL                    bool   = false
-	SQLServerPuntoPostal     bool   = false
-	SQLServerTracking        bool   = false
-	SQLServerMaestros        bool   = false
-	Oracle                   bool   = false
-	BaseDeDatos              BaseDatos
-	MGConexion               *Mongo
-	Contexto                 context.Context
-	MongoDB                  *mongo.Database
-	PostgreSQLSAMAN          *sql.DB
-	PuntoPostalPostgres      *sql.DB
-	PostgreSQLPENSION        *sql.DB
-	PostgreSQLPENSIONSIGESP  *sql.DB
-	PostgreSQLEMPLEADOSIGESP *sql.DB
-	MysqlFullText            *sql.DB
-	SqlServerPuntoPostal     *sql.DB
-	SqlServerTracking        *sql.DB
-	SqlServerMaestros        *sql.DB
-	Error                    error
-	HostIPPace               string = ""
-	HostUrlPace              string = ""
-	HostIPPension            string = ""
-	HostUrlPension           string = ""
-	ListadoConexiones        []string
-	SQLTODO                  = make(map[string]DriverSQL)
-	DRIVERS                  []ManejadorDeConexiones
+	Version           string = "V.2.1.2"
+	MySQL             bool   = false
+	BaseDeDatos       BaseDatos
+	MGConexion        *Mongo
+	Contexto          context.Context
+	MongoDB           *mongo.Database
+	Error             error
+	ListadoConexiones []string
+	SQLTODO           = make(map[string]DriverSQL)
+	NOSQLTODO         = make(map[string]DriverNOSQL)
+	DRIVERS           []ManejadorDeConexiones
 )
 
 //Constantes del sistema
@@ -156,6 +149,15 @@ func (C *Config) ConexionesDinamicas(c CadenaDeConexion) bool {
 	case "postgres13":
 		db, er := CPostgres(c)
 		SQLTODO[c.ID] = DriverSQL{
+			Nombre:   c.Driver,
+			DB:       db,
+			Estatus:  true,
+			Contexto: Contexto,
+			Error:    er,
+		}
+	case "mongodb":
+		db, er := CMongoDB(c)
+		NOSQLTODO[c.ID] = DriverNOSQL{
 			Nombre:   c.Driver,
 			DB:       db,
 			Estatus:  true,

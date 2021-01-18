@@ -25,6 +25,7 @@ type ApiCore struct {
 	ID           primitive.ObjectID `json:"id" bson:"_id"`
 	Modulo       string             `json:"modulo"`
 	Driver       string             `json:"driver"`
+	Coleccion    string             `json:"coleccion"`
 	Query        string             `json:"query"`
 	Parametros   string             `json:"parametros"`
 	Ruta         string             `json:"ruta"`

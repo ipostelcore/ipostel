@@ -2,6 +2,7 @@
     {
         "modulo": "control",
         "driver": "SQLDBC",
+        "coleccion": "",
         "query": "SELECT CLIENTE, DESCRIPCION FROM CLIENTES",
         "parametros": "",
         "concurrencia": false,
@@ -18,6 +19,7 @@
     },{
         "modulo": "maestros",
         "driver": "SQLDBA",
+        "coleccion": "",
         "query": "SELECT ma_Tarifa.se_Codigo, ma_Servicio.se_Descripcion FROM ma_Servicio INNER JOIN ma_Tarifa ON ma_Tarifa.se_Codigo=ma_Servicio.se_Codigo INNER JOIN ma_Destino ON ma_Tarifa.de_Codigo=ma_Destino.de_Codigo GROUP BY ma_Tarifa.se_Codigo, ma_Servicio.se_Descripcion",
         "parametros": "",
         "concurrencia": false,
@@ -34,6 +36,7 @@
     },{
         "modulo": "maestros",
         "driver": "SQLDBA",
+        "coleccion": "",
         "query": "SELECT ma_Destino.de_Codigo, ma_Destino.de_Descripcion, ma_Destino.Orden FROM ma_Servicio INNER JOIN ma_Tarifa ON ma_Tarifa.se_Codigo=ma_Servicio.se_Codigo INNER JOIN ma_Destino ON ma_Tarifa.de_Codigo=ma_Destino.de_Codigo WHERE ma_Tarifa.se_Codigo='$0' GROUP BY ma_Destino.de_Codigo, ma_Destino.de_Descripcion,  ma_Destino.Orden ORDER BY ma_Destino.Orden ASC",
         "parametros": "",
         "concurrencia": false,
@@ -50,6 +53,7 @@
     },{
         "modulo": "maestros",
         "driver": "SQLDBA",
+        "coleccion": "",
         "query": "SELECT ta_Desde, ta_Hasta, ta_Tarifa FROM  ma_Tarifa WHERE se_Codigo='$0' AND de_Codigo='$1'",
         "parametros": "",
         "concurrencia": false,
@@ -82,6 +86,7 @@
     },{
         "modulo": "control",
         "driver": "SQLDBC",
+        "coleccion": "",
         "query": "SELECT CODSERV, DESTINO, DESDE, HASTA, TARIFA FROM TARIFAEEB",
         "parametros": "",
         "concurrencia": false,
@@ -98,6 +103,7 @@
     },{
         "modulo": "control",
         "driver": "SQLDBC",
+        "coleccion": "",
         "query": "SELECT CODSERV,DESTINO,DESDE, HASTA, TARIFA FROM TARIFAEEE",
         "parametros": "",
         "concurrencia": false,
@@ -114,6 +120,7 @@
     },{
         "modulo": "control",
         "driver": "SQLDBC",
+        "coleccion": "",
         "query": "SELECT dbo.ESTADISTICAS.CODOPT, dbo.OFICINAS.DESCRIPCION, dbo.ESTADISTICAS.FECHA, dbo.ESTADISTICAS.CONCEPTO, dbo.ESTADISTICAS.CODSERV, dbo.MAESTROSERVICIOS.DESCRIPCION AS SERVICIO, SUM(dbo.ESTADISTICAS.TOTAL) AS TOTAL_DIA FROM dbo.ESTADISTICAS LEFT OUTER JOIN dbo.OFICINAS ON dbo.OFICINAS.CODOFIC = dbo.ESTADISTICAS.CODOPT LEFT OUTER JOIN dbo.MAESTROSERVICIOS ON dbo.MAESTROSERVICIOS.CODSERV = dbo.ESTADISTICAS.CODSERV GROUP BY dbo.ESTADISTICAS.CODOPT, dbo.OFICINAS.DESCRIPCION, dbo.ESTADISTICAS.FECHA, dbo.ESTADISTICAS.CONCEPTO, dbo.ESTADISTICAS.CODSERV, dbo.MAESTROSERVICIOS.DESCRIPCION",
         "parametros": "",
         "concurrencia": false,
@@ -130,6 +137,7 @@
     } ,{
         "modulo": "control",
         "driver": "SQLDBC",
+        "coleccion": "",
         "query": "SELECT dbo.ESTADISTICAS.CODOPT, dbo.OFICINAS.DESCRIPCION, dbo.ESTADISTICAS.FECHA, dbo.ESTADISTICAS.CONCEPTO, dbo.ESTADISTICAS.CODSERV, dbo.MAESTROSERVICIOS.DESCRIPCION AS SERVICIO, SUM(dbo.ESTADISTICAS.TOTAL) AS TOTAL_DIA FROM dbo.ESTADISTICAS LEFT OUTER JOIN dbo.OFICINAS ON dbo.OFICINAS.CODOFIC = dbo.ESTADISTICAS.CODOPT LEFT OUTER JOIN dbo.MAESTROSERVICIOS ON dbo.MAESTROSERVICIOS.CODSERV = dbo.ESTADISTICAS.CODSERV GROUP BY dbo.ESTADISTICAS.CODOPT, dbo.OFICINAS.DESCRIPCION, dbo.ESTADISTICAS.FECHA, dbo.ESTADISTICAS.CONCEPTO, dbo.ESTADISTICAS.CODSERV, dbo.MAESTROSERVICIOS.DESCRIPCION WHERE dbo.ESTADISTICAS.CODOPT = '$0'",
         "parametros": "",
         "concurrencia": false,
@@ -146,6 +154,7 @@
     } ,{
         "modulo": "ipostel",
         "driver": "ipostel",
+        "coleccion": "",
         "query": "INSERT INTO public.maeenvio(m_oid, cod_envio, descripcion) VALUES ($0, $1, '$2');",
         "parametros": "1,2,TESTING",
         "concurrencia": false,
@@ -162,6 +171,7 @@
     }  ,{
         "modulo": "tracking",
         "driver": "SQLDBB",
+        "coleccion": "",
         "query": "SELECT Serial,Cuenta_Cliente,Lugar_Origen,Nombre_Remite,Oficina_Destino,Lugar_Destino,Nombre_Destinatario,Peso,Cod_Envio,Total_Pago,Cod_Tipo,Correo_E,Cedula,Cobrado,Fec_Factura,Fec_Ver,Servicio,Enviado,PaisDest,TelefonoR,TelefonoD,Respaldado FROM Consignacion",
         "parametros": "",
         "concurrencia": false,
@@ -178,6 +188,7 @@
     }  ,{
         "modulo": "tracking",
         "driver": "SQLDBB",
+        "coleccion": "",
         "query": "SELECT cl_Codigo,cl_Descripcion,cl_Rif,cl_Nit,cl_Direccion,cl_Tipo,cl_CodigoSector,cl_FechaPorte,cl_NumeroPorte,cl_TipoTarifa,cl_Parroquia,cl_Pais,cp_Codigo,cl_Telefono,cl_Email,cl_TipoCuenta,cl_Seniat,cl_OficDefault FROM ma_Cliente",
         "parametros": "",
         "concurrencia": false,
@@ -194,6 +205,7 @@
     } ,{
         "modulo": "tracking",
         "driver": "SQLDBB",
+        "coleccion": "",
         "query": "SELECT id,Serial,Cod_Evento,Cod_Ubica,Fec_Evento,Operador,Observacion,Fecha,Motivo,Medida,Firmante,CedulaFirmante,EnviadoIPS,FechaCorta,Cod_Ubicareg,Nom_Maquina,Impreso,VehiMoto,AparNorm,Control,Ruta,Destinatario,Tipo,Repartidor,Modificado,Modifidate,Ayudante,Respaldado,ZonaPostal FROM Reg_Eventos",
         "parametros": "",
         "concurrencia": false,
@@ -210,6 +222,7 @@
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
+        "coleccion": "",
         "query": "SELECT ev_Codigo,ev_Descripcion FROM ma_Evento",
         "parametros": "",
         "concurrencia": false,
@@ -226,6 +239,7 @@
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
+        "coleccion": "",
         "query": "SELECT of_Id,of_Codigo,of_Descripcion,to_Codigo,en_Codigo,of_CentEdo,Renglon1,Renglon2,NumOfi1,NumOfi2,of_CentroPago,of_Programa,of_Categoria,of_Regimen,of_RegistroSSO,of_Direccion,of_Telefono,cp_Codigo,of_Git,of_Buzon,of_Reparto,of_CanalEntrante,of_CanalSaliente,of_Ido FROM ma_Oficina",
         "parametros": "",
         "concurrencia": false,
@@ -233,6 +247,7 @@
         "funcion": "ObtenerOficinas",
         "metodo": "GET",
         "puerto": 2286,
+        "protocolo": "HTTPS",
         "migrar": false,
         "estatus": true,
         "entorno": "produccion",
@@ -241,6 +256,7 @@
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
+        "coleccion": "",
         "query": "SELECT en_Codigo,en_Descripcion,re_Codigo FROM ma_Entidad",
         "parametros": "",
         "concurrencia": false,
@@ -257,6 +273,7 @@
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
+        "coleccion": "",
         "query": "SELECT re_Codigo,re_Descripcion FROM ma_Region",
         "parametros": "",
         "concurrencia": false,
@@ -273,6 +290,7 @@
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
+        "coleccion": "",
         "query": "SELECT se_Codigo,se_Descripcion,se_NacInt,se_CodSerial,se_Sticker FROM ma_Servicio",
         "parametros": "",
         "concurrencia": false,
@@ -289,6 +307,7 @@
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
+        "coleccion": "",
         "query": "SELECT de_Codigo,de_Descripcion,Orden FROM ma_Destino",
         "parametros": "",
         "concurrencia": false,
@@ -305,6 +324,7 @@
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
+        "coleccion": "",
         "query": "SELECT Localidad,Ruta,ZonaPostal,Of_Codigo FROM Ma_Localidad",
         "parametros": "",
         "concurrencia": false,
@@ -321,6 +341,7 @@
     },{
         "modulo": "tracking",
         "driver": "SQLDBB",
+        "coleccion": "",
         "query": "SELECT Cod_Envio,Descripcion FROM MaeEnvio",
         "parametros": "",
         "concurrencia": false,
@@ -337,11 +358,29 @@
     },{
         "modulo": "ipostel",
         "driver": "PGDBA",
+        "coleccion": "",
         "query": "SELECT * FROM public.maeenvio",
         "parametros": "",
         "concurrencia": false,
         "retorna": true,
         "funcion": "OMaestroEnvio",
+        "metodo": "GET",
+        "puerto": 2286,
+        "protocolo": "HTTPS",
+        "migrar": false,
+        "estatus": true,
+        "entorno": "produccion",
+        "consumidores": 10,
+        "logs": false
+    },{
+        "modulo": "ipostel",
+        "driver": "MGODB",
+        "coleccion": "drivers",
+        "query": "{ Estatus: true }",
+        "parametros": "",
+        "concurrencia": false,
+        "retorna": true,
+        "funcion": "ListarDrivers",
         "metodo": "GET",
         "puerto": 2286,
         "protocolo": "HTTPS",

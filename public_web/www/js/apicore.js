@@ -11,6 +11,8 @@ class ApiCore{
         this.retorna = true;
         this.migrar = false;
         this.modulo = "";
+        this.relacional = false;
+        this.valores = {};
     }
     Obtener(){
         return this;
@@ -104,4 +106,15 @@ function EjecutarAPI(){
           });
         node.expandAll();
     });
+}
+
+async function CargarDrivers(){
+    $("#cmbDriver").html("");
+    var elem = await Drivers.Listar();
+
+    elem.forEach(e => {
+        $("#cmbDriver").append(`<option value="${e.ID}">${e.Descripcion}</option>`);
+    });
+   
+    
 }
