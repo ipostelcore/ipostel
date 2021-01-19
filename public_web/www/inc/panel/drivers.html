@@ -1,209 +1,103 @@
-<!--
-Realizado por: Carlos Peña
-Fecha: 08-01-2021
-Titulo: Panel de Control: Drivers
- -->
-
- <section>
-
-    <div class="card card-primary card-outline card-outline-tabs">
-        <div class="card-header p-0 border-bottom-0">
-          <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" id="home-tab" data-toggle="pill" href="#home" role="tab" a
-              ria-controls="home" aria-selected="true">Listado de Drivers</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="pill" href="#profile" 
-              role="tab" aria-controls="profile" aria-selected="false">Crear Driver</a>
-            </li>
-          </ul>
-        </div>
-        <div class="card-body">
-          <div class="tab-content" id="custom-tabs-three-tabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div id="jsGridDrivers" class="jsgrid">
-
+<section class="esb">
+    <form role="form" id="Drivers">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card " style="height: 550px;">
+                    <div class="card-header ">
+                        <h3 class="card-title">Listado</h3>
+                    </div>
+                    <div class="card-body">
+                        
+                    </div>
                 </div>
-                
-                
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                
-                <form role="form">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form role="form">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">    
-                                                        <label>HTTP / Puerto</label>                                              
-                                                        <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                            <input type="checkbox" id="http">
-                                                            </span>
-                                                        </div>
-                                                            <select class="form-control selected" id="cmbpuertohttp">
-                                                                <option value="0">SELECCIONE</option>
-                                                                <option value="1">8012</option>
-                                                                <option value="2">8013</option>
-                                                            </select>
-                                                        </div>
-                                                        <!-- /input-group -->
-                                                </div>
-                                            </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">    
-                                                            <label>HTTPS / Puerto</label>                                              
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">
-                                                                <input type="checkbox" id="https">
-                                                                </span>
-                                                            </div>
-                                                            <select class="form-control selected" id="cmbpuertohttps">
-                                                                <option value="0">SELECCIONE</option>
-                                                                <option value="1">2286</option>
-                                                                <option value="2">2385</option>
-                                                            </select>
-                                                            <div class="input-group-append">
-                                                             <span class="input-group-text"><i class="fas fa-eye"></i></span>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /input-group -->
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-            
-            
-                                        <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Usuario</label>
-                                                            <input type="text" id="txtFuncion" class="form-control" placeholder="Enter ...">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Clave</label>
-                                                            <input type="text" id="txtFuncion" class="form-control" placeholder="Enter ...">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label>Consulta / SQL / URL</label>
-                                                            <textarea class="form-control" rows="3" id="txtConsulta" placeholder="Enter ..."></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label>Descripción</label>
-                                                            <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Enter ..."></textarea>
-                                                        </div>
-                                                </div>
-                                                    <div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label>Metodo</label>
-                                                            <select id="cmbMetodo" class="form-control selected">
-                                                                <option value="GET" selected>GET</option>
-                                                                <option value="POST">POST</option>
-                                                                <option value="PUT">PUT</option>
-                                                                <option value="DELETE">DELETE</option>
-                                                                <option value="OPTIONS">OPTIONS</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                        <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label>Prioridad</label>
-                                                            <select id="cmbPrioridad" class="form-control selected">
-                                                                <option value="0">BAJA</option>
-                                                                <option value="1">MEDIA</option>
-                                                                <option value="2">ALTA</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label>Módulo</label>
-                                                            <select id="cmbModulo" class="form-control selected">
-                                                                <option value="0">SELECCIONE</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label>Tipo</label>
-                                                            <select id="cmbTipo" class="form-control selected">
-                                                                <option value="SELECT">SELECT</option>
-                                                                <option value="INSERT">INSERT</option>
-                                                                <option value="UPDATE">UPDATE</option>
-                                                                <option value="DELETE">DELETE</option>
-                                                            </select>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                        <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label>URL Acción</label>
-                                                                <textarea class="form-control" rows="3" id="txturl" placeholder="Enter ..."></textarea>
-                                                        </div>
-                                                    </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Concurrente</label>
-                                                                <select id="cmbConcurrente" class="form-control selected">
-                                                                    <option value="TRUE">VERDADERO</option>
-                                                                    <option value="FALSE">FALSO</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Retorno</label>
-                                                                <select id="cmbRetorno" class="form-control selected">
-                                                                    <option value="TRUE">VERDADERO</option>
-                                                                    <option value="FALSE">FALSO</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                </div>
-                                            </div>
-                                    
-                                    
-                                    
-                            </div>
-                        </div>
-                            
-            
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    
+            <div class="col-md-8">
+                <div class="card " style="height: 550px;">
+                    <div class="card-header ">
+                        <h3 class="card-title">Crear Drivers</h3>
+                    </div>
+                    <div class="card-body">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Driver</label>
+                                            <input type="text" id="txtDriver" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Host ( localhost | 192.180.0.0 )</label>
+                                            <input type="text" id="txtHost" class="form-control" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Puerto</label>
+                                            <input type="number" id="txtPuerto" class="form-control" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Usuario</label>
+                                            <input type="text" id="txtUsuario" class="form-control" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Clave</label>
+                                            <input type="text" id="txtClave" class="form-control"  >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Base de Datos</label>
+                                            <input type="text" id="txtBaseDatos" class="form-control" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>URL (Opcional)</label>
+                                            <input type="text" id="txtUrl" class="form-control" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label>Descripción</label>
+                                            <input type="text" id="txtDescripcion" class="form-control"  >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>ID</label>
+                                            <input type="text" id="txtId"class="form-control" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Estatus</label>
+                                            <select id="cmbEstatus" class="form-control selected">
+                                                <option value=true>VERDADERO</option>
+                                                <option value=false>FALSO</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        
                     </div>
-                </form>
-            
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-warning" onclick="Drivers.Salvar()">Salvar Datos</button>
+                        <button type="button" class="btn btn-default float-right">Cancelar</button>
+                      </div> 
+                </div> 
             </div>
-          </div>
         </div>
-        <!-- /.card -->
-      </div>
-
-
-
-
-
-
-   
-
-
+    </form>
 </section>

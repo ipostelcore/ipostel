@@ -67,12 +67,14 @@ class Consignacion{
 function ListarServiciosTipo(){
     if (localStorage.getItem("TipoServicios") == undefined ){
         var apic = new ApiCore();
-        apic.ruta = "ListarTiposServicios";
+        apic.funcion = "ListarTiposServicios";
         var promesa =  CargarAPI({
             metodo : "POST",
             sURL: conn.URL + "crud",
             valores :  apic.Obtener()
         });
+       // console.log(apic);
+
         promesa.then(function (xhRequest) {
             json = xhRequest.responseText;
             localStorage.setItem("TipoServicios", json);
@@ -82,7 +84,7 @@ function ListarServiciosTipo(){
 
 function seleccionarTarifasDestino(){
     var apic = new ApiCore();
-    apic.ruta = "ObtenerTiposServicios";
+    apic.funcion = "ObtenerTiposServicios";
     apic.parametros = $("#cmbTipoEnvio").val();
     var promesa =  CargarAPI({
         metodo : "POST",
@@ -104,7 +106,7 @@ function seleccionarTarifasDestino(){
 function ObtenerServiciosTipo(){
 
     var apic = new ApiCore();
-    apic.ruta = "ObtenerTarifasDestino";
+    apic.funcion = "ObtenerTarifasDestino";
     apic.parametros =  $("#cmbTipoEnvio").val() + "," +  $("#cmbTarifa").val();
     var promesa =  CargarAPI({
         metodo : "POST",
@@ -113,7 +115,8 @@ function ObtenerServiciosTipo(){
     });
 
     promesa.then(function (xhRequest) {
-        json = xhRequest.responseText;
+        json = JSON.parse(xhRequest.responseText);
+       
         console.log(json);
     });
 }

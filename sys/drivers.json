@@ -1,0 +1,23 @@
+[
+    {
+        "ID": "mongodb",
+        "Nombre": "MongoDB",
+        "Descripcion": "MongoDB v.4.4.0"
+    },{
+        "ID": "postgres13",
+        "Nombre": "Postgres v.13",
+        "Descripcion": "Postgresql v.13"
+    },{
+        "ID": "mariadb",
+        "Nombre": "Postgres v.13",
+        "Descripcion": "Postgresql v.13"
+    },{
+        "ID": "mysql8",
+        "Nombre": "Mysql v.8",
+        "Descripcion": "Mysql Server v.8"
+    },{
+        "ID": "sqlserver17",
+        "Nombre": "SQL Server 17",
+        "Descripcion": "ODBC 64 Bits 17"
+    }
+]

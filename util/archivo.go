@@ -20,11 +20,24 @@ type Archivo struct {
 	Canal            chan []byte
 }
 
-func (a *Archivo) iniciarVariable() {
-	a.Cabecera = "INSERT INTO space.nomina_archivo (cedu,fami, llav, conc,mont,tipo,fech, proc) VALUES "
-	a.CantidadLineas = 0
-	a.Leer = false
-	a.Salvar = false
+//Directorio operaciones sobre un directorio
+type Directorio struct {
+	Ruta    string
+	Listado []string `json:"listado"`
+}
+
+//Listar archivos del directorio principal
+func (D *Directorio) Listar(ruta string) error {
+	files, err := ioutil.ReadDir(ruta)
+	if err != nil {
+		return err
+	}
+
+	for _, f := range files {
+		println(f.Name())
+		D.Listado = append(D.Listado, f.Name())
+	}
+	return nil
 }
 
 func (a *Archivo) Crear(cadena string) bool {

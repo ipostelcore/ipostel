@@ -122,7 +122,6 @@ function CargarConfiguracion(){
 /**
  * Carga de Módulo Panel
  */
-
 function CargarPanel(){
   Util.DibujarSubMenuEscritorio(JsonMenu, "Panel");
 }
@@ -130,4 +129,8 @@ function CargarPanel(){
 
 function CargarApiCore(){
   CargarUrl('cuerpo', 'inc/panel/apicore');
+}
+
+function CargarDriver(){
+  CargarUrl('cuerpo', 'inc/panel/drivers');
 }

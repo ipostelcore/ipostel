@@ -14,6 +14,13 @@ import (
 //Config Generacion de conexiones
 type Config struct{}
 
+//ManejadorDeConexiones Multiples conexiones a base de datos
+type ManejadorDeConexiones struct {
+	ID          string `json:"id"`
+	Nombre      string `json:"nombre"`
+	Descripcion string `json:"descripcion"`
+}
+
 //DriverSQL Establecer Driver's de conexion
 type DriverSQL struct {
 	Nombre   string
@@ -23,34 +30,28 @@ type DriverSQL struct {
 	Error    error
 }
 
+//DriverSQL Establecer Driver's de conexion
+type DriverNOSQL struct {
+	Nombre   string
+	Contexto context.Context
+	DB       *mongo.Database
+	Estatus  bool
+	Error    error
+}
+
 //Variables del modelo
 var (
-	Version                  string = "V.2.1.2"
-	MySQL                    bool   = false
-	SQLServerPuntoPostal     bool   = false
-	SQLServerTracking        bool   = false
-	SQLServerMaestros        bool   = false
-	Oracle                   bool   = false
-	BaseDeDatos              BaseDatos
-	MGConexion               *Mongo
-	Contexto                 context.Context
-	MongoDB                  *mongo.Database
-	PostgreSQLSAMAN          *sql.DB
-	PuntoPostalPostgres      *sql.DB
-	PostgreSQLPENSION        *sql.DB
-	PostgreSQLPENSIONSIGESP  *sql.DB
-	PostgreSQLEMPLEADOSIGESP *sql.DB
-	MysqlFullText            *sql.DB
-	SqlServerPuntoPostal     *sql.DB
-	SqlServerTracking        *sql.DB
-	SqlServerMaestros        *sql.DB
-	Error                    error
-	HostIPPace               string = ""
-	HostUrlPace              string = ""
-	HostIPPension            string = ""
-	HostUrlPension           string = ""
-	ListadoConexiones        []string
-	SQLTODO                  = make(map[string]DriverSQL)
+	Version           string = "V.2.1.2"
+	MySQL             bool   = false
+	BaseDeDatos       BaseDatos
+	MGConexion        *Mongo
+	Contexto          context.Context
+	MongoDB           *mongo.Database
+	Error             error
+	ListadoConexiones []string
+	SQLTODO           = make(map[string]DriverSQL)
+	NOSQLTODO         = make(map[string]DriverNOSQL)
+	DRIVERS           []ManejadorDeConexiones
 )
 
 //Constantes del sistema
@@ -96,7 +97,6 @@ func init() {
 
 	Magenta := color.New(color.FgMagenta)
 	BoldMagenta := Magenta.Add(color.Bold)
-
 	fmt.Println("")
 	BoldMagenta.Println("..........................................................")
 	BoldMagenta.Println("...                                                       ")
@@ -155,6 +155,15 @@ func (C *Config) ConexionesDinamicas(c CadenaDeConexion) bool {
 			Contexto: Contexto,
 			Error:    er,
 		}
+	case "mongodb":
+		db, er := CMongoDB(c)
+		NOSQLTODO[c.ID] = DriverNOSQL{
+			Nombre:   c.Driver,
+			DB:       db,
+			Estatus:  true,
+			Contexto: Contexto,
+			Error:    er,
+		}
 
 	case "mysql":
 		MySQL = true
@@ -162,4 +171,15 @@ func (C *Config) ConexionesDinamicas(c CadenaDeConexion) bool {
 		fmt.Println("Driver: no funciona para ", c.Driver)
 	}
 	return true
+}
+
+//CargarConexiones
+func (C *Config) CargarConexiones() {
+	var a util.Archivo
+	a.NombreDelArchivo = "sys/drivers.json"
+	data, _ := a.LeerTodo()
+	e := json.Unmarshal(data, &DRIVERS)
+
+	util.Error(e)
+
 }

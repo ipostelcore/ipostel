@@ -75,6 +75,7 @@ func (a *API) SubirArchivos(w http.ResponseWriter, r *http.Request) {
 func ProcesarTxt(doc string, codigo string) {
 	var procesar migracion.Migrar
 	procesar.Ruta = "./public_web/www/temp/migracion/" + doc
-	procesar.Leer(sys.PuntoPostalPostgres, codigo, doc)
+	db := sys.SQLTODO["PGODB"].DB
+	procesar.Leer(db, codigo, doc)
 
 }

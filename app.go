@@ -17,6 +17,7 @@ armoniosamente según la demanda.
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -25,9 +26,21 @@ import (
 	"github.com/gorilla/context"
 	"github.com/ipostelcore/ipostel/sys"
 	"github.com/ipostelcore/ipostel/sys/web"
+	"github.com/ipostelcore/ipostel/util"
+	"github.com/ipostelcore/ipostel/util/webscraper"
 )
 
 func main() {
+	var Ws webscraper.WebScraping
+	Ws.Ruta = "./public_web/www/inc/panel/drivers.html"
+	err := Ws.Leer()
+	if err != nil {
+		fmt.Println("Error. ", err.Error())
+	}
+
+	var directorio util.Directorio
+	directorio.Listar("./public_web/www/inc")
+
 	Cyan := color.New(color.FgHiCyan)
 	BoldCyan := Cyan.Add(color.Bold)
 

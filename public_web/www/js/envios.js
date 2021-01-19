@@ -5,7 +5,7 @@ class Envio{
 function ListarTiposEnvio(){
     var env = new Envio();
     var apic = new ApiCore();
-    apic.ruta = "ObtenerEnvios";
+    apic.funcion = "ObtenerEnvios";
     var promesa =  CargarAPI({
         metodo : "POST",
         sURL: conn.URL + "crud",

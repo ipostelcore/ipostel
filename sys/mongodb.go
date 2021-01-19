@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 
 	"github.com/fatih/color"
-	"github.com/ipostelcore/ipostel/util"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -19,19 +18,19 @@ type Mongo struct {
 }
 
 //Conectar Establecer conexión
-func (m *Mongo) Conectar(Ctx context.Context, mapa map[string]CadenaDeConexion) (DB *mongo.Database) {
+func (m *Mongo) Conectar(Ctx context.Context, c CadenaDeConexion) (DB *mongo.Database, e error) {
 	var cnf Config
-	c := mapa["mongodb"]
+
 	uri := "mongodb://" + c.Host + ":" + c.Puerto
 	Client, err := mongo.Connect(Ctx, options.Client().ApplyURI(uri))
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	if err := Client.Ping(Ctx, readpref.Primary()); err != nil {
-		panic(err)
+		return nil, err
 	}
 	DB = Client.Database(c.Basedatos)
-	util.Error(err)
+
 	color.Green("... Host: " + c.Host + " Base De Datos: ( " + c.Basedatos + " )  OK...")
 	rs, e := DB.Collection("drivers").Find(Ctx, bson.D{{}})
 	for rs.Next(Ctx) {
@@ -45,6 +44,24 @@ func (m *Mongo) Conectar(Ctx context.Context, mapa map[string]CadenaDeConexion) 
 			cnf.ConexionesDinamicas(cadena)
 		}
 	}
+	return
+}
+
+//ConectarDinamicamente Establecer conexión
+func (m *Mongo) ConectarDinamicamente(Ctx context.Context, c CadenaDeConexion) (DB *mongo.Database, e error) {
+
+	uri := "mongodb://" + c.Host + ":" + c.Puerto
+	Client, err := mongo.Connect(Ctx, options.Client().ApplyURI(uri))
+	if err != nil {
+		return nil, err
+	}
+	if err := Client.Ping(Ctx, readpref.Primary()); err != nil {
+		return nil, err
+	}
+	DB = Client.Database(c.Basedatos)
+
+	color.Green("... Host: " + c.Host + " Base De Datos: ( " + c.Basedatos + " )  OK...")
+
 	return
 }
 
