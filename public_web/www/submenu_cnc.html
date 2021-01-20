@@ -44,6 +44,7 @@
         <a href="#" class="nav-link">Contactenos</a>
       </li>
     </ul>
+    
 
     <!-- SEARCH FORM -->
     <form class="form-inline ml-3">
@@ -56,6 +57,11 @@
         </div>
       </div>
     </form>
+    <ul class="navbar-nav">
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="index.html" class="nav-link" onclick="CerrarSesion()">Cerrar Sesión</a>
+      </li>
+  </ul>
 
 
   <!-- Main Sidebar Container -->
@@ -92,18 +98,6 @@
                   <p>REGISTRO ALMACENES</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="fab fa-elementor nav-icon"></i>
-                  <p>APOSTILLAS</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="fab fa-elementor nav-icon"></i>
-                  <p>SALA SITUACIONAL</p>
-                </a>
-              </li>
             </ul>
             </li>
             <li class="nav-item has-treeview">
@@ -117,26 +111,8 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="" class="nav-link">
-                  <i class="fab fa-elementor nav-icon"></i>
-                  <p>PUNTO CONTROL</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="fab fa-elementor nav-icon"></i>
-                  <p>PUNTO POSTAL</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="fab fa-elementor nav-icon"></i>
-                  <p>TRACKING</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="fab fa-elementor nav-icon"></i>
-                  <p>SAT</p>
+                  <i class="nav-icon fa fa-book"></i>
+                  <p> </p>
                 </a>
               </li>
             </ul>
@@ -152,29 +128,10 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="" class="nav-link">
-                  <i class="fab fa-elementor nav-icon"></i>
-                  <p>OPERADORES POSTALES</p>
+                    <i class="fa fa-asterisk nav-icon"></i>
+                  <p></p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="fab fa-elementor nav-icon"></i>
-                  <p>CONCILIACIÓN</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="fab fa-elementor nav-icon"></i>
-                  <p>FRANQUEO POSTAL</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="fab fa-elementor nav-icon"></i>
-                  <p>GESTIÓN Y PRODUCCIÓN</p>
-                </a>
-              </li>
-            \
   
             </ul>
             <li class="nav-item has-treeview">
@@ -189,19 +146,22 @@
                 <li class="nav-item">
                   <a href="" class="nav-link">
                       <i class="fa fa-asterisk nav-icon"></i>
-                    <p>FILATELIA</p>
+                    <p></p>
                   </a>
                 </li>
                 <li class="nav-item has-treeview">
                   <a href="#" class="nav-link">
                     <i class="nav-icon fa fa-strikethrough"></i>
-                    <p>E-COMMERCE</p>
+                    <p>
+                      GESTIÓN COMERCIAL
+                      <i class="right fa fa-angle-left"></i>
+                    </p>
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
                       <a href="" class="nav-link">
                           <i class="fa fa-asterisk nav-icon"></i>
-                        <p>IMPRENTA POSTAL</p>
+                        <p></p>
                       </a>
                     </li>
                     <li class="nav-item has-treeview">
@@ -250,152 +210,46 @@
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-       <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>280</h3>
-
-                <p>Centro Nacional de Control</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="submenu_cnc.html" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>320<sup style="font-size: 20px"></sup></h3>
-
-                <p>Gestión Operativa</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="submenu_operaciones.html" class="small-box-footer"><i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>170</h3>
-
-                <p>Gestión Postal</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="submenu_postal.html" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>45</h3>
-
-                <p>Gestión Comercial</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="submenu_comercial.html" class="small-box-footer"><i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-        </div> 
         <div class="row">
-          <div class="col-12 text-center">
+          <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner" style="font-size: large;">
-                OPT 320 + OPP 1.253= 1.843 Oficinas Postales al servicio de los pueblos
+            <div class="info-box" onclick="">
+              <span class="info-box-icon bg-success"><i class="far fa-envelope-open"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Registro OPT</span>
               </div>
             </div>
           </div>
-        </div> 
-        <!-- /.row -->
-        <!-- Main row -->
-        <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-chart-pie mr-1"></i>
-                  Paqueteria
-                </h3>
-                <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">INTERNACIONAL</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sales-chart" data-toggle="tab">NACIONAL</a>
-                    </li>
-                  </ul>
-                </div>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>                         
-                   </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>                         
-                  </div>  
-                </div>
-              </div><!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-
-            
-          </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-5 connectedSortable">
-
-            <!-- Map card -->
-            <div class="card bg-gradient-primary">
-              
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <div id="sparkline-1"></div>
-                    <div class="text-white">Visitantes</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-2"></div>
-                    <div class="text-white">Usuarios Conectados</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-3"></div>
-                    <div class="text-white">Paquetes</div>
-                  </div>
-                  <!-- ./col -->
-                </div>
-                <!-- /.row -->
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="info-box" onclick="">
+              <span class="info-box-icon bg-yellow"><i class="far fa-envelope"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Registro Almacenes</span>
               </div>
             </div>
-            <!-- /.card -->   
-          </section>
-          <!-- right col -->
-        </div>
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="info-box" onclick="">
+              <span class="info-box-icon bg-indigo"><i class="fas fa-dolly-flatbed"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Apostillas</span>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="info-box" onclick="">
+              <span class="info-box-icon bg-pink"><i class="fas fa-shipping-fast"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Sala Situacional</span>
+              </div>
+            </div>
+          </div>
     </section>
     <!-- /.content -->
   </div>
