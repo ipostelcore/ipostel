@@ -83,40 +83,38 @@ function IniciarSesion(){
 
 
 /**
- * Carga Módulo CONTROL
+ * Carga Módulo CNC
  * V 1.0
  */
-function CargarControl(){
-  Util.DibujarSubMenuEscritorio(JsonMenu, "Control");
+function CargarCnc(){
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Cnc");
 }
 
 /**
- * Carga de Módulo VENTAS
+ * Carga de Módulo Gestión Operativa
  * V 1.0
  */
-function CargarVentas(){
-  Util.DibujarSubMenuEscritorio(JsonMenu, "Ventas");
+function CargarGestionOperativa(){
+  Util.DibujarSubMenuEscritorio(JsonMenu, "Gestion Operativa");
 }
 
-function CargarServicios(){
-  Util.DibujarSubmenuSubMenuEscritorio(JsonMenu, "Servicios");
-}
+
 
 
  /**
-  * Carga de Módulo TRACKING
+  * Carga de Módulo Gestión Postal
   */
 
- function CargarTracking(){
-  Util.DibujarSubMenuEscritorio(JsonMenu, "Tracking");
+ function CargarGestionPostal(){
+  Util.DibujarSubMenuEscritorio(JsonMenu, "GestionPostal");
 }
 
 /**
- * Carga de Módulo CONFIGURACIÓN
+ * Carga de Módulo Gestión Comercial
  * V 1.0
  */
-function CargarConfiguracion(){
-  Util.DibujarSubMenuEscritorio(JsonMenu, "Configuracion");
+function CargarGestionComercial(){
+  Util.DibujarSubMenuEscritorio(JsonMenu, "GestionComercial");
 }
 
 /**
